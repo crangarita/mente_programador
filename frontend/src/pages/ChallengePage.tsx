@@ -117,15 +117,15 @@ function ChallengePage({ participant }: ChallengePageProps) {
     }
 
     const success = currentPosition === 4
-    const finalElapsedSeconds = startedAt.current === null
-      ? elapsedSeconds
-      : Math.floor((Date.now() - startedAt.current) / 1000)
+    const finalElapsedMilliseconds = startedAt.current === null
+      ? elapsedSeconds * 1000
+      : Date.now() - startedAt.current
 
     try {
       await saveChallenge(participant.id, {
         success,
         attempts: nextAttempt,
-        elapsedSeconds: finalElapsedSeconds,
+        elapsedMilliseconds: finalElapsedMilliseconds,
       })
       if (success) {
         setMessage('¡Lo lograste! Calculando tu resultado…')

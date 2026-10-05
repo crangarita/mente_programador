@@ -33,14 +33,14 @@ public class ChallengeService {
 
         ChallengeResult result = challengeResultRepository.findByParticipant_Id(participantId)
                 .map(existing -> {
-                    existing.update(request.success(), request.attempts(), request.elapsedSeconds());
+                    existing.update(request.success(), request.attempts(), request.elapsedMilliseconds());
                     return existing;
                 })
                 .orElseGet(() -> new ChallengeResult(
                         participant,
                         request.success(),
                         request.attempts(),
-                        request.elapsedSeconds()
+                        request.elapsedMilliseconds()
                 ));
 
         ChallengeResult saved = challengeResultRepository.save(result);
@@ -52,4 +52,3 @@ public class ChallengeService {
         );
     }
 }
-

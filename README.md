@@ -64,9 +64,11 @@ Content-Type: application/json
 {
   "success": true,
   "attempts": 1,
-  "elapsedSeconds": 12
+  "elapsedMilliseconds": 12340
 }
 ```
+
+La velocidad aporta hasta 200 puntos y disminuye un punto cada 200 milisegundos (cinco puntos por segundo). Los intentos aportan 100 puntos en el primero y pierden 25 puntos por intento adicional.
 
 ### Calcular resultado final
 

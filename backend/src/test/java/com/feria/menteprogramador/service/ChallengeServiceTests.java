@@ -29,7 +29,7 @@ class ChallengeServiceTests {
         when(challenges.save(any(ChallengeResult.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
         ChallengeResponse response = new ChallengeService(participants, challenges)
-                .save(participantId, new ChallengeRequest(true, 2, 17));
+                .save(participantId, new ChallengeRequest(true, 2, 17_000));
 
         assertThat(response.success()).isTrue();
         assertThat(response.attempts()).isEqualTo(2);
@@ -48,7 +48,7 @@ class ChallengeServiceTests {
         when(challenges.save(existing)).thenReturn(existing);
 
         ChallengeResponse response = new ChallengeService(participants, challenges)
-                .save(participantId, new ChallengeRequest(true, 2, 14));
+                .save(participantId, new ChallengeRequest(true, 2, 14_000));
 
         assertThat(response.success()).isTrue();
         assertThat(response.attempts()).isEqualTo(2);

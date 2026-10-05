@@ -11,8 +11,7 @@ public record ChallengeRequest(
         int attempts,
 
         @Min(value = 0, message = "El tiempo no puede ser negativo")
-        @Max(value = 3600, message = "El tiempo no es válido")
-        int elapsedSeconds
+        @Max(value = 3_600_000, message = "El tiempo no es válido")
+        long elapsedMilliseconds
 ) {
 }
-

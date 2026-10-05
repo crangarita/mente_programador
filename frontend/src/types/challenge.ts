@@ -14,3 +14,8 @@ export interface ChallengeResult {
   elapsedSeconds: number
 }
 
+export interface ChallengeSubmission {
+  success: boolean
+  attempts: number
+  elapsedMilliseconds: number
+}

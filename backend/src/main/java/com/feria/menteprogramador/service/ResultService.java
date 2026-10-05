@@ -22,13 +22,16 @@ public class ResultService {
     private final AnswerRepository answerRepository;
     private final ChallengeResultRepository challengeRepository;
     private final ResultRepository resultRepository;
+    private final ChallengeScoreCalculator scoreCalculator;
 
     public ResultService(ParticipantRepository participantRepository, AnswerRepository answerRepository,
-                         ChallengeResultRepository challengeRepository, ResultRepository resultRepository) {
+                         ChallengeResultRepository challengeRepository, ResultRepository resultRepository,
+                         ChallengeScoreCalculator scoreCalculator) {
         this.participantRepository = participantRepository;
         this.answerRepository = answerRepository;
         this.challengeRepository = challengeRepository;
         this.resultRepository = resultRepository;
+        this.scoreCalculator = scoreCalculator;
     }
 
     @Transactional
@@ -44,14 +47,25 @@ public class ResultService {
 
         Profile profile = calculateProfile(answers, challenge.isSuccess());
         int testScore = 300;
-        int challengeScore = calculateChallengeScore(challenge);
+        int challengeScore = scoreCalculator.calculate(challenge);
         challenge.setScore(challengeScore);
         challengeRepository.save(challenge);
         Result result = resultRepository.findByParticipant_Id(participantId)
                 .map(current -> { current.update(profile, testScore, challengeScore); return current; })
                 .orElseGet(() -> new Result(participant, profile, testScore, challengeScore));
         Result saved = resultRepository.save(result);
-        long position = resultRepository.countByTotalScoreGreaterThan(saved.getTotalScore()) + 1;
+        resultRepository.flush();
+        List<Result> ranked = resultRepository.findRanked(org.springframework.data.domain.Pageable.unpaged());
+        long position = 0;
+        for (int index = 0; index < ranked.size(); index++) {
+            if (participantId.equals(ranked.get(index).getParticipant().getId())) {
+                position = index + 1L;
+                break;
+            }
+        }
+        if (position == 0) {
+            position = resultRepository.countByTotalScoreGreaterThan(saved.getTotalScore()) + 1;
+        }
         return new FinalResultResponse(participant.getAlias(), profile, testScore, challengeScore,
                 saved.getTotalScore(), position);
     }
@@ -70,12 +84,4 @@ public class ResultService {
         return tied.getFirst();
     }
 
-    int calculateChallengeScore(ChallengeResult challenge) {
-        if (!challenge.isSuccess()) return 0;
-        int speedScore = challenge.getElapsedSeconds() <= 10 ? 200
-                : challenge.getElapsedSeconds() <= 20 ? 150
-                : challenge.getElapsedSeconds() <= 30 ? 100 : 50;
-        int firstAttemptBonus = challenge.getAttempts() == 1 ? 100 : 0;
-        return 400 + speedScore + firstAttemptBonus;
-    }
 }

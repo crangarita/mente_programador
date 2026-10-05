@@ -32,6 +32,9 @@ public class ChallengeResult {
     @Column(name = "elapsed_seconds", nullable = false)
     private int elapsedSeconds;
 
+    @Column(name = "elapsed_milliseconds")
+    private Long elapsedMilliseconds;
+
     @Column(nullable = false)
     private int score;
 
@@ -41,15 +44,16 @@ public class ChallengeResult {
     protected ChallengeResult() {
     }
 
-    public ChallengeResult(Participant participant, boolean success, int attempts, int elapsedSeconds) {
+    public ChallengeResult(Participant participant, boolean success, int attempts, long elapsedMilliseconds) {
         this.participant = participant;
-        update(success, attempts, elapsedSeconds);
+        update(success, attempts, elapsedMilliseconds);
     }
 
-    public void update(boolean success, int attempts, int elapsedSeconds) {
+    public void update(boolean success, int attempts, long elapsedMilliseconds) {
         this.success = success;
         this.attempts = attempts;
-        this.elapsedSeconds = elapsedSeconds;
+        this.elapsedMilliseconds = elapsedMilliseconds;
+        this.elapsedSeconds = (int) (elapsedMilliseconds / 1000);
         this.score = 0;
     }
 
@@ -63,6 +67,10 @@ public class ChallengeResult {
     public boolean isSuccess() { return success; }
     public int getAttempts() { return attempts; }
     public int getElapsedSeconds() { return elapsedSeconds; }
+    public long getElapsedMilliseconds() {
+        return elapsedMilliseconds == null ? elapsedSeconds * 1000L : elapsedMilliseconds;
+    }
     public int getScore() { return score; }
     public void setScore(int score) { this.score = score; }
+    public Participant getParticipant() { return participant; }
 }

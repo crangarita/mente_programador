@@ -18,7 +18,7 @@ class ResultServiceTests {
         Fixture fixture = new Fixture();
         fixture.answers(Profile.AI_EXPLORER, Profile.AI_EXPLORER, Profile.AI_EXPLORER,
                 Profile.FRONTEND_CREATOR, Profile.BACKEND_ARCHITECT);
-        ChallengeResult challenge = new ChallengeResult(fixture.participant, true, 1, 10);
+        ChallengeResult challenge = new ChallengeResult(fixture.participant, true, 1, 0);
         when(fixture.challenges.findByParticipant_Id(fixture.participantId)).thenReturn(Optional.of(challenge));
         when(fixture.results.countByTotalScoreGreaterThan(1000)).thenReturn(2L);
 
@@ -38,12 +38,12 @@ class ResultServiceTests {
         fixture.answers(Profile.FRONTEND_CREATOR, Profile.FRONTEND_CREATOR, Profile.FRONTEND_CREATOR,
                 Profile.DATA_DETECTIVE, Profile.GAME_BUILDER);
         when(fixture.challenges.findByParticipant_Id(fixture.participantId))
-                .thenReturn(Optional.of(new ChallengeResult(fixture.participant, true, 2, 24)));
+                .thenReturn(Optional.of(new ChallengeResult(fixture.participant, true, 2, 24_000)));
 
         FinalResultResponse response = fixture.service().finish(fixture.participantId);
 
-        assertThat(response.challengeScore()).isEqualTo(500);
-        assertThat(response.score()).isEqualTo(800);
+        assertThat(response.challengeScore()).isEqualTo(555);
+        assertThat(response.score()).isEqualTo(855);
     }
 
     @Test
@@ -52,7 +52,7 @@ class ResultServiceTests {
         fixture.answers(Profile.FRONTEND_CREATOR, Profile.BACKEND_ARCHITECT, Profile.FRONTEND_CREATOR,
                 Profile.BACKEND_ARCHITECT, Profile.AI_EXPLORER);
         when(fixture.challenges.findByParticipant_Id(fixture.participantId))
-                .thenReturn(Optional.of(new ChallengeResult(fixture.participant, true, 2, 40)));
+                .thenReturn(Optional.of(new ChallengeResult(fixture.participant, true, 2, 40_000)));
 
         assertThat(fixture.service().finish(fixture.participantId).profile()).isEqualTo(Profile.BACKEND_ARCHITECT);
     }
@@ -88,7 +88,8 @@ class ResultServiceTests {
         }
 
         ResultService service() {
-            return new ResultService(participants, answerRepository, challenges, results);
+            return new ResultService(participants, answerRepository, challenges, results,
+                    new ChallengeScoreCalculator());
         }
     }
 }

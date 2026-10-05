@@ -1,6 +1,6 @@
 import type { Participant } from '../types/participant'
 import type { AnswerResult, QuizOption } from '../types/quiz'
-import type { ChallengeResult } from '../types/challenge'
+import type { ChallengeResult, ChallengeSubmission } from '../types/challenge'
 import type { FinalResult } from '../types/result'
 import type { RankingEntry } from '../types/ranking'
 import type { EventStats } from '../types/stats'
@@ -48,7 +48,7 @@ export async function saveAnswer(
 
 export async function saveChallenge(
   participantId: string,
-  result: Omit<ChallengeResult, 'id'>,
+  result: ChallengeSubmission,
 ): Promise<ChallengeResult> {
   const response = await fetch(`${apiUrl}/participants/${participantId}/challenge`, {
     method: 'POST',
