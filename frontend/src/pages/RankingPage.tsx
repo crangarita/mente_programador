@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { getRanking } from '../services/api'
 import type { RankingEntry } from '../types/ranking'
+import BrandHeader from '../components/BrandHeader'
 
 const profileLabels: Record<RankingEntry['profile'], { label: string; icon: string }> = {
   FRONTEND_CREATOR: { label: 'Creador Frontend', icon: '🎨' },
@@ -38,15 +39,16 @@ function RankingPage({ ranking, onBack }: RankingPageProps) {
   }
 
   return (
-    <main className="min-h-screen bg-zinc-950 px-4 py-8 text-zinc-100 sm:px-6">
+    <div className="cyber-page min-h-screen text-zinc-100"><BrandHeader active="RANKING" />
+    <main className="px-4 py-8 sm:px-6">
       <section className="mx-auto w-full max-w-4xl">
         <header className="text-center">
-          <p className="font-black tracking-wide text-cyan-300">MENTE PROGRAMADOR</p>
-          <h1 className="mt-3 text-4xl font-black sm:text-5xl">Ranking de la feria</h1>
+          <p className="cyber-kicker">● Live leaderboard · Stand Ingeniería de Sistemas</p>
+          <h1 className="mt-3 font-display text-4xl font-black uppercase sm:text-6xl">🏆 Ranking de la feria</h1>
           <p className="mt-3 text-zinc-400">Las mentes programadoras con mayor puntaje.</p>
         </header>
 
-        <div className="mt-8 overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-900 shadow-2xl">
+        <div className="cyber-panel mt-8 overflow-hidden rounded-3xl">
           <div className="hidden grid-cols-[5rem_1fr_1.2fr_7rem] gap-4 border-b border-zinc-800 px-6 py-4 text-xs font-black uppercase tracking-wider text-zinc-500 sm:grid">
             <span>Posición</span><span>Alias</span><span>Perfil</span><span className="text-right">Puntaje</span>
           </div>
@@ -76,7 +78,7 @@ function RankingPage({ ranking, onBack }: RankingPageProps) {
 
         <button type="button" onClick={onBack} className="mt-3 w-full rounded-2xl border border-zinc-700 px-5 py-4 font-black hover:bg-zinc-900">VOLVER A MI RESULTADO</button>
       </section>
-    </main>
+    </main></div>
   )
 }
 

@@ -1,6 +1,8 @@
 import { FormEvent, useState } from 'react'
 import { createParticipant } from '../services/api'
 import type { Participant } from '../types/participant'
+import BrandHeader from '../components/BrandHeader'
+import BrandFooter from '../components/BrandFooter'
 
 const MIN_ALIAS_LENGTH = 2
 const MAX_ALIAS_LENGTH = 30
@@ -38,13 +40,14 @@ function RegisterPage({ onRegistered }: RegisterPageProps) {
   }
 
   return (
-    <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-zinc-950 px-5 py-10 text-zinc-100">
-      <div className="pointer-events-none absolute left-1/2 top-[-12rem] h-96 w-96 -translate-x-1/2 rounded-full bg-cyan-500/15 blur-3xl" />
-      <section className="relative w-full max-w-md rounded-3xl border border-cyan-400/20 bg-zinc-900/90 p-6 shadow-2xl shadow-cyan-500/10 backdrop-blur sm:p-9">
+    <div className="cyber-page flex min-h-screen flex-col text-zinc-100">
+      <BrandHeader active="REGISTRO" />
+      <main className="relative flex flex-1 items-center justify-center overflow-hidden px-5 py-10">
+      <section className="cyber-panel relative w-full max-w-3xl rounded-3xl p-6 sm:p-10">
         <div className="mb-8">
-          <p className="text-sm font-semibold uppercase tracking-[0.25em] text-cyan-300">Mente Programador</p>
-          <h1 className="mt-3 text-3xl font-black leading-tight sm:text-4xl">¿Cómo quieres aparecer en el ranking?</h1>
-          <p className="mt-3 text-zinc-400">Elige un alias. No necesitamos ningún dato personal.</p>
+          <p className="cyber-kicker">● Paso 1 de 3 · Crea tu identidad</p>
+          <h1 className="mt-4 font-display text-4xl font-black leading-tight sm:text-5xl">¿Cómo quieres aparecer en el ranking?</h1>
+          <p className="mt-3 text-lg text-zinc-400">Configura tu credencial de aspirante. Sin correos ni contraseñas.</p>
         </div>
 
         <form onSubmit={handleSubmit} noValidate>
@@ -66,7 +69,7 @@ function RegisterPage({ onRegistered }: RegisterPageProps) {
             aria-describedby="alias-help alias-error"
             aria-invalid={Boolean(error)}
             placeholder="Ej. ByteMaster"
-            className="w-full rounded-2xl border border-zinc-700 bg-zinc-950 px-4 py-4 text-lg text-white outline-none transition placeholder:text-zinc-600 focus:border-cyan-400 focus:ring-4 focus:ring-cyan-400/10"
+            className="w-full rounded-2xl border border-white/10 bg-cyber-950 px-5 py-5 font-mono text-xl text-white outline-none transition placeholder:text-zinc-600 focus:border-neon-cyan focus:ring-4 focus:ring-cyan-400/10"
           />
           <div className="mt-2 flex min-h-6 items-start justify-between gap-4 text-xs">
             <p id="alias-error" role="alert" className="text-rose-400">{error}</p>
@@ -76,13 +79,14 @@ function RegisterPage({ onRegistered }: RegisterPageProps) {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="mt-6 w-full rounded-2xl bg-cyan-300 px-5 py-4 text-base font-black tracking-wide text-zinc-950 transition hover:bg-cyan-200 focus:outline-none focus:ring-4 focus:ring-cyan-300/30 disabled:cursor-wait disabled:opacity-60"
+            className="cyber-primary mt-6 w-full rounded-2xl px-5 py-4 font-display text-base font-black tracking-wide transition focus:outline-none focus:ring-4 focus:ring-cyan-300/30 disabled:cursor-wait disabled:opacity-60"
           >
             {isSubmitting ? 'CREANDO SESIÓN…' : 'CONTINUAR'}
           </button>
         </form>
       </section>
-    </main>
+      </main><BrandFooter />
+    </div>
   )
 }
 

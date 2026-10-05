@@ -4,6 +4,7 @@ import type { Participant } from '../types/participant'
 import type { ChallengeCell, ChallengeDefinition, CommandBlock, CommandType, Direction } from '../types/challenge'
 import type { FinalResult } from '../types/result'
 import ResultPage from './ResultPage'
+import BrandHeader from '../components/BrandHeader'
 
 interface ChallengePageProps { participant: Participant }
 
@@ -141,18 +142,19 @@ function ChallengePage({ participant }: ChallengePageProps) {
   })) : []
 
   return (
-    <main className="min-h-screen bg-zinc-950 px-4 py-4 text-zinc-100 sm:px-6 lg:py-5">
+    <div className="cyber-page min-h-screen text-zinc-100"><BrandHeader active="RETO LÓGICO" compact />
+    <main className="px-4 py-4 sm:px-6 lg:py-5">
       <section className="mx-auto w-full max-w-6xl">
-        <header className="mb-4 flex items-center justify-between gap-4">
-          <p className="font-black tracking-wide text-cyan-300">MENTE PROGRAMADOR</p>
+        <header className="cyber-panel mb-4 flex items-center justify-between gap-4 rounded-2xl px-5 py-3">
+          <p className="cyber-kicker">Fase 2 de 3 · Simulador de trayectoria</p>
           <div className="flex gap-2 text-xs text-zinc-400 sm:text-sm">
             <span className="rounded-full border border-zinc-800 px-3 py-1.5">Intentos: {attempts}</span>
             <span className="rounded-full border border-zinc-800 px-3 py-1.5">Tiempo: {elapsedSeconds}s</span>
           </div>
         </header>
-        <div className="rounded-3xl border border-zinc-800 bg-zinc-900 p-5 shadow-2xl sm:p-6 lg:p-7">
-          <p className="text-sm font-bold uppercase tracking-[0.25em] text-violet-300">Reto lógico · {challenge?.name ?? 'Asignando ruta…'}</p>
-          <h1 className="mt-2 text-3xl font-black sm:text-4xl">Programa el robot</h1>
+        <div className="cyber-panel rounded-3xl p-5 sm:p-6 lg:p-7">
+          <p className="cyber-kicker">Kiosk terminal · {challenge?.name ?? 'Asignando ruta…'}</p>
+          <h1 className="mt-2 font-display text-3xl font-black sm:text-4xl">Ahora demuestra tu lógica</h1>
           <p className="mt-2 text-zinc-400">Llega a la meta sin chocar con los bloques. “Repetir” ejecuta varias veces el bloque que le sigue.</p>
 
           <div className="mt-5 grid gap-5 lg:grid-cols-[minmax(300px,0.78fr)_minmax(0,1.22fr)] lg:items-start">
@@ -196,13 +198,13 @@ function ChallengePage({ participant }: ChallengePageProps) {
               <p role="alert" className="min-h-5 text-center text-sm text-rose-400">{error}</p>
               <div className="mt-2 grid gap-3 sm:grid-cols-2">
                 <button type="button" onClick={reset} disabled={!challenge || isRunning} className="rounded-2xl border border-zinc-700 px-5 py-3 font-black hover:bg-zinc-800 disabled:opacity-50">REINICIAR</button>
-                <button type="button" onClick={execute} disabled={!challenge || isRunning} className="rounded-2xl bg-cyan-300 px-5 py-3 font-black text-zinc-950 hover:bg-cyan-200 disabled:cursor-wait disabled:opacity-60">{isRunning ? 'EJECUTANDO…' : 'EJECUTAR'}</button>
+                <button type="button" onClick={execute} disabled={!challenge || isRunning} className="cyber-primary rounded-2xl px-5 py-3 font-display font-black disabled:cursor-wait disabled:opacity-60">{isRunning ? 'EJECUTANDO…' : '▶ EJECUTAR ALGORITMO'}</button>
               </div>
             </div>
           </div>
         </div>
       </section>
-    </main>
+    </main></div>
   )
 }
 

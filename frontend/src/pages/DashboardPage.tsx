@@ -62,15 +62,15 @@ function DashboardPage() {
   const commonProfile = stats?.mostCommonProfile ? profileLabels[stats.mostCommonProfile] : null
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-zinc-950 px-6 py-6 text-zinc-100 lg:px-10 lg:py-8">
+    <main className="cyber-page relative min-h-screen overflow-hidden px-6 py-6 text-zinc-100 lg:px-10 lg:py-8">
       <div className="pointer-events-none absolute -left-40 top-20 h-96 w-96 rounded-full bg-cyan-400/10 blur-3xl" />
       <div className="pointer-events-none absolute -right-40 bottom-0 h-[32rem] w-[32rem] rounded-full bg-violet-500/10 blur-3xl" />
 
       <section className="relative mx-auto max-w-[1600px]">
-        <header className="flex flex-col gap-4 border-b border-zinc-800 pb-5 sm:flex-row sm:items-end sm:justify-between sm:gap-8">
+        <header className="cyber-panel flex flex-col gap-4 rounded-3xl p-6 sm:flex-row sm:items-end sm:justify-between sm:gap-8">
           <div>
-            <p className="text-lg font-black tracking-[0.2em] text-cyan-300">MENTE PROGRAMADOR</p>
-            <h1 className="mt-2 text-4xl font-black lg:text-6xl">La feria en vivo</h1>
+            <p className="cyber-kicker">● Sys.broadcast // Transmisión en vivo</p>
+            <h1 className="mt-2 font-display text-4xl font-black uppercase lg:text-6xl">¿Tienes mente de programador?</h1>
           </div>
           <div className="text-left text-sm text-zinc-500 sm:text-right">
             <span className="inline-flex items-center gap-2 font-bold text-emerald-300"><span aria-hidden="true" className="h-2.5 w-2.5 animate-pulse rounded-full bg-emerald-300" />EN VIVO</span>
@@ -79,21 +79,21 @@ function DashboardPage() {
         </header>
 
         <section className="mt-6 grid gap-4 md:grid-cols-3" aria-label="Estadísticas de la feria">
-          <article className="rounded-3xl border border-cyan-300/20 bg-cyan-300/[0.07] p-5 lg:p-7">
+          <article className="cyber-panel rounded-3xl p-5 lg:p-7">
             <p className="text-sm font-bold uppercase tracking-widest text-zinc-400">Participantes</p>
             <p className="mt-2 text-5xl font-black text-cyan-300 lg:text-7xl">{stats?.participants ?? '—'}</p>
           </article>
-          <article className="rounded-3xl border border-violet-400/20 bg-violet-400/[0.07] p-5 lg:p-7">
+          <article className="cyber-panel rounded-3xl p-5 lg:p-7">
             <p className="text-sm font-bold uppercase tracking-widest text-zinc-400">Puntaje promedio</p>
             <p className="mt-2 text-5xl font-black text-violet-300 lg:text-7xl">{stats?.averageScore ?? '—'}</p>
           </article>
-          <article className="rounded-3xl border border-amber-300/20 bg-amber-300/[0.07] p-5 lg:p-7">
+          <article className="cyber-panel rounded-3xl p-5 lg:p-7">
             <p className="text-sm font-bold uppercase tracking-widest text-zinc-400">Perfil más frecuente</p>
             <div className="mt-3 flex items-center gap-4"><span className="text-4xl lg:text-6xl" aria-hidden="true">{commonProfile?.icon ?? '✨'}</span><p className="text-2xl font-black text-amber-200 lg:text-4xl">{commonProfile?.label ?? 'Sin resultados'}</p></div>
           </article>
         </section>
 
-        <section className="mt-6 overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-900/90 shadow-2xl">
+        <section className="cyber-panel mt-6 overflow-hidden rounded-3xl">
           <div className="flex items-center justify-between border-b border-zinc-800 px-6 py-4 lg:px-8">
             <h2 className="text-2xl font-black lg:text-3xl">Ranking</h2>
             <span className="text-sm font-bold text-zinc-500">MOSTRANDO {ranking.length} RESULTADOS</span>

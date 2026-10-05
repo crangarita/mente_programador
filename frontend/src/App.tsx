@@ -3,6 +3,7 @@ import RegisterPage from './pages/RegisterPage'
 import QuizPage from './pages/QuizPage'
 import ChallengePage from './pages/ChallengePage'
 import DashboardPage from './pages/DashboardPage'
+import WelcomePage from './pages/WelcomePage'
 import type { Participant } from './types/participant'
 
 function storedParticipant(): Participant | null {
@@ -19,11 +20,14 @@ function storedParticipant(): Participant | null {
 
 function App() {
   const [participant, setParticipant] = useState<Participant | null>(storedParticipant)
+  const [started, setStarted] = useState(() => sessionStorage.getItem('experienceStarted') === 'true')
   const [showChallenge, setShowChallenge] = useState(
     () => participant !== null && sessionStorage.getItem('quizComplete') === participant.id,
   )
 
   if (window.location.pathname === '/dashboard') return <DashboardPage />
+
+  if (!participant && !started) return <WelcomePage onStart={() => { sessionStorage.setItem('experienceStarted', 'true'); setStarted(true) }} />
 
   if (participant) {
     if (showChallenge) {

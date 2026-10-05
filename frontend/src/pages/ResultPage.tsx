@@ -4,6 +4,7 @@ import { getRanking } from '../services/api'
 import type { RankingEntry } from '../types/ranking'
 import type { FinalResult } from '../types/result'
 import RankingPage from './RankingPage'
+import BrandHeader from '../components/BrandHeader'
 
 function ResultPage({ result }: { result: FinalResult }) {
   const [ranking, setRanking] = useState<RankingEntry[] | null>(null)
@@ -25,11 +26,12 @@ function ResultPage({ result }: { result: FinalResult }) {
   if (ranking) return <RankingPage ranking={ranking} onBack={() => setRanking(null)} />
 
   return (
-    <main className="min-h-screen bg-zinc-950 px-4 py-8 text-zinc-100 sm:px-6">
+    <div className="cyber-page min-h-screen text-zinc-100"><BrandHeader active="RESULTADO" />
+    <main className="px-4 py-8 sm:px-6">
       <section className="mx-auto w-full max-w-3xl">
         <header className="mb-7 text-center">
-          <p className="font-black tracking-wide text-cyan-300">MENTE PROGRAMADOR</p>
-          <h1 className="mt-3 text-3xl font-black sm:text-5xl">¡Este es tu resultado, {result.alias}!</h1>
+          <p className="cyber-kicker">● Diagnóstico completado // Calibración 100%</p>
+          <h1 className="mt-3 font-display text-3xl font-black sm:text-5xl">¡{result.alias}, tu perfil tecnológico es extraordinario!</h1>
         </header>
 
         <ProfileCard profile={result.profile} />
@@ -52,11 +54,11 @@ function ResultPage({ result }: { result: FinalResult }) {
         </div>
 
         <p role="alert" className="mt-3 min-h-6 text-center text-sm text-rose-400">{rankingError}</p>
-        <button type="button" onClick={showRanking} disabled={loadingRanking} className="mt-2 w-full rounded-2xl bg-cyan-300 px-5 py-4 font-black text-zinc-950 hover:bg-cyan-200 disabled:opacity-60">
+        <button type="button" onClick={showRanking} disabled={loadingRanking} className="cyber-primary mt-2 w-full rounded-2xl px-5 py-4 font-display font-black disabled:opacity-60">
           {loadingRanking ? 'CARGANDO…' : 'VER RANKING'}
         </button>
       </section>
-    </main>
+    </main></div>
   )
 }
 

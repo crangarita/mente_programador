@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><title>Mente de Programador - Tech Showcase</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Outfit:wght@500;600;700;800&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"surface-tint":"#4cd7f6","secondary":"#d0bcff","on-tertiary-fixed":"#001a42","on-background":"#dfe2f1","error":"#ffb4ab","on-secondary-container":"#c4abff","surface-variant":"#313540","primary-container":"#06b6d4","tertiary-fixed":"#d8e2ff","primary-fixed-dim":"#4cd7f6","on-secondary-fixed":"#23005c","surface":"#0f131d","inverse-on-surface":"#2c303b","surface-bright":"#353944","on-primary-fixed-variant":"#004e5c","secondary-container":"#571bc1","surface-container-lowest":"#0a0e18","inverse-surface":"#dfe2f1","background":"#0f131d","on-tertiary-container":"#00397f","secondary-fixed":"#e9ddff","error-container":"#93000a","tertiary":"#adc6ff","on-tertiary":"#002e6a","surface-dim":"#0f131d","on-primary-fixed":"#001f26","surface-container-low":"#171b26","outline-variant":"#3d494c","outline":"#869397","on-secondary-fixed-variant":"#5516be","secondary-fixed-dim":"#d0bcff","primary-fixed":"#acedff","primary":"#4cd7f6","on-error-container":"#ffdad6","tertiary-container":"#78a5ff","tertiary-fixed-dim":"#adc6ff","inverse-primary":"#00687a","on-tertiary-fixed-variant":"#004395","on-surface":"#dfe2f1","surface-container-high":"#262a35","on-primary":"#003640","on-secondary":"#3c0091","on-surface-variant":"#bcc9cd","on-primary-container":"#00424f","on-error":"#690005","surface-container-highest":"#313540","surface-container":"#1c1f2a"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"space-xl":"2.5rem","gutter":"1.5rem","space-md":"1rem","margin":"2.5rem","space-xs":"0.25rem","margin-mobile":"1.25rem","gutter-sm":"1rem","space-sm":"0.5rem","space-lg":"1.5rem"},"fontFamily":{"body-md":["Inter"],"body-sm":["Inter"],"headline-md":["Outfit"],"headline-xl-mobile":["Outfit"],"body-lg":["Inter"],"headline-lg":["Outfit"],"label-code-sm":["JetBrains Mono"],"headline-sm":["Outfit"],"label-code-lg":["JetBrains Mono"],"label-code-md":["JetBrains Mono"],"display-hero-mobile":["Outfit"],"headline-xl":["Outfit"],"display-hero":["Outfit"]},"fontSize":{"body-md":["16px",{"lineHeight":"24px","letterSpacing":"0em","fontWeight":"400"}],"body-sm":["14px",{"lineHeight":"20px","letterSpacing":"0em","fontWeight":"400"}],"headline-md":["24px",{"lineHeight":"32px","letterSpacing":"0em","fontWeight":"600"}],"headline-xl-mobile":["28px",{"lineHeight":"34px","letterSpacing":"-0.01em","fontWeight":"700"}],"body-lg":["18px",{"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"400"}],"headline-lg":["30px",{"lineHeight":"38px","letterSpacing":"-0.01em","fontWeight":"700"}],"label-code-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.08em","fontWeight":"600"}],"headline-sm":["20px",{"lineHeight":"28px","letterSpacing":"0em","fontWeight":"600"}],"label-code-lg":["16px",{"lineHeight":"24px","letterSpacing":"0.02em","fontWeight":"500"}],"label-code-md":["13px",{"lineHeight":"18px","letterSpacing":"0.04em","fontWeight":"500"}],"display-hero-mobile":["36px",{"lineHeight":"42px","letterSpacing":"-0.02em","fontWeight":"800"}],"headline-xl":["40px",{"lineHeight":"48px","letterSpacing":"-0.02em","fontWeight":"700"}],"display-hero":["56px",{"lineHeight":"64px","letterSpacing":"-0.03em","fontWeight":"800"}]}}}}</script></head><body class="bg-background font-body-md text-on-surface min-h-screen relative overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container"><div class="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(circle_at_15%_10%,rgba(6,182,212,0.12),transparent_40%),radial-gradient(circle_at_85%_15%,rgba(139,92,246,0.12),transparent_45%),radial-gradient(circle_at_50%_90%,rgba(6,182,212,0.06),transparent_50%)]"></div><header class="fixed top-0 left-0 w-full z-50 bg-surface/85 backdrop-blur-2xl shadow-[0_4px_30px_rgba(0,0,0,0.5)]"><div class="h-20 max-w-7xl mx-auto px-margin-mobile lg:px-margin flex items-center justify-between gap-gutter-sm relative"><div class="flex items-center gap-space-md shrink-0"><img alt="Logo Mente de Programador" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDj_cYwSF3bzAWrAbgV-3yt6FtIWN4ViBFI7FwxykQTnhtRgKNsWe9y_wpSaAbtGIS7p4-BscwksdMADf7GduqNx449G7frixjA5pP0HU6mmSUrIVnmY_fNqjIp0q5LbFmfEDt3nhv5-lEqbh3ZbwXYgMtj_Pbfr-Z2CISHEJFX4WxuEqSgdj82pt4Kg-HTezxztvlTomhJ-sFvUzxmpMcfhT2c6cFuZHT-zcqbnDsD9ixEVRQheYJi"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight leading-none uppercase">¿Tienes Mente de Programador?</span><span class="font-label-code-sm text-label-code-sm text-primary tracking-widest uppercase">Tech Fair Stand Edition v2.4</span></div></div><nav class="hidden xl:flex items-center gap-space-xs px-space-xs py-1 rounded-xl bg-surface-container-low/70 backdrop-blur-md" data-active-classes="bg-primary-container text-on-primary-container font-semibold rounded-lg shadow-[0_0_16px_rgba(6,182,212,0.4)]"><a class="px-space-md py-2 text-on-surface-variant font-label-code-md text-label-code-md tracking-wider transition-all hover:text-on-surface hover:bg-surface-container-high rounded-lg uppercase" data-path="inicio" href="#">Inicio</a><a class="px-space-md py-2 text-on-surface-variant font-label-code-md text-label-code-md tracking-wider transition-all hover:text-on-surface hover:bg-surface-container-high rounded-lg uppercase" data-path="registro" href="#">Registro</a><a class="px-space-md py-2 text-on-surface-variant font-label-code-md text-label-code-md tracking-wider transition-all hover:text-on-surface hover:bg-surface-container-high rounded-lg uppercase" data-path="quiz" href="#">Quiz</a><a class="px-space-md py-2 text-on-surface-variant font-label-code-md text-label-code-md tracking-wider transition-all hover:text-on-surface hover:bg-surface-container-high rounded-lg uppercase" data-path="reto-logico" href="#">Reto Lógico</a><a class="px-space-md py-2 text-on-surface-variant font-label-code-md text-label-code-md tracking-wider transition-all hover:text-on-surface hover:bg-surface-container-high rounded-lg uppercase" data-path="resultado" href="#">Resultado</a><a aria-current="page" class="px-space-md py-2 tracking-wider transition-all uppercase bg-primary-container text-on-primary-container font-semibold rounded-lg shadow-[0_0_16px_rgba(6,182,212,0.4)]" data-path="ranking" href="#">Ranking</a></nav><div class="flex items-center gap-space-sm sm:gap-space-md shrink-0"><div class="hidden sm:flex items-center gap-space-xs px-space-sm py-1.5 rounded-full bg-surface-container-lowest/80"><span class="w-2 h-2 rounded-full bg-primary animate-pulse shadow-[0_0_8px_#4cd7f6]"></span><span class="font-label-code-sm text-label-code-sm text-on-surface-variant tracking-wider uppercase">Fair Online</span></div><button aria-label="Silenciar o activar efectos de audio" class="w-10 h-10 rounded-xl bg-surface-container-low/90 flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">volume_up</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0 shadow-[0_0_12px_rgba(76,215,246,0.35)]"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-20 relative z-10 bg-transparent min-h-screen"><div class="flex flex-col w-full">
+<div class="max-w-7xl mx-auto w-full px-margin-mobile lg:px-margin py-space-lg flex flex-col gap-space-xl relative">
+<div class="flex flex-col lg:flex-row lg:items-end justify-between gap-space-md">
+<div class="flex flex-col gap-space-xs max-w-3xl">
+<div class="flex items-center gap-space-sm">
+<span class="px-space-sm py-0.5 rounded-full bg-primary/10 text-primary font-label-code-sm text-label-code-sm uppercase tracking-widest flex items-center gap-1.5 shadow-[0_0_12px_rgba(76,215,246,0.3)]">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-ping"></span>
+            Live Leaderboard Stand 42
+          </span>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant uppercase tracking-wider hidden sm:inline">Pabellón STEM // Temporada 2025</span>
+</div>
+<h1 class="font-display-hero text-display-hero-mobile lg:text-display-hero tracking-tight text-on-surface uppercase flex flex-wrap items-center gap-x-3">
+<span>🏆 Ranking</span>
+<span class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-primary-container">de la feria</span>
+</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">
+          ¿Puedes entrar al Top 10? Compite contra aspirantes de todos los colegios y asegura tu gloria de digital architect.
+        </p>
+</div>
+<div class="flex items-center gap-space-sm bg-surface-container-low/80 backdrop-blur-xl p-space-sm rounded-xl self-start lg:self-end">
+<div class="flex flex-col px-space-sm py-1">
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant uppercase">Puesto Actual</span>
+<span class="font-headline-sm text-headline-sm text-primary font-bold">#05 Carlos</span>
+</div>
+<div class="w-px h-8 bg-surface-variant"></div>
+<div class="flex flex-col px-space-sm py-1">
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant uppercase">Top 10 Cutoff</span>
+<span class="font-headline-sm text-headline-sm text-secondary font-bold">800 pts</span>
+</div>
+</div>
+</div>
+<!-- Podium Section (Top 3) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter items-end pt-8">
+<!-- Second Place (Silver) -->
+<div class="order-2 md:order-1 flex flex-col items-center">
+<div class="relative w-full max-w-sm rounded-2xl bg-surface-container/80 backdrop-blur-xl p-space-lg flex flex-col items-center text-center shadow-[0_12px_40px_rgba(208,188,255,0.15)] transition-transform hover:-translate-y-1 duration-300">
+<div class="absolute -top-6 w-12 h-12 rounded-xl bg-surface-container-high flex items-center justify-center shadow-[0_0_20px_rgba(223,226,241,0.35)]">
+<span class="font-headline-md text-headline-md text-on-surface font-bold">🥈</span>
+</div>
+<div class="mt-4 relative">
+<div class="w-20 h-20 rounded-full overflow-hidden shadow-[0_0_24px_rgba(223,226,241,0.4)]">
+<img class="w-full h-full object-cover" data-alt="Futuristic neon portrait avatar of an engineering high school male student named Andres with metallic cybernetic glasses and deep violet lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXpy58LD-bjCEBn9WYie8fzsO7TVILiu6PW7EwH4vT7JfZRg01Vf1K1640Eg0FD37SqsHzbtwlRLu15XIWuL1WoCQ-zATrg4rvgT8U5eMX4nAYU96LFRvIOhrc8QFnVaLAcnzYobHqB75e4MOHjTggjbyJyn-9g551l7yMf6mOPrKODiMSf7y2uRckB8I965cBN6EIn6R7Kag7NxZgCD25NkHj7wpi9nI9qxF4257qFTZ0RvpffZXy"/>
+</div>
+<span class="absolute bottom-0 right-0 px-1.5 py-0.5 rounded-full bg-surface-container-highest font-label-code-sm text-label-code-sm text-on-surface font-bold">#02</span>
+</div>
+<h3 class="mt-space-sm font-headline-sm text-headline-sm text-on-surface tracking-tight">Andrés</h3>
+<div class="mt-1 inline-flex items-center gap-1.5 px-space-sm py-0.5 rounded-full bg-secondary-container/50 text-secondary font-label-code-sm text-label-code-sm">
+<span class="material-symbols-outlined text-[14px]">settings</span>
+            Backend Architect ⚙️
+          </div>
+<div class="mt-space-md w-full bg-surface-container-lowest/80 py-space-sm px-space-md rounded-xl flex items-center justify-between">
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant uppercase">Puntaje</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold tracking-tight">950 <span class="font-label-code-sm text-label-code-sm text-secondary font-normal">pts</span></span>
+</div>
+</div>
+<div class="w-full max-w-sm h-16 hidden md:flex items-center justify-center bg-gradient-to-t from-surface-container-low to-surface-container rounded-b-2xl">
+<span class="font-label-code-md text-label-code-md text-on-surface-variant tracking-widest uppercase">Rank II</span>
+</div>
+</div>
+<!-- First Place (Gold) -->
+<div class="order-1 md:order-2 flex flex-col items-center -mt-6">
+<div class="relative w-full max-w-sm rounded-2xl bg-surface-container-high/90 backdrop-blur-2xl p-space-lg flex flex-col items-center text-center shadow-[0_16px_50px_rgba(234,179,8,0.25)] transition-transform hover:-translate-y-2 duration-300">
+<div class="absolute -top-7 w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-300 to-yellow-600 flex items-center justify-center shadow-[0_0_28px_rgba(250,204,21,0.6)]">
+<span class="font-headline-md text-headline-md text-on-primary-fixed font-black">🥇</span>
+</div>
+<div class="mt-4 relative">
+<div class="w-24 h-24 rounded-full overflow-hidden shadow-[0_0_30px_rgba(245,158,11,0.5)]">
+<img class="w-full h-full object-cover" data-alt="Close up neon portrait of a confident female high school coder named Laura with holographic cyan and golden visor reflections in high tech fair arena" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWXiGWzYWhRIKyOQIhybm5sr8lnmhhm7wJYwoQxt_AlWkV_iTcJZ2s3S3ra3YUzFMf9vBVVcPnwXqth9yqjyHB15esVLoHhdOxOBKDMRvfEM3p7VmMtRreCr_bKqGtegm2ULS5aqSnVeugHZ7z1k1e8oB3DS_L6VEnwonaghCxPP7Zs60NNL1BIDhcQUXgdAklS_oUV2JZt1QVxSTcDqaYzgnE7FH_rAKujq8VkcGfxE3TJUqlh8c5"/>
+</div>
+<span class="absolute bottom-0 right-0 px-2 py-0.5 rounded-full bg-gradient-to-r from-amber-400 to-yellow-500 font-label-code-sm text-label-code-sm text-on-primary-fixed font-black">#01 LEADER</span>
+</div>
+<div class="mt-space-sm flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-amber-300 animate-bounce">crown</span>
+<h2 class="font-headline-md text-headline-md text-on-surface tracking-tight font-bold">Laura</h2>
+</div>
+<div class="mt-1 inline-flex items-center gap-1.5 px-space-sm py-0.5 rounded-full bg-amber-400/10 text-amber-300 font-label-code-sm text-label-code-sm">
+<span class="material-symbols-outlined text-[14px]">security</span>
+            Cyber Guardian 🔐
+          </div>
+<div class="mt-space-md w-full bg-surface-container-lowest/90 py-space-sm px-space-md rounded-xl flex items-center justify-between shadow-[inset_0_0_12px_rgba(245,158,11,0.15)]">
+<span class="font-label-code-sm text-label-code-sm text-amber-200/80 uppercase">Score Máximo</span>
+<span class="font-headline-md text-headline-md text-amber-300 font-black tracking-tight">980 <span class="font-label-code-sm text-label-code-sm text-on-surface-variant font-normal">pts</span></span>
+</div>
+</div>
+<div class="w-full max-w-sm h-24 hidden md:flex items-center justify-center bg-gradient-to-t from-surface-container to-surface-container-high rounded-b-2xl">
+<span class="font-label-code-md text-label-code-md text-amber-300 tracking-widest uppercase font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">stars</span>
+            Campeona Stand 42
+          </span>
+</div>
+</div>
+<!-- Third Place (Bronze) -->
+<div class="order-3 flex flex-col items-center">
+<div class="relative w-full max-w-sm rounded-2xl bg-surface-container/80 backdrop-blur-xl p-space-lg flex flex-col items-center text-center shadow-[0_12px_40px_rgba(217,119,6,0.15)] transition-transform hover:-translate-y-1 duration-300">
+<div class="absolute -top-6 w-12 h-12 rounded-xl bg-surface-container-high flex items-center justify-center shadow-[0_0_20px_rgba(245,158,11,0.3)]">
+<span class="font-headline-md text-headline-md text-on-surface font-bold">🥉</span>
+</div>
+<div class="mt-4 relative">
+<div class="w-20 h-20 rounded-full overflow-hidden shadow-[0_0_24px_rgba(217,119,6,0.4)]">
+<img class="w-full h-full object-cover" data-alt="Portrait of an energetic young male coder named Camilo surrounded by glowing cyan AI nodes and holographic neural network projections" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDM-1f32X9WPFXuOlotYGSYOIsS6wdBEUadz4Ier7I_DI130B04TtjYIg3TtE4DP9dX0LMZTv0Ts10qYHFMMVBFFUQEL1M92UJhBGjJ6HFOaNJ-mQ8YeQgmY0VgOexZvFCo7wg7ElwBSvdAvQqsx8gv0-Q8nRemX7fOtWjdk5IolNs_ntPgvwjud5ncyEeIg4CN4AhUXbF2URUf3V6QCXSjyKaCHaFYjlXVEkmF9c5AmLWb7-beYm_H"/>
+</div>
+<span class="absolute bottom-0 right-0 px-1.5 py-0.5 rounded-full bg-surface-container-highest font-label-code-sm text-label-code-sm text-on-surface font-bold">#03</span>
+</div>
+<h3 class="mt-space-sm font-headline-sm text-headline-sm text-on-surface tracking-tight">Camilo</h3>
+<div class="mt-1 inline-flex items-center gap-1.5 px-space-sm py-0.5 rounded-full bg-primary/10 text-primary font-label-code-sm text-label-code-sm">
+<span class="material-symbols-outlined text-[14px]">smart_toy</span>
+            AI Explorer 🤖
+          </div>
+<div class="mt-space-md w-full bg-surface-container-lowest/80 py-space-sm px-space-md rounded-xl flex items-center justify-between">
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant uppercase">Puntaje</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold tracking-tight">920 <span class="font-label-code-sm text-label-code-sm text-primary font-normal">pts</span></span>
+</div>
+</div>
+<div class="w-full max-w-sm h-12 hidden md:flex items-center justify-center bg-gradient-to-t from-surface-container-low to-surface-container rounded-b-2xl">
+<span class="font-label-code-md text-label-code-md text-on-surface-variant tracking-widest uppercase">Rank III</span>
+</div>
+</div>
+</div>
+<!-- Live Leaderboard List (Top 10) -->
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between px-space-md py-space-xs">
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant uppercase tracking-widest">Posición • Digital Architect</span>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant uppercase tracking-widest">Score Gauntlet</span>
+</div>
+<!-- #01 Laura -->
+<div class="group w-full bg-surface-container/70 backdrop-blur-xl p-space-md rounded-xl flex items-center justify-between gap-space-sm hover:bg-surface-container-high transition-all shadow-[0_4px_20px_rgba(0,0,0,0.3)]">
+<div class="flex items-center gap-space-md min-w-0">
+<div class="w-10 h-10 rounded-lg bg-amber-400/20 text-amber-300 font-label-code-lg text-label-code-lg font-bold flex items-center justify-center shrink-0">
+            01
+          </div>
+<span class="text-xl">🥇</span>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold truncate">Laura</span>
+<span class="px-2 py-0.5 rounded-full bg-amber-400/20 text-amber-300 font-label-code-sm text-label-code-sm uppercase tracking-wider shrink-0">Badge Oro</span>
+</div>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant truncate">Perfil: Cyber Guardian 🔐</span>
+</div>
+</div>
+<div class="flex items-center gap-space-md shrink-0">
+<div class="flex flex-col items-end">
+<span class="font-headline-sm text-headline-sm text-amber-300 font-bold tracking-tight">980</span>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant">PTS</span>
+</div>
+<span class="material-symbols-outlined text-amber-300/60 hidden sm:block">military_tech</span>
+</div>
+</div>
+<!-- #02 Andrés -->
+<div class="group w-full bg-surface-container/70 backdrop-blur-xl p-space-md rounded-xl flex items-center justify-between gap-space-sm hover:bg-surface-container-high transition-all shadow-[0_4px_20px_rgba(0,0,0,0.3)]">
+<div class="flex items-center gap-space-md min-w-0">
+<div class="w-10 h-10 rounded-lg bg-surface-variant text-on-surface font-label-code-lg text-label-code-lg font-bold flex items-center justify-center shrink-0">
+            02
+          </div>
+<span class="text-xl">🥈</span>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold truncate">Andrés</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-variant text-on-surface-variant font-label-code-sm text-label-code-sm uppercase tracking-wider shrink-0">Badge Plata</span>
+</div>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant truncate">Perfil: Backend Architect ⚙️</span>
+</div>
+</div>
+<div class="flex items-center gap-space-md shrink-0">
+<div class="flex flex-col items-end">
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold tracking-tight">950</span>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant">PTS</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant/60 hidden sm:block">military_tech</span>
+</div>
+</div>
+<!-- #03 Camilo -->
+<div class="group w-full bg-surface-container/70 backdrop-blur-xl p-space-md rounded-xl flex items-center justify-between gap-space-sm hover:bg-surface-container-high transition-all shadow-[0_4px_20px_rgba(0,0,0,0.3)]">
+<div class="flex items-center gap-space-md min-w-0">
+<div class="w-10 h-10 rounded-lg bg-amber-700/20 text-amber-500 font-label-code-lg text-label-code-lg font-bold flex items-center justify-center shrink-0">
+            03
+          </div>
+<span class="text-xl">🥉</span>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold truncate">Camilo</span>
+<span class="px-2 py-0.5 rounded-full bg-amber-700/20 text-amber-500 font-label-code-sm text-label-code-sm uppercase tracking-wider shrink-0">Badge Bronce</span>
+</div>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant truncate">Perfil: AI Explorer 🤖</span>
+</div>
+</div>
+<div class="flex items-center gap-space-md shrink-0">
+<div class="flex flex-col items-end">
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold tracking-tight">920</span>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant">PTS</span>
+</div>
+<span class="material-symbols-outlined text-amber-700/60 hidden sm:block">military_tech</span>
+</div>
+</div>
+<!-- #04 Valentina -->
+<div class="group w-full bg-surface-container/50 backdrop-blur-lg p-space-md rounded-xl flex items-center justify-between gap-space-sm hover:bg-surface-container transition-all">
+<div class="flex items-center gap-space-md min-w-0">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low text-on-surface-variant font-label-code-lg text-label-code-lg font-medium flex items-center justify-center shrink-0">
+            04
+          </div>
+<span class="text-xl">🎖️</span>
+<div class="flex flex-col min-w-0">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold truncate">Valentina</span>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant truncate">Perfil: Frontend Creator 🎨</span>
+</div>
+</div>
+<div class="flex items-center gap-space-md shrink-0">
+<div class="flex flex-col items-end">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold tracking-tight">890</span>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant">PTS</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant hidden sm:block">trending_up</span>
+</div>
+</div>
+<!-- #05 Carlos (Tú) - Highlighted Active Card -->
+<div class="relative w-full bg-gradient-to-r from-surface-container-high to-surface-container p-space-md rounded-xl flex items-center justify-between gap-space-sm shadow-[0_0_32px_rgba(6,182,212,0.4)] scale-[1.01] transform transition-transform">
+<div class="absolute -top-3 left-6 px-3 py-0.5 rounded-full bg-primary-container text-on-primary-container font-label-code-sm text-label-code-sm font-bold uppercase tracking-widest shadow-[0_0_12px_rgba(6,182,212,0.6)] flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">person</span>
+          Tu puesto actual
+        </div>
+<div class="flex items-center gap-space-md min-w-0">
+<div class="w-10 h-10 rounded-lg bg-primary-container text-on-primary-container font-label-code-lg text-label-code-lg font-black flex items-center justify-center shrink-0 shadow-[0_0_16px_rgba(76,215,246,0.5)]">
+            05
+          </div>
+<span class="text-xl">🎖️</span>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-primary font-bold truncate">Carlos (Tú)</span>
+<span class="px-2 py-0.5 rounded-full bg-primary/20 text-primary font-label-code-sm text-label-code-sm uppercase tracking-wider shrink-0 animate-pulse">En racha</span>
+</div>
+<span class="font-label-code-sm text-label-code-sm text-on-surface truncate">Perfil: AI Explorer 🤖</span>
+</div>
+</div>
+<div class="flex items-center gap-space-md shrink-0">
+<div class="flex flex-col items-end">
+<span class="font-headline-sm text-headline-sm text-primary font-black tracking-tight">870</span>
+<span class="font-label-code-sm text-label-code-sm text-primary-fixed-dim">PTS</span>
+</div>
+<div class="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">keyboard_double_arrow_up</span>
+</div>
+</div>
+</div>
+<!-- #06 Mateo -->
+<div class="group w-full bg-surface-container/50 backdrop-blur-lg p-space-md rounded-xl flex items-center justify-between gap-space-sm hover:bg-surface-container transition-all">
+<div class="flex items-center gap-space-md min-w-0">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low text-on-surface-variant font-label-code-lg text-label-code-lg font-medium flex items-center justify-center shrink-0">
+            06
+          </div>
+<span class="text-xl">🎖️</span>
+<div class="flex flex-col min-w-0">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold truncate">Mateo</span>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant truncate">Perfil: Game Builder 🎮</span>
+</div>
+</div>
+<div class="flex items-center gap-space-md shrink-0">
+<div class="flex flex-col items-end">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold tracking-tight">860</span>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant">PTS</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant hidden sm:block">trending_flat</span>
+</div>
+</div>
+<!-- #07 Sofía -->
+<div class="group w-full bg-surface-container/50 backdrop-blur-lg p-space-md rounded-xl flex items-center justify-between gap-space-sm hover:bg-surface-container transition-all">
+<div class="flex items-center gap-space-md min-w-0">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low text-on-surface-variant font-label-code-lg text-label-code-lg font-medium flex items-center justify-center shrink-0">
+            07
+          </div>
+<span class="text-xl">🎖️</span>
+<div class="flex flex-col min-w-0">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold truncate">Sofía</span>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant truncate">Perfil: Data Detective 📊</span>
+</div>
+</div>
+<div class="flex items-center gap-space-md shrink-0">
+<div class="flex flex-col items-end">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold tracking-tight">840</span>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant">PTS</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant hidden sm:block">trending_flat</span>
+</div>
+</div>
+<!-- #08 Daniel -->
+<div class="group w-full bg-surface-container/50 backdrop-blur-lg p-space-md rounded-xl flex items-center justify-between gap-space-sm hover:bg-surface-container transition-all">
+<div class="flex items-center gap-space-md min-w-0">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low text-on-surface-variant font-label-code-lg text-label-code-lg font-medium flex items-center justify-center shrink-0">
+            08
+          </div>
+<span class="text-xl">🎖️</span>
+<div class="flex flex-col min-w-0">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold truncate">Daniel</span>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant truncate">Perfil: Backend Architect ⚙️</span>
+</div>
+</div>
+<div class="flex items-center gap-space-md shrink-0">
+<div class="flex flex-col items-end">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold tracking-tight">830</span>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant">PTS</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant hidden sm:block">trending_down</span>
+</div>
+</div>
+<!-- #09 Mariana -->
+<div class="group w-full bg-surface-container/50 backdrop-blur-lg p-space-md rounded-xl flex items-center justify-between gap-space-sm hover:bg-surface-container transition-all">
+<div class="flex items-center gap-space-md min-w-0">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low text-on-surface-variant font-label-code-lg text-label-code-lg font-medium flex items-center justify-center shrink-0">
+            09
+          </div>
+<span class="text-xl">🎖️</span>
+<div class="flex flex-col min-w-0">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold truncate">Mariana</span>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant truncate">Perfil: Cyber Guardian 🔐</span>
+</div>
+</div>
+<div class="flex items-center gap-space-md shrink-0">
+<div class="flex flex-col items-end">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold tracking-tight">815</span>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant">PTS</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant hidden sm:block">trending_down</span>
+</div>
+</div>
+<!-- #10 Lucas -->
+<div class="group w-full bg-surface-container/50 backdrop-blur-lg p-space-md rounded-xl flex items-center justify-between gap-space-sm hover:bg-surface-container transition-all">
+<div class="flex items-center gap-space-md min-w-0">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low text-on-surface-variant font-label-code-lg text-label-code-lg font-medium flex items-center justify-center shrink-0">
+            10
+          </div>
+<span class="text-xl">🎖️</span>
+<div class="flex flex-col min-w-0">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold truncate">Lucas</span>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant truncate">Perfil: Game Builder 🎮</span>
+</div>
+</div>
+<div class="flex items-center gap-space-md shrink-0">
+<div class="flex flex-col items-end">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold tracking-tight">800</span>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant">PTS</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant hidden sm:block">trending_flat</span>
+</div>
+</div>
+</div>
+<!-- Arcade Bottom Action Hub & Live Sync Bar -->
+<div class="flex flex-col md:flex-row items-center justify-between gap-space-md p-space-lg rounded-2xl bg-surface-container-low/90 backdrop-blur-2xl shadow-[0_10px_35px_rgba(0,0,0,0.5)]">
+<!-- Live Sync status -->
+<div class="flex items-center gap-space-sm">
+<div class="relative flex items-center justify-center w-3 h-3">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-code-sm text-label-code-sm text-on-surface font-medium uppercase tracking-wide">
+            Stand 42 • Pabellón STEM
+          </span>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant">
+            Actualización en tiempo real cada <span class="text-primary font-bold" id="countdown-sync">10s</span>
+</span>
+</div>
+</div>
+<!-- Action CTA Buttons -->
+<div class="flex flex-wrap items-center gap-space-sm w-full md:w-auto">
+<a class="flex-1 md:flex-initial h-14 px-space-lg rounded-xl bg-gradient-to-r from-primary-container to-surface-tint text-on-primary-container font-headline-sm text-headline-sm font-semibold flex items-center justify-center gap-2 shadow-[0_0_24px_rgba(6,182,212,0.45)] hover:shadow-[0_0_32px_rgba(6,182,212,0.7)] hover:scale-[0.99] active:scale-95 transition-all" data-path="quiz" href="#">
+<span class="material-symbols-outlined text-[22px]">replay</span>
+<span>JUGAR DE NUEVO</span>
+</a>
+<a class="flex-1 md:flex-initial h-14 px-space-lg rounded-xl bg-surface-container-high/70 hover:bg-surface-container-highest text-on-surface font-headline-sm text-headline-sm font-medium flex items-center justify-center gap-2 hover:text-primary transition-all" data-path="inicio" href="#">
+<span class="material-symbols-outlined text-[20px]">home</span>
+<span>VOLVER AL INICIO</span>
+</a>
+</div>
+</div>
+</div>
+<script>
+    (function() {
+      let seconds = 10;
+      const counterEl = document.getElementById('countdown-sync');
+      if (counterEl) {
+        setInterval(() => {
+          seconds--;
+          if (seconds <= 0) {
+            seconds = 10;
+            counterEl.classList.add('scale-125', 'text-secondary');
+            setTimeout(() => {
+              counterEl.classList.remove('scale-125', 'text-secondary');
+            }, 300);
+          }
+          counterEl.textContent = seconds + 's';
+        }, 1000);
+      }
+    })();
+  </script>
+</div></main><footer class="w-full bg-surface-container-lowest/95 backdrop-blur-xl relative z-10 py-space-lg"><div class="max-w-7xl mx-auto px-margin-mobile lg:px-margin flex flex-col md:flex-row items-center justify-between gap-space-md text-center md:text-left"><div class="flex items-center gap-space-sm"><span class="font-label-code-sm text-label-code-sm text-on-surface-variant uppercase tracking-widest">Universidad Tecnológica © 2025</span><span class="hidden md:inline text-outline-variant">•</span><span class="font-label-code-sm text-label-code-sm text-primary tracking-wider uppercase">Feria de Orientación Vocacional</span></div><div class="flex items-center gap-space-lg font-label-code-sm text-label-code-sm text-on-surface-variant"><a class="hover:text-primary transition-colors uppercase tracking-wider" data-path="dashboard-tv" href="#">Modo Transmisión Kiosco TV</a><span class="text-outline-variant">•</span><span class="uppercase tracking-wider text-secondary">Stand 42 - Pabellón STEM</span></div></div></footer></body></html>

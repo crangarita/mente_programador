@@ -4,6 +4,7 @@ import { questions } from '../data/questions'
 import { saveAnswer } from '../services/api'
 import type { Participant } from '../types/participant'
 import type { Profile, QuizOption } from '../types/quiz'
+import BrandHeader from '../components/BrandHeader'
 
 interface QuizPageProps {
   participant: Participant
@@ -59,7 +60,7 @@ function QuizPage({ participant, onContinue }: QuizPageProps) {
 
   if (isComplete && preliminaryProfile) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-zinc-950 px-5 py-10 text-zinc-100">
+      <main className="cyber-page flex min-h-screen items-center justify-center px-5 py-10 text-zinc-100">
         <section className="w-full max-w-lg rounded-3xl border border-violet-400/30 bg-zinc-900 p-8 text-center shadow-2xl shadow-violet-500/10">
           <div className="text-5xl" aria-hidden="true">🧠</div>
           <p className="mt-6 text-sm font-bold uppercase tracking-[0.25em] text-violet-300">Test completado</p>
@@ -79,25 +80,22 @@ function QuizPage({ participant, onContinue }: QuizPageProps) {
   }
 
   return (
-    <main className="min-h-screen bg-zinc-950 px-4 py-8 text-zinc-100 sm:px-6">
-      <section className="mx-auto w-full max-w-3xl">
-        <header className="mb-7 flex items-center justify-between gap-4">
-          <p className="font-black tracking-wide text-cyan-300">MENTE PROGRAMADOR</p>
-          <p className="rounded-full border border-zinc-800 px-3 py-1.5 text-sm text-zinc-400">{participant.alias}</p>
-        </header>
+    <div className="cyber-page min-h-screen text-zinc-100"><BrandHeader active="QUIZ" />
+      <main className="px-4 py-8 sm:px-6"><section className="mx-auto w-full max-w-6xl">
+        <div className="mb-6 flex items-center justify-between"><p className="cyber-kicker">Nivel 01 · Calibración neural</p><p className="rounded-full bg-cyber-800 px-4 py-2 font-mono text-xs text-zinc-300">PLAYER: {participant.alias}</p></div>
 
-        <div className="rounded-3xl border border-zinc-800 bg-zinc-900 p-5 shadow-2xl sm:p-8">
+        <div className="cyber-panel rounded-3xl p-5 sm:p-8">
           <ProgressBar current={question.number} total={questions.length} />
-          <h1 className="mt-8 text-2xl font-black leading-tight sm:text-3xl">{question.text}</h1>
+          <h1 className="mt-8 max-w-4xl font-display text-3xl font-black leading-tight sm:text-5xl">{question.text}</h1>
 
-          <fieldset className="mt-7 grid gap-3 sm:grid-cols-2">
+          <fieldset className="mt-7 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             <legend className="sr-only">Selecciona una respuesta</legend>
             {question.options.map((option) => {
               const selected = selectedOption === option.id
               return (
                 <label
                   key={option.id}
-                  className={`flex cursor-pointer items-center gap-4 rounded-2xl border p-4 transition has-[:focus-visible]:ring-4 has-[:focus-visible]:ring-cyan-300/30 ${
+                  className={`min-h-36 cursor-pointer rounded-2xl border p-5 transition has-[:focus-visible]:ring-4 has-[:focus-visible]:ring-cyan-300/30 ${
                     selected
                       ? 'border-cyan-300 bg-cyan-300/10 ring-2 ring-cyan-300/20'
                       : 'border-zinc-700 bg-zinc-950/50 hover:border-zinc-500'
@@ -114,8 +112,8 @@ function QuizPage({ participant, onContinue }: QuizPageProps) {
                     }}
                     className="sr-only"
                   />
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-zinc-800 text-xl" aria-hidden="true">{option.icon}</span>
-                  <span className="font-semibold text-zinc-200">{option.label}</span>
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-cyber-950 text-2xl" aria-hidden="true">{option.icon}</span>
+                  <span className="mt-5 block font-display text-lg font-bold text-zinc-100">{String(option.id).padStart(2, '0')} · {option.label}</span>
                 </label>
               )
             })}
@@ -126,13 +124,13 @@ function QuizPage({ participant, onContinue }: QuizPageProps) {
             type="button"
             onClick={continueQuiz}
             disabled={isSubmitting}
-            className="mt-3 w-full rounded-2xl bg-cyan-300 px-5 py-4 font-black text-zinc-950 transition hover:bg-cyan-200 focus:outline-none focus:ring-4 focus:ring-cyan-300/30 disabled:cursor-wait disabled:opacity-60 sm:ml-auto sm:block sm:w-auto sm:min-w-48"
+            className="cyber-primary mt-3 w-full rounded-2xl px-8 py-4 font-display font-black transition focus:outline-none focus:ring-4 focus:ring-cyan-300/30 disabled:cursor-wait disabled:opacity-60 sm:ml-auto sm:block sm:w-auto sm:min-w-56"
           >
             {isSubmitting ? 'GUARDANDO…' : questionIndex === questions.length - 1 ? 'FINALIZAR TEST' : 'SIGUIENTE'}
           </button>
         </div>
-      </section>
-    </main>
+      </section></main>
+    </div>
   )
 }
 
