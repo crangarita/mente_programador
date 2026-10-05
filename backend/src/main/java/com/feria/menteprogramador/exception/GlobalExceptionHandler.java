@@ -57,6 +57,11 @@ public class GlobalExceptionHandler {
         return error(HttpStatus.CONFLICT, "La información ya fue registrada o entra en conflicto con datos existentes");
     }
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ApiError> handleInvalidChallenge(IllegalArgumentException exception) {
+        return error(HttpStatus.BAD_REQUEST, exception.getMessage());
+    }
+
     private ResponseEntity<ApiError> error(HttpStatus status, String message) {
         ApiError body = new ApiError(status.value(), message, Map.of(), Instant.now());
         return ResponseEntity.status(status).body(body);

@@ -1,6 +1,6 @@
 import type { Participant } from '../types/participant'
 import type { AnswerResult, QuizOption } from '../types/quiz'
-import type { ChallengeResult, ChallengeSubmission } from '../types/challenge'
+import type { ChallengeDefinition, ChallengeResult, ChallengeSubmission } from '../types/challenge'
 import type { FinalResult } from '../types/result'
 import type { RankingEntry } from '../types/ranking'
 import type { EventStats } from '../types/stats'
@@ -62,6 +62,15 @@ export async function saveChallenge(
   }
 
   return response.json() as Promise<ChallengeResult>
+}
+
+export async function getChallenge(participantId: string): Promise<ChallengeDefinition> {
+  const response = await fetch(`${apiUrl}/participants/${participantId}/challenge`)
+  if (!response.ok) {
+    const body = (await response.json().catch(() => ({}))) as ApiErrorBody
+    throw new Error(body.message ?? 'No pudimos cargar el reto.')
+  }
+  return response.json() as Promise<ChallengeDefinition>
 }
 
 export async function finishParticipant(participantId: string): Promise<FinalResult> {

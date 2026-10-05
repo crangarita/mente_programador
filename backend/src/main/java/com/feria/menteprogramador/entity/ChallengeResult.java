@@ -26,6 +26,9 @@ public class ChallengeResult {
     @Column(nullable = false)
     private boolean success;
 
+    @Column(name = "challenge_id", length = 30)
+    private String challengeId;
+
     @Column(nullable = false)
     private int attempts;
 
@@ -45,7 +48,12 @@ public class ChallengeResult {
     }
 
     public ChallengeResult(Participant participant, boolean success, int attempts, long elapsedMilliseconds) {
+        this(participant, "ROUTE_A", success, attempts, elapsedMilliseconds);
+    }
+
+    public ChallengeResult(Participant participant, String challengeId, boolean success, int attempts, long elapsedMilliseconds) {
         this.participant = participant;
+        this.challengeId = challengeId;
         update(success, attempts, elapsedMilliseconds);
     }
 
@@ -73,4 +81,5 @@ public class ChallengeResult {
     public int getScore() { return score; }
     public void setScore(int score) { this.score = score; }
     public Participant getParticipant() { return participant; }
+    public String getChallengeId() { return challengeId == null ? "ROUTE_A" : challengeId; }
 }

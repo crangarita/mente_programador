@@ -9,13 +9,31 @@ export interface CommandBlock {
 
 export interface ChallengeResult {
   id: string
+  challengeId: string
   success: boolean
   attempts: number
   elapsedSeconds: number
 }
 
 export interface ChallengeSubmission {
-  success: boolean
+  challengeId: string
+  commands: Exclude<CommandType, 'REPEAT'>[]
   attempts: number
   elapsedMilliseconds: number
+}
+
+export interface ChallengeCell {
+  row: number
+  column: number
+}
+
+export interface ChallengeDefinition {
+  id: string
+  name: string
+  rows: number
+  columns: number
+  start: ChallengeCell
+  startDirection: Direction
+  target: ChallengeCell
+  obstacles: ChallengeCell[]
 }

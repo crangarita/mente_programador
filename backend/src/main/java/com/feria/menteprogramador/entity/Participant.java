@@ -22,6 +22,9 @@ public class Participant {
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
 
+    @Column(name = "challenge_id", length = 30)
+    private String challengeId;
+
     protected Participant() {
     }
 
@@ -50,5 +53,10 @@ public class Participant {
     public Instant getCreatedAt() {
         return createdAt;
     }
-}
 
+    public String getChallengeId() { return challengeId; }
+
+    public void assignChallenge(String challengeId) {
+        if (this.challengeId == null) this.challengeId = challengeId;
+    }
+}

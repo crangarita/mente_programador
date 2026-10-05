@@ -57,18 +57,25 @@ Cada opción suma tres puntos al perfil asociado. Solo se admite una respuesta p
 
 ### Guardar resultado del reto
 
+Primero se obtiene el reto aleatorio asignado. La asignación queda guardada para que no cambie al recargar:
+
+```http
+GET /api/participants/{participantId}/challenge
+```
+
 ```http
 POST /api/participants/{participantId}/challenge
 Content-Type: application/json
 
 {
-  "success": true,
+  "challengeId": "ROUTE_A",
+  "commands": ["FORWARD", "FORWARD", "TURN_LEFT", "FORWARD", "FORWARD"],
   "attempts": 1,
   "elapsedMilliseconds": 12340
 }
 ```
 
-La velocidad aporta hasta 200 puntos y disminuye un punto cada 200 milisegundos (cinco puntos por segundo). Los intentos aportan 100 puntos en el primero y pierden 25 puntos por intento adicional.
+El servidor valida la secuencia contra el tablero asignado. Hay tres rutas aleatorias de dificultad equivalente. La velocidad aporta hasta 200 puntos y disminuye un punto cada 200 milisegundos (cinco puntos por segundo). Los intentos aportan 100 puntos en el primero y pierden 25 puntos por intento adicional.
 
 ### Calcular resultado final
 

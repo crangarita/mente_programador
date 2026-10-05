@@ -2,10 +2,12 @@ package com.feria.menteprogramador.controller;
 
 import com.feria.menteprogramador.dto.ChallengeRequest;
 import com.feria.menteprogramador.dto.ChallengeResponse;
+import com.feria.menteprogramador.dto.ChallengeDefinitionResponse;
 import com.feria.menteprogramador.service.ChallengeService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +26,11 @@ public class ChallengeController {
         this.challengeService = challengeService;
     }
 
+    @GetMapping
+    public ChallengeDefinitionResponse get(@PathVariable UUID participantId) {
+        return challengeService.getOrAssign(participantId);
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ChallengeResponse save(
@@ -33,4 +40,3 @@ public class ChallengeController {
         return challengeService.save(participantId, request);
     }
 }
-
