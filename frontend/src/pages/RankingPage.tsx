@@ -1,3 +1,5 @@
+import { useState } from 'react'
+import { getRanking } from '../services/api'
 import type { RankingEntry } from '../types/ranking'
 
 const profileLabels: Record<RankingEntry['profile'], { label: string; icon: string }> = {
@@ -15,6 +17,26 @@ interface RankingPageProps {
 }
 
 function RankingPage({ ranking, onBack }: RankingPageProps) {
+  const [entries, setEntries] = useState(ranking.slice(0, 10))
+  const [hasMore, setHasMore] = useState(ranking.length > 10)
+  const [isLoadingMore, setIsLoadingMore] = useState(false)
+  const [loadError, setLoadError] = useState('')
+
+  async function loadMore() {
+    const nextLimit = entries.length + 10
+    setIsLoadingMore(true)
+    setLoadError('')
+    try {
+      const nextRanking = await getRanking(nextLimit + 1)
+      setEntries(nextRanking.slice(0, nextLimit))
+      setHasMore(nextRanking.length > nextLimit)
+    } catch (error) {
+      setLoadError(error instanceof Error ? error.message : 'No pudimos cargar más resultados.')
+    } finally {
+      setIsLoadingMore(false)
+    }
+  }
+
   return (
     <main className="min-h-screen bg-zinc-950 px-4 py-8 text-zinc-100 sm:px-6">
       <section className="mx-auto w-full max-w-4xl">
@@ -29,7 +51,7 @@ function RankingPage({ ranking, onBack }: RankingPageProps) {
             <span>Posición</span><span>Alias</span><span>Perfil</span><span className="text-right">Puntaje</span>
           </div>
           <ol aria-label="Ranking de participantes" className="divide-y divide-zinc-800">
-            {ranking.map((entry) => {
+            {entries.map((entry) => {
               const profile = profileLabels[entry.profile]
               const medal = entry.position === 1 ? '🥇' : entry.position === 2 ? '🥈' : entry.position === 3 ? '🥉' : `#${entry.position}`
               return (
@@ -41,11 +63,18 @@ function RankingPage({ ranking, onBack }: RankingPageProps) {
                 </li>
               )
             })}
-            {ranking.length === 0 && <li className="px-5 py-14 text-center text-zinc-500">Aún no hay resultados en el ranking.</li>}
+            {entries.length === 0 && <li className="px-5 py-14 text-center text-zinc-500">Aún no hay resultados en el ranking.</li>}
           </ol>
         </div>
 
-        <button type="button" onClick={onBack} className="mt-5 w-full rounded-2xl border border-zinc-700 px-5 py-4 font-black hover:bg-zinc-900">VOLVER A MI RESULTADO</button>
+        <p role="alert" className="mt-3 min-h-5 text-center text-sm text-rose-400">{loadError}</p>
+        {hasMore && (
+          <button type="button" onClick={loadMore} disabled={isLoadingMore} className="mt-2 w-full rounded-2xl bg-violet-400 px-5 py-4 font-black text-zinc-950 hover:bg-violet-300 disabled:opacity-60">
+            {isLoadingMore ? 'CARGANDO…' : 'VER 10 MÁS'}
+          </button>
+        )}
+
+        <button type="button" onClick={onBack} className="mt-3 w-full rounded-2xl border border-zinc-700 px-5 py-4 font-black hover:bg-zinc-900">VOLVER A MI RESULTADO</button>
       </section>
     </main>
   )

@@ -17,18 +17,38 @@ function DashboardPage() {
   const [ranking, setRanking] = useState<RankingEntry[]>([])
   const [error, setError] = useState('')
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null)
+  const [visibleLimit, setVisibleLimit] = useState(10)
+  const [hasMore, setHasMore] = useState(false)
+  const [isLoadingMore, setIsLoadingMore] = useState(false)
 
   const refresh = useCallback(async () => {
     try {
-      const [nextStats, nextRanking] = await Promise.all([getStats(), getRanking(10)])
+      const [nextStats, nextRanking] = await Promise.all([getStats(), getRanking(visibleLimit + 1)])
       setStats(nextStats)
-      setRanking(nextRanking)
+      setRanking(nextRanking.slice(0, visibleLimit))
+      setHasMore(nextRanking.length > visibleLimit)
       setLastUpdated(new Date())
       setError('')
     } catch {
       setError('No se pudieron actualizar los datos. Reintentando…')
     }
-  }, [])
+  }, [visibleLimit])
+
+  async function loadMore() {
+    setIsLoadingMore(true)
+    const nextLimit = visibleLimit + 10
+    try {
+      const nextRanking = await getRanking(nextLimit + 1)
+      setRanking(nextRanking.slice(0, nextLimit))
+      setVisibleLimit(nextLimit)
+      setHasMore(nextRanking.length > nextLimit)
+      setError('')
+    } catch {
+      setError('No se pudieron cargar más resultados. Intenta nuevamente.')
+    } finally {
+      setIsLoadingMore(false)
+    }
+  }
 
   useEffect(() => {
     const initialRefresh = window.setTimeout(() => void refresh(), 0)
@@ -75,12 +95,12 @@ function DashboardPage() {
 
         <section className="mt-6 overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-900/90 shadow-2xl">
           <div className="flex items-center justify-between border-b border-zinc-800 px-6 py-4 lg:px-8">
-            <h2 className="text-2xl font-black lg:text-3xl">Top 10</h2>
-            <span className="text-sm font-bold text-zinc-500">PUNTAJES MÁS ALTOS</span>
+            <h2 className="text-2xl font-black lg:text-3xl">Ranking</h2>
+            <span className="text-sm font-bold text-zinc-500">MOSTRANDO {ranking.length} RESULTADOS</span>
           </div>
           <div className="grid divide-y divide-zinc-800 xl:grid-cols-2 xl:divide-x xl:divide-y-0">
-            {[ranking.slice(0, 5), ranking.slice(5, 10)].map((column, columnIndex) => (
-              <ol key={columnIndex} className="divide-y divide-zinc-800" start={columnIndex * 5 + 1} aria-label={columnIndex === 0 ? 'Primeros cinco puestos' : 'Puestos seis a diez'}>
+            {[ranking.slice(0, Math.ceil(ranking.length / 2)), ranking.slice(Math.ceil(ranking.length / 2))].map((column, columnIndex) => (
+              <ol key={columnIndex} className="divide-y divide-zinc-800" aria-label={columnIndex === 0 ? 'Primera parte del ranking' : 'Segunda parte del ranking'}>
                 {column.map((entry) => (
                   <li key={`${entry.position}-${entry.alias}`} className="grid grid-cols-[4.5rem_1fr_auto] items-center gap-4 px-6 py-3.5 lg:px-8 lg:py-4">
                     <span className={`text-2xl font-black ${entry.position <= 3 ? 'text-amber-300' : 'text-zinc-500'}`}>#{entry.position}</span>
@@ -92,6 +112,11 @@ function DashboardPage() {
               </ol>
             ))}
           </div>
+          {hasMore && <div className="border-t border-zinc-800 p-4 text-center">
+            <button type="button" onClick={loadMore} disabled={isLoadingMore} className="w-full rounded-2xl bg-violet-400 px-5 py-3 font-black text-zinc-950 hover:bg-violet-300 disabled:opacity-60 sm:w-auto sm:min-w-64">
+              {isLoadingMore ? 'CARGANDO…' : 'VER 10 MÁS'}
+            </button>
+          </div>}
         </section>
 
         <p role="alert" className="mt-3 min-h-5 text-center text-sm text-rose-300">{error}</p>

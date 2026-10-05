@@ -14,7 +14,7 @@ function ResultPage({ result }: { result: FinalResult }) {
     setLoadingRanking(true)
     setRankingError('')
     try {
-      setRanking(await getRanking(10))
+      setRanking(await getRanking(11))
     } catch (error) {
       setRankingError(error instanceof Error ? error.message : 'No pudimos cargar el ranking.')
     } finally {
