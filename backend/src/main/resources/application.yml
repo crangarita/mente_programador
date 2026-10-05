@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: mente-programador-backend
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/mente_programador}
+    username: ${SPRING_DATASOURCE_USERNAME:mente_programador}
+    password: ${SPRING_DATASOURCE_PASSWORD:mente_programador}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+
+app:
+  cors:
+    allowed-origin: ${FRONTEND_ORIGIN:http://localhost:5173}
+
+management:
+  endpoints:
+    web:
+      base-path: /api
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: never
+  health:
+    db:
+      enabled: true
