@@ -158,7 +158,7 @@ function ChallengePage({ participant }: ChallengePageProps) {
           <p className="mt-2 text-zinc-400">Llega a la meta sin chocar con los bloques. “Repetir” ejecuta varias veces el bloque que le sigue.</p>
 
           <div className="mt-5 grid gap-5 lg:grid-cols-[minmax(300px,0.78fr)_minmax(0,1.22fr)] lg:items-start">
-            <div className="mx-auto grid w-full max-w-md grid-cols-5 gap-1.5 rounded-2xl border border-zinc-700 bg-zinc-950 p-3 sm:gap-2" aria-label="Tablero del reto">
+            <div><div className="mb-3 flex items-center justify-between"><span className="font-mono text-xs font-bold tracking-wider">▦ MATRIZ CUÁNTICA 5×5</span><span className="font-mono text-[10px] text-neon-cyan">● SENSOR ACTIVO</span></div><div className="mx-auto grid w-full max-w-md grid-cols-5 gap-1.5 rounded-2xl border border-zinc-700 bg-zinc-950 p-3 sm:gap-2" aria-label="Tablero del reto">
               {cells.map((cell) => {
                 const isTarget = challenge && cellKey(cell) === cellKey(challenge.target)
                 const isRobot = robotPosition && cellKey(cell) === cellKey(robotPosition)
@@ -169,11 +169,11 @@ function ChallengePage({ participant }: ChallengePageProps) {
                   {isRobot && <span className="absolute text-xl transition-all duration-300 sm:text-2xl" style={{ transform: `rotate(${direction * 90}deg)` }} aria-label="Robot">🤖</span>}
                 </div>
               })}
-            </div>
+            </div><div className="mt-3 flex flex-wrap justify-between gap-2 font-mono text-[9px] text-zinc-400"><span>🤖 UNIDAD BOT</span><span>🎯 OBJETIVO</span><span>🧱 BLOQUEO</span></div></div>
 
             <div>
               <div className="grid gap-5 xl:grid-cols-[0.85fr_1.15fr]">
-            <section><h2 className="font-bold text-zinc-200">Bloques disponibles</h2>
+            <section><div className="flex items-center justify-between"><h2 className="font-bold text-zinc-200">🧩 Bloques disponibles</h2><span className="font-mono text-[9px] text-zinc-500">TOCA PARA AGREGAR</span></div>
               <div className="mt-3 grid grid-cols-2 gap-2">
                 <button type="button" disabled={!challenge || isRunning || commands.length >= 10} onClick={() => addCommand('FORWARD')} className="rounded-xl bg-cyan-300 px-3 py-3 font-bold text-zinc-950 disabled:opacity-50">↑ Avanzar</button>
                 <button type="button" disabled={!challenge || isRunning || commands.length >= 10} onClick={() => addCommand('TURN_LEFT')} className="rounded-xl bg-zinc-800 px-3 py-3 font-bold disabled:opacity-50">↶ Izquierda</button>
@@ -181,7 +181,7 @@ function ChallengePage({ participant }: ChallengePageProps) {
                 {[2, 3, 4].map((repeat) => <button key={repeat} type="button" disabled={!challenge || isRunning || commands.length >= 10} onClick={() => addCommand('REPEAT', repeat)} className="rounded-xl bg-violet-400 px-3 py-3 font-bold text-zinc-950 disabled:opacity-50">⟳ Repetir {repeat}</button>)}
               </div>
             </section>
-            <section><div className="flex items-center justify-between"><h2 className="font-bold text-zinc-200">Tu algoritmo</h2><span className="text-xs text-zinc-500">{commands.length}/10 bloques</span></div>
+            <section><div className="flex items-center justify-between"><h2 className="font-bold text-zinc-200">⌘ Tu algoritmo</h2><span className="rounded-full bg-cyber-600 px-3 py-1 font-mono text-[9px] text-zinc-300">{commands.length} COMANDOS</span></div>
               <ol className="mt-3 min-h-44 space-y-2 rounded-2xl border border-dashed border-zinc-700 bg-zinc-950/50 p-3">
                 {commands.length === 0 && <li className="py-14 text-center text-sm text-zinc-600">Toca los bloques para agregarlos</li>}
                 {commands.map((command, index) => <li key={command.id} className="flex items-center gap-2 rounded-xl border border-zinc-700 bg-zinc-900 px-3 py-2">

@@ -13,6 +13,9 @@ export interface QuestionOption {
   label: string
   profile: Profile
   icon: string
+  description: string
+  tag: string
+  technology: string
 }
 
 export interface Question {
@@ -30,4 +33,3 @@ export interface AnswerResult {
   profileScores: Record<Profile, number>
   preliminaryProfile: Profile
 }
-

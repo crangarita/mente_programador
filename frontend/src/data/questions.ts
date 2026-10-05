@@ -1,10 +1,20 @@
 import type { Profile, Question, QuestionOption, QuizOption } from '../types/quiz'
 
+const details: Record<Profile, { description: string; tag: string; technology: string }> = {
+  FRONTEND_CREATOR: { description: 'Interfaces, paletas de color, microanimaciones y experiencias claras para las personas.', tag: 'DEV.FRONTEND', technology: 'UX/UI · Web Apps' },
+  BACKEND_ARCHITECT: { description: 'Bases de datos, servidores, APIs y algoritmos que mantienen todo funcionando.', tag: 'DEV.BACKEND', technology: 'APIs · Cloud Engines' },
+  AI_EXPLORER: { description: 'Modelos predictivos, asistentes inteligentes, automatización y visión computacional.', tag: 'SYS.AI_EXPLORER', technology: 'Python · Neural Nets' },
+  CYBER_GUARDIAN: { description: 'Protección de sistemas, criptografía, redes y búsqueda estratégica de vulnerabilidades.', tag: 'NET.SECURITY', technology: 'SecOps · Defense Lab' },
+  DATA_DETECTIVE: { description: 'Patrones ocultos, visualización y decisiones respaldadas por información real.', tag: 'DAT.ANALYTICS', technology: 'Big Data · Insights' },
+  GAME_BUILDER: { description: 'Mecánicas interactivas, mundos digitales, física y sistemas de recompensa.', tag: 'DEV.GAMING', technology: 'Unity · Game Engine' },
+}
+
 const option = (id: QuizOption, label: string, profile: Profile, icon: string): QuestionOption => ({
   id,
   label,
   profile,
   icon,
+  ...details[profile],
 })
 
 export const questions: Question[] = [
@@ -69,4 +79,3 @@ export const questions: Question[] = [
     ],
   },
 ]
-

@@ -3,9 +3,12 @@ import BrandHeader from '../components/BrandHeader'
 
 function WelcomePage({ onStart }: { onStart: () => void }) {
   const profiles = [
-    ['🎨', 'Frontend Creator', 'UI / UX'], ['⚙️', 'Backend Architect', 'Core Systems'],
-    ['🤖', 'AI Explorer', 'Neural Nets'], ['🛡️', 'Cyber Guardian', 'Cyber Sec'],
-    ['📊', 'Data Detective', 'Big Data'], ['🎮', 'Game Builder', 'Game Engine'],
+    ['🎨', 'Frontend Creator', 'UI / UX', 'Diseño de interfaces, animación y experiencia de usuario.', 'React · WebGL'],
+    ['⚙️', 'Backend Architect', 'Core Systems', 'Lógica de alta escala, servicios y bases de datos.', 'Cloud · APIs'],
+    ['🤖', 'AI Explorer', 'Neural Nets', 'Modelos predictivos, automatización y visión computacional.', 'LLMs · Python'],
+    ['🛡️', 'Cyber Guardian', 'Cyber Sec', 'Ethical hacking, criptografía y protección avanzada.', 'Security · SOC'],
+    ['📊', 'Data Detective', 'Big Data', 'Patrones ocultos, análisis y decisiones inteligentes.', 'Analytics · SQL'],
+    ['🎮', 'Game Builder', 'Game Engine', 'Física en tiempo real y experiencias interactivas.', 'Unity · Unreal'],
   ]
   return <div className="cyber-page flex min-h-screen flex-col text-zinc-100">
     <BrandHeader active="INICIO" />
@@ -23,8 +26,13 @@ function WelcomePage({ onStart }: { onStart: () => void }) {
         <div className="mt-5 flex flex-wrap justify-center gap-3 font-mono text-xs text-zinc-400"><span className="rounded-full bg-cyber-800 px-4 py-2">⏱ Duración: 2 min</span><span className="rounded-full bg-cyber-800 px-4 py-2">🎮 Mini juego interactivo</span><span className="rounded-full bg-cyber-800 px-4 py-2">🏆 Ranking en vivo</span></div>
       </section>
       <section className="mt-14"><p className="cyber-kicker">Colección de especialidades</p><h2 className="mt-2 font-display text-2xl font-bold">6 perfiles tecnológicos descifrables</h2>
-        <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-6">{profiles.map(([icon,title,tag], index) => <article key={title} className="cyber-panel rounded-2xl p-4"><span className="text-2xl">{icon}</span><p className="mt-4 font-mono text-[9px] uppercase tracking-wider text-neon-cyan">{tag}</p><h3 className="mt-1 font-display font-bold">{title}</h3><p className="mt-4 font-mono text-[9px] text-zinc-500">#{String(index + 1).padStart(2,'0')}</p></article>)}</div>
+        <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-6">{profiles.map(([icon,title,tag,description,tech], index) => <article key={title} className="cyber-panel flex min-h-56 flex-col rounded-2xl p-4"><span className="text-2xl">{icon}</span><p className="mt-4 font-mono text-[9px] uppercase tracking-wider text-neon-cyan">{tag}</p><h3 className="mt-1 font-display font-bold">{title}</h3><p className="mt-3 text-xs leading-5 text-zinc-400">{description}</p><p className="mt-auto pt-4 font-mono text-[9px] text-zinc-500">{tech} <span className="float-right text-neon-cyan">#{String(index + 1).padStart(2,'0')}</span></p></article>)}</div>
       </section>
+      <section className="mt-10 grid gap-4 md:grid-cols-3">{[
+        ['▣','Fase 01','5 preguntas intuitivas','Situaciones reales para medir tu forma natural de resolver problemas.','Apto para todo nivel'],
+        ['♟','Fase 02','Mini reto lógico','Construye un algoritmo con bloques y guía el robot hasta su objetivo.','Cronómetro activo'],
+        ['🏆','Fase 03','Tu récord en vivo','Entra al ranking de la feria y compara tu resultado en tiempo real.','Sincronizado con TV'],
+      ].map(([icon,phase,title,description,status]) => <article key={phase} className="cyber-panel rounded-3xl p-6"><span className="text-2xl text-neon-cyan">{icon}</span><p className="cyber-kicker mt-5">{phase}</p><h3 className="mt-2 font-display text-xl font-bold">{title}</h3><p className="mt-2 text-sm leading-6 text-zinc-400">{description}</p><p className="mt-5 font-mono text-[10px] text-neon-cyan">● {status}</p></article>)}</section>
     </main><BrandFooter />
   </div>
 }

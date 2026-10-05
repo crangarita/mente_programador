@@ -85,7 +85,7 @@ function QuizPage({ participant, onContinue }: QuizPageProps) {
         <div className="mb-6 flex items-center justify-between"><p className="cyber-kicker">Nivel 01 · Calibración neural</p><p className="rounded-full bg-cyber-800 px-4 py-2 font-mono text-xs text-zinc-300">PLAYER: {participant.alias}</p></div>
 
         <div className="cyber-panel rounded-3xl p-5 sm:p-8">
-          <ProgressBar current={question.number} total={questions.length} />
+          <div className="grid items-center gap-4 md:grid-cols-[1fr_1.5fr_auto]"><div><p className="cyber-kicker">Pregunta {String(question.number).padStart(2, '0')} / 05</p><p className="mt-1 font-display text-xl font-bold">Calibración de perfil</p></div><ProgressBar current={question.number} total={questions.length} /><div className="rounded-xl bg-cyber-600 px-4 py-3 font-mono text-xs text-violet-200">+{question.number * 90} XP</div></div>
           <h1 className="mt-8 max-w-4xl font-display text-3xl font-black leading-tight sm:text-5xl">{question.text}</h1>
 
           <fieldset className="mt-7 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -113,7 +113,10 @@ function QuizPage({ participant, onContinue }: QuizPageProps) {
                     className="sr-only"
                   />
                   <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-cyber-950 text-2xl" aria-hidden="true">{option.icon}</span>
-                  <span className="mt-5 block font-display text-lg font-bold text-zinc-100">{String(option.id).padStart(2, '0')} · {option.label}</span>
+                  <span className="float-right rounded-md bg-cyber-600 px-2 py-1 font-mono text-[9px] tracking-wider text-neon-cyan">[{option.tag}]</span>
+                  <span className="mt-5 block font-display text-lg font-bold text-zinc-100">0{option.id.charCodeAt(0) - 64} · {option.label}</span>
+                  <span className="mt-2 block text-sm leading-5 text-zinc-400">{option.description}</span>
+                  <span className="mt-4 block font-mono text-[10px] tracking-wider text-neon-cyan">{option.technology}</span>
                 </label>
               )
             })}
