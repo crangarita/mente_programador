@@ -141,34 +141,36 @@ function ChallengePage({ participant }: ChallengePageProps) {
   })) : []
 
   return (
-    <main className="min-h-screen bg-zinc-950 px-4 py-7 text-zinc-100 sm:px-6">
-      <section className="mx-auto w-full max-w-5xl">
-        <header className="mb-6 flex items-center justify-between gap-4">
+    <main className="min-h-screen bg-zinc-950 px-4 py-4 text-zinc-100 sm:px-6 lg:py-5">
+      <section className="mx-auto w-full max-w-6xl">
+        <header className="mb-4 flex items-center justify-between gap-4">
           <p className="font-black tracking-wide text-cyan-300">MENTE PROGRAMADOR</p>
           <div className="flex gap-2 text-xs text-zinc-400 sm:text-sm">
             <span className="rounded-full border border-zinc-800 px-3 py-1.5">Intentos: {attempts}</span>
             <span className="rounded-full border border-zinc-800 px-3 py-1.5">Tiempo: {elapsedSeconds}s</span>
           </div>
         </header>
-        <div className="rounded-3xl border border-zinc-800 bg-zinc-900 p-5 shadow-2xl sm:p-8">
+        <div className="rounded-3xl border border-zinc-800 bg-zinc-900 p-5 shadow-2xl sm:p-6 lg:p-7">
           <p className="text-sm font-bold uppercase tracking-[0.25em] text-violet-300">Reto lógico · {challenge?.name ?? 'Asignando ruta…'}</p>
           <h1 className="mt-2 text-3xl font-black sm:text-4xl">Programa el robot</h1>
-          <p className="mt-3 text-zinc-400">Llega a la meta sin chocar con los bloques. “Repetir” ejecuta varias veces el bloque que le sigue.</p>
+          <p className="mt-2 text-zinc-400">Llega a la meta sin chocar con los bloques. “Repetir” ejecuta varias veces el bloque que le sigue.</p>
 
-          <div className="mx-auto mt-7 grid max-w-xl grid-cols-5 gap-1.5 rounded-2xl border border-zinc-700 bg-zinc-950 p-3 sm:gap-2 sm:p-4" aria-label="Tablero del reto">
-            {cells.map((cell) => {
-              const isTarget = challenge && cellKey(cell) === cellKey(challenge.target)
-              const isRobot = robotPosition && cellKey(cell) === cellKey(robotPosition)
-              const isObstacle = obstacleKeys.has(cellKey(cell))
-              return <div key={cellKey(cell)} className={`relative flex aspect-square items-center justify-center rounded-lg border ${isTarget ? 'border-violet-400/60 bg-violet-400/10' : isObstacle ? 'border-rose-400/30 bg-rose-400/15' : 'border-zinc-800 bg-zinc-900'}`}>
-                {isTarget && <span className="text-xl sm:text-3xl" aria-label="Meta">🎯</span>}
-                {isObstacle && <span className="text-lg opacity-80 sm:text-2xl" aria-label="Obstáculo">🧱</span>}
-                {isRobot && <span className="absolute text-xl transition-all duration-300 sm:text-3xl" style={{ transform: `rotate(${direction * 90}deg)` }} aria-label="Robot">🤖</span>}
-              </div>
-            })}
-          </div>
+          <div className="mt-5 grid gap-5 lg:grid-cols-[minmax(300px,0.78fr)_minmax(0,1.22fr)] lg:items-start">
+            <div className="mx-auto grid w-full max-w-md grid-cols-5 gap-1.5 rounded-2xl border border-zinc-700 bg-zinc-950 p-3 sm:gap-2" aria-label="Tablero del reto">
+              {cells.map((cell) => {
+                const isTarget = challenge && cellKey(cell) === cellKey(challenge.target)
+                const isRobot = robotPosition && cellKey(cell) === cellKey(robotPosition)
+                const isObstacle = obstacleKeys.has(cellKey(cell))
+                return <div key={cellKey(cell)} className={`relative flex aspect-square items-center justify-center rounded-lg border ${isTarget ? 'border-violet-400/60 bg-violet-400/10' : isObstacle ? 'border-rose-400/30 bg-rose-400/15' : 'border-zinc-800 bg-zinc-900'}`}>
+                  {isTarget && <span className="text-xl sm:text-2xl" aria-label="Meta">🎯</span>}
+                  {isObstacle && <span className="text-lg opacity-80 sm:text-xl" aria-label="Obstáculo">🧱</span>}
+                  {isRobot && <span className="absolute text-xl transition-all duration-300 sm:text-2xl" style={{ transform: `rotate(${direction * 90}deg)` }} aria-label="Robot">🤖</span>}
+                </div>
+              })}
+            </div>
 
-          <div className="mt-7 grid gap-6 lg:grid-cols-[0.85fr_1.15fr]">
+            <div>
+              <div className="grid gap-5 xl:grid-cols-[0.85fr_1.15fr]">
             <section><h2 className="font-bold text-zinc-200">Bloques disponibles</h2>
               <div className="mt-3 grid grid-cols-2 gap-2">
                 <button type="button" disabled={!challenge || isRunning || commands.length >= 10} onClick={() => addCommand('FORWARD')} className="rounded-xl bg-cyan-300 px-3 py-3 font-bold text-zinc-950 disabled:opacity-50">↑ Avanzar</button>
@@ -189,12 +191,14 @@ function ChallengePage({ participant }: ChallengePageProps) {
                 </li>)}
               </ol>
             </section>
-          </div>
-          <p role="status" className="mt-5 min-h-6 text-center font-bold text-amber-300">{message}</p>
-          <p role="alert" className="min-h-6 text-center text-sm text-rose-400">{error}</p>
-          <div className="mt-3 grid gap-3 sm:grid-cols-2">
-            <button type="button" onClick={reset} disabled={!challenge || isRunning} className="rounded-2xl border border-zinc-700 px-5 py-4 font-black hover:bg-zinc-800 disabled:opacity-50">REINICIAR</button>
-            <button type="button" onClick={execute} disabled={!challenge || isRunning} className="rounded-2xl bg-cyan-300 px-5 py-4 font-black text-zinc-950 hover:bg-cyan-200 disabled:cursor-wait disabled:opacity-60">{isRunning ? 'EJECUTANDO…' : 'EJECUTAR'}</button>
+              </div>
+              <p role="status" className="mt-3 min-h-6 text-center font-bold text-amber-300">{message}</p>
+              <p role="alert" className="min-h-5 text-center text-sm text-rose-400">{error}</p>
+              <div className="mt-2 grid gap-3 sm:grid-cols-2">
+                <button type="button" onClick={reset} disabled={!challenge || isRunning} className="rounded-2xl border border-zinc-700 px-5 py-3 font-black hover:bg-zinc-800 disabled:opacity-50">REINICIAR</button>
+                <button type="button" onClick={execute} disabled={!challenge || isRunning} className="rounded-2xl bg-cyan-300 px-5 py-3 font-black text-zinc-950 hover:bg-cyan-200 disabled:cursor-wait disabled:opacity-60">{isRunning ? 'EJECUTANDO…' : 'EJECUTAR'}</button>
+              </div>
+            </div>
           </div>
         </div>
       </section>
