@@ -1,5 +1,6 @@
 import BrandFooter from '../components/BrandFooter'
 import BrandHeader from '../components/BrandHeader'
+import coverImage from '../assets/portada-mente-programador.png'
 
 function WelcomePage({ onStart }: { onStart: () => void }) {
   const profiles = [
@@ -18,9 +19,9 @@ function WelcomePage({ onStart }: { onStart: () => void }) {
         <h1 className="mt-6 font-display text-5xl font-black uppercase leading-[.95] tracking-tight sm:text-7xl"><span className="bg-gradient-to-r from-neon-cyan via-white to-violet-300 bg-clip-text text-transparent">¿Tienes mente de<br />programador?</span></h1>
         <p className="mt-5 text-xl font-bold text-neon-cyan">Descúbrelo en menos de 2 minutos 🚀</p>
         <p className="mx-auto mt-2 max-w-2xl text-zinc-400">Responde 5 preguntas, supera un microdesafío de lógica y descubre tu perfil tecnológico.</p>
-        <div className="cyber-panel relative mx-auto mt-8 grid min-h-64 max-w-3xl place-items-center overflow-hidden rounded-3xl p-8">
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(76,215,246,.035)_1px,transparent_1px),linear-gradient(90deg,rgba(76,215,246,.035)_1px,transparent_1px)] bg-[size:28px_28px]" />
-          <div className="relative text-center"><div className="text-8xl drop-shadow-[0_0_30px_rgba(76,215,246,.65)]">🧠</div><p className="mt-4 font-mono text-xs tracking-[.25em] text-neon-cyan">SYSTEM READY // CALIBRACIÓN ACTIVA</p></div>
+        <div className="cyber-panel relative mx-auto mt-8 max-w-3xl overflow-hidden rounded-3xl p-2 shadow-neon">
+          <img src={coverImage} alt="Mente de programador: androide conectado a un sistema digital" className="aspect-video w-full rounded-2xl object-cover" />
+          <p className="absolute bottom-5 left-5 rounded-lg bg-cyber-950/85 px-4 py-2 font-mono text-[10px] tracking-[.2em] text-neon-cyan backdrop-blur">● SYSTEM READY // CALIBRACIÓN ACTIVA</p>
         </div>
         <button onClick={onStart} className="cyber-primary mt-8 rounded-2xl px-10 py-4 font-display text-lg font-black uppercase tracking-wide transition active:scale-[.98]">🎮 Comenzar reto →</button>
         <div className="mt-5 flex flex-wrap justify-center gap-3 font-mono text-xs text-zinc-400"><span className="rounded-full bg-cyber-800 px-4 py-2">⏱ Duración: 2 min</span><span className="rounded-full bg-cyber-800 px-4 py-2">🎮 Mini juego interactivo</span><span className="rounded-full bg-cyber-800 px-4 py-2">🏆 Ranking en vivo</span></div>
