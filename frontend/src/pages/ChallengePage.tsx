@@ -122,7 +122,9 @@ function ChallengePage({ participant }: ChallengePageProps) {
       })
       if (saved.success && success) {
         setMessage('¡Lo lograste! Calculando tu resultado…')
-        setFinalResult(await finishParticipant(participant.id))
+        const result = await finishParticipant(participant.id)
+        sessionStorage.setItem('finalResult', JSON.stringify(result))
+        setFinalResult(result)
       } else setMessage('El robot aún no llegó. Ajusta tus bloques e inténtalo otra vez.')
     } catch (requestError) {
       setError(requestError instanceof Error ? requestError.message : 'No pudimos guardar el intento.')
