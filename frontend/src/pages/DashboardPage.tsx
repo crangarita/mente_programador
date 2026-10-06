@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
+import brandLogo from '../assets/logo-mente-programador.png'
 import { getRanking, getStats } from '../services/api'
 import type { RankingEntry } from '../types/ranking'
 import type { EventStats } from '../types/stats'
@@ -43,7 +44,7 @@ function DashboardPage() {
   return <main className="cyber-page min-h-screen px-5 py-5 text-zinc-100 lg:px-7">
     <section className="mx-auto max-w-[1800px]">
       <header className="cyber-panel grid items-center gap-6 rounded-3xl p-6 lg:grid-cols-[auto_1fr_auto] lg:p-8">
-        <div className="grid h-24 w-24 place-items-center rounded-2xl bg-cyan-400/10 text-5xl shadow-neon">🧠</div>
+        <img src={brandLogo} alt="Logo ¿Tienes mente de programador?" className="h-24 w-24 rounded-2xl border border-neon-cyan/30 object-cover shadow-neon" />
         <div><div className="flex flex-wrap gap-3"><span className="cyber-kicker rounded-full bg-cyber-600 px-4 py-2">● SYS.BROADCAST // 2025.CORE</span><span className="rounded-full bg-red-700 px-4 py-2 font-mono text-[10px] font-bold tracking-widest text-red-100">● TRANSMISIÓN EN VIVO DEL STAND</span></div><h1 className="mt-4 font-display text-4xl font-black uppercase leading-none lg:text-6xl">¿Tienes mente de<br />programador?</h1><div className="mt-4 flex flex-wrap gap-5 font-display text-lg font-bold text-zinc-300"><span>Stand de Ingeniería de Sistemas</span><span className="text-neon-cyan">• Feria Vocacional 2025</span><span className="rounded bg-violet-700/40 px-3 py-1 font-mono text-xs uppercase tracking-wider text-violet-200">Pabellón STEM // Booth 42</span></div></div>
         <div className="flex gap-4 lg:text-right"><div><p className="font-mono text-[10px] uppercase tracking-widest text-zinc-400">Tiempo activo</p><p className="font-mono text-2xl text-neon-cyan">{lastUpdated?.toLocaleTimeString('es-CO') ?? '--:--:--'}</p></div><div className="rounded-2xl bg-cyber-600 px-5 py-3"><p className="cyber-kicker">Monitor kiosk</p><p className="font-display text-xl font-black">ONLINE 100%</p></div></div>
       </header>
