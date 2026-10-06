@@ -1,10 +1,8 @@
 import { useCallback, useEffect, useState } from 'react'
-import BrandFooter from '../components/BrandFooter'
-import BrandHeader from '../components/BrandHeader'
-import { getRanking } from '../services/api'
-import type { Participant } from '../types/participant'
-import type { Profile } from '../types/quiz'
+import { getRanking, getStats } from '../services/api'
 import type { RankingEntry } from '../types/ranking'
+import type { EventStats } from '../types/stats'
+import type { Profile } from '../types/quiz'
 
 const profileLabels: Record<Profile, { label: string; icon: string; color: string }> = {
   FRONTEND_CREATOR: { label: 'Frontend Creator', icon: '🎨', color: '#f472b6' },
@@ -15,29 +13,18 @@ const profileLabels: Record<Profile, { label: string; icon: string; color: strin
   GAME_BUILDER: { label: 'Game Builder', icon: '🎮', color: '#c4abff' },
 }
 
-const podiumStyles = {
-  1: { medal: '🥇', label: 'CAMPEÓN STAND 42', glow: 'border-amber-300/30 shadow-[0_0_45px_rgba(250,204,21,.18)]', order: 'lg:order-2 lg:-translate-y-8' },
-  2: { medal: '🥈', label: 'RANK II', glow: 'border-zinc-400/20', order: 'lg:order-1' },
-  3: { medal: '🥉', label: 'RANK III', glow: 'border-orange-500/20', order: 'lg:order-3' },
-} as const
-
-function storedParticipant(): Participant | null {
-  try { return JSON.parse(sessionStorage.getItem('participant') ?? 'null') as Participant | null }
-  catch { return null }
-}
-
 function DashboardPage() {
+  const [stats, setStats] = useState<EventStats | null>(null)
   const [ranking, setRanking] = useState<RankingEntry[]>([])
   const [error, setError] = useState('')
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null)
-  const [participant] = useState(() => storedParticipant())
 
   const refresh = useCallback(async () => {
     try {
-      setRanking(await getRanking(100))
-      setLastUpdated(new Date())
-      setError('')
-    } catch { setError('No se pudo actualizar el ranking. Reintentando…') }
+      const [nextStats, nextRanking] = await Promise.all([getStats(), getRanking(5)])
+      setStats(nextStats); setRanking(nextRanking)
+      setLastUpdated(new Date()); setError('')
+    } catch { setError('No se pudieron actualizar los datos. Reintentando…') }
   }, [])
 
   useEffect(() => {
@@ -46,64 +33,39 @@ function DashboardPage() {
     return () => { window.clearTimeout(initialRefresh); window.clearInterval(interval) }
   }, [refresh])
 
-  const current = participant ? ranking.find((entry) => entry.alias === participant.alias) : undefined
-  const cutoff = ranking.length >= 10 ? ranking[9].score : ranking.at(-1)?.score
+  const commonProfile = stats?.mostCommonProfile ? profileLabels[stats.mostCommonProfile] : null
+  const completed = stats ? Object.values(stats.profileDistribution).reduce((sum, value) => sum + value, 0) : 0
+  const distribution = (Object.keys(profileLabels) as Profile[]).map((profile) => ({
+    profile, ...profileLabels[profile], count: stats?.profileDistribution[profile] ?? 0,
+    percentage: completed ? Math.round(((stats?.profileDistribution[profile] ?? 0) / completed) * 100) : 0,
+  })).sort((a, b) => b.count - a.count)
 
-  return <div className="cyber-page flex min-h-screen flex-col text-zinc-100">
-    <BrandHeader active="RANKING" compact />
-    <main className="mx-auto w-full max-w-[1500px] flex-1 px-5 py-8 lg:px-10">
-      <section className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
-        <div>
-          <p className="cyber-kicker">● Live leaderboard · Stand 42 · Temporada 2025</p>
-          <h1 className="mt-3 font-display text-5xl font-black uppercase leading-none sm:text-7xl">🏆 Ranking <span className="bg-gradient-to-r from-neon-cyan to-violet-300 bg-clip-text text-transparent">de la feria</span></h1>
-          <p className="mt-3 max-w-3xl text-lg text-zinc-300">¿Puedes entrar al Top 10? Compite contra aspirantes de todos los colegios y asegura tu lugar entre las mentes digitales del stand.</p>
-        </div>
-        <aside className="cyber-panel flex shrink-0 divide-x divide-white/10 rounded-2xl px-5 py-4 font-mono">
-          <div className="pr-5"><p className="text-[9px] uppercase tracking-widest text-zinc-500">Puesto actual</p><strong className="text-neon-cyan">{current ? `#${String(current.position).padStart(2, '0')} ${current.alias}` : 'SIN REGISTRO'}</strong></div>
-          <div className="pl-5"><p className="text-[9px] uppercase tracking-widest text-zinc-500">Top 10 cutoff</p><strong className="text-violet-300">{cutoff ? `${cutoff} pts` : '—'}</strong></div>
-        </aside>
+  return <main className="cyber-page min-h-screen px-5 py-5 text-zinc-100 lg:px-7">
+    <section className="mx-auto max-w-[1800px]">
+      <header className="cyber-panel grid items-center gap-6 rounded-3xl p-6 lg:grid-cols-[auto_1fr_auto] lg:p-8">
+        <div className="grid h-24 w-24 place-items-center rounded-2xl bg-cyan-400/10 text-5xl shadow-neon">🧠</div>
+        <div><div className="flex flex-wrap gap-3"><span className="cyber-kicker rounded-full bg-cyber-600 px-4 py-2">● SYS.BROADCAST // 2025.CORE</span><span className="rounded-full bg-red-700 px-4 py-2 font-mono text-[10px] font-bold tracking-widest text-red-100">● TRANSMISIÓN EN VIVO DEL STAND</span></div><h1 className="mt-4 font-display text-4xl font-black uppercase leading-none lg:text-6xl">¿Tienes mente de<br />programador?</h1><div className="mt-4 flex flex-wrap gap-5 font-display text-lg font-bold text-zinc-300"><span>Stand de Ingeniería de Sistemas</span><span className="text-neon-cyan">• Feria Vocacional 2025</span><span className="rounded bg-violet-700/40 px-3 py-1 font-mono text-xs uppercase tracking-wider text-violet-200">Pabellón STEM // Booth 42</span></div></div>
+        <div className="flex gap-4 lg:text-right"><div><p className="font-mono text-[10px] uppercase tracking-widest text-zinc-400">Tiempo activo</p><p className="font-mono text-2xl text-neon-cyan">{lastUpdated?.toLocaleTimeString('es-CO') ?? '--:--:--'}</p></div><div className="rounded-2xl bg-cyber-600 px-5 py-3"><p className="cyber-kicker">Monitor kiosk</p><p className="font-display text-xl font-black">ONLINE 100%</p></div></div>
+      </header>
+
+      <section className="mt-6 grid gap-5 lg:grid-cols-3">
+        <article className="cyber-panel rounded-3xl p-7"><p className="cyber-kicker">⌘ Registro global de retadores</p><div className="mt-4 flex items-end gap-4"><strong className="font-display text-7xl text-white">{stats?.participants ?? '—'}</strong><span className="pb-2 font-display text-2xl font-black text-neon-cyan">PARTICIPANTES</span></div><p className="mt-3 text-sm text-zinc-400">↗ Registro continuo durante la jornada</p></article>
+        <article className="cyber-panel rounded-3xl p-7"><p className="cyber-kicker text-violet-300">◈ Índice de lógica computacional</p><div className="mt-4"><strong className="font-display text-7xl text-violet-300">{stats?.averageScore ?? '—'}</strong><span className="ml-3 font-display text-2xl font-black">PTS PROMEDIO</span></div><div className="mt-5 h-2 overflow-hidden rounded-full bg-cyber-600"><div className="h-full bg-gradient-to-r from-violet-600 via-violet-300 to-neon-cyan" style={{width: `${Math.min(100, (stats?.averageScore ?? 0) / 10)}%`}} /></div></article>
+        <article className="cyber-panel rounded-3xl p-7"><p className="cyber-kicker">♙ Arquetipo más frecuente</p><div className="mt-3 flex items-center justify-between"><div><strong className="font-display text-5xl font-black uppercase">{commonProfile?.label ?? 'Sin resultados'}</strong><p className="mt-3 text-zinc-400">Afinidad dominante en los participantes evaluados</p></div><span className="text-6xl">{commonProfile?.icon ?? '✨'}</span></div></article>
       </section>
 
-      {ranking.length > 0 && <section className="mt-16 grid items-end gap-5 lg:grid-cols-3" aria-label="Podio de la feria">
-        {ranking.slice(0, 3).map((entry) => {
-          const style = podiumStyles[entry.position as 1 | 2 | 3]
-          const profile = profileLabels[entry.profile]
-          return <article key={entry.position} className={`cyber-panel relative overflow-visible rounded-3xl border p-6 text-center ${style.glow} ${style.order}`}>
-            <span className="absolute left-1/2 top-0 grid h-14 w-14 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-2xl bg-cyber-600 text-3xl shadow-lg">{style.medal}</span>
-            <div className="mx-auto mt-6 grid h-28 w-28 place-items-center rounded-full border-4 border-cyber-600 bg-gradient-to-br from-cyan-400/25 to-violet-500/25 text-5xl shadow-neon">{profile.icon}</div>
-            <p className="mt-3 font-mono text-[10px] font-bold text-amber-300">#{String(entry.position).padStart(2, '0')} LEADER</p>
-            <h2 className="mt-1 font-display text-2xl font-black">{entry.alias}</h2>
-            <p className="mt-2 inline-block rounded-full bg-cyber-600 px-3 py-1 font-mono text-[9px] tracking-wider" style={{ color: profile.color }}>{profile.label} · {profile.icon}</p>
-            <div className="mt-5 flex items-center justify-between rounded-xl bg-cyber-950/70 px-4 py-3"><span className="font-mono text-[9px] uppercase tracking-widest text-zinc-400">Puntaje</span><strong className="font-mono text-2xl text-amber-300">{entry.score}<small className="ml-1 text-[9px] text-zinc-400">pts</small></strong></div>
-            <p className="-mx-6 -mb-6 mt-5 rounded-b-3xl bg-white/[.03] py-5 font-mono text-[10px] tracking-widest text-zinc-300">{style.label}</p>
-          </article>
-        })}
-      </section>}
+      <section className="mt-6 grid gap-5 xl:grid-cols-[1fr_1fr_.95fr]">
+        <article className="cyber-panel rounded-3xl p-6"><div className="flex justify-between"><div><h2 className="font-display text-2xl font-black">▌ TOP 5 EN VIVO</h2><p className="mt-1 font-mono text-[10px] tracking-widest text-zinc-400">TABLA GENERAL DE PUNTUACIÓN</p></div><span className="h-fit rounded bg-cyber-600 px-3 py-2 font-mono text-[9px] text-neon-cyan">SYNC: 5s</span></div><ol className="mt-7 space-y-3">{ranking.slice(0,5).map((entry) => <li key={`${entry.position}-${entry.alias}`} className={`grid grid-cols-[3.5rem_1fr_auto] items-center gap-3 rounded-2xl p-4 ${entry.position === 1 ? 'border-l-4 border-neon-cyan bg-cyber-600' : 'bg-cyber-950/45'}`}><span className={`grid h-11 w-11 place-items-center rounded-xl font-display text-xl font-black ${entry.position === 1 ? 'bg-neon-cyan text-cyan-950' : 'bg-cyber-600 text-zinc-300'}`}>{entry.position}°</span><div><p className="font-display text-xl font-bold">{entry.alias}</p><p className="font-mono text-[9px] uppercase tracking-wider text-zinc-400">{profileLabels[entry.profile].icon} {profileLabels[entry.profile].label}</p></div><strong className="font-mono text-2xl text-neon-cyan">{entry.score}<small className="block text-right text-[9px] text-zinc-400">PTS</small></strong></li>)}</ol><p className="mt-7 rounded-xl bg-cyber-600 p-4 font-mono text-[10px] tracking-wider text-zinc-300">● Actualización continua · {completed} EVALUADOS</p></article>
 
-      <section className="mt-10">
-        <div className="mb-3 flex justify-between px-4 font-mono text-[9px] uppercase tracking-[.2em] text-zinc-400"><span>Posición · Digital architect</span><span>Score gauntlet</span></div>
-        <ol className="space-y-2">
-          {ranking.map((entry) => {
-            const isCurrent = entry.alias === participant?.alias
-            const profile = profileLabels[entry.profile]
-            return <li key={`${entry.position}-${entry.alias}`} className={`grid grid-cols-[3rem_1fr_auto] items-center gap-4 rounded-2xl border px-4 py-3 transition ${isCurrent ? 'border-neon-cyan bg-cyan-400/10 shadow-neon' : 'border-white/[.04] bg-cyber-800/75'}`}>
-              <span className={`grid h-10 w-10 place-items-center rounded-lg font-mono font-bold ${entry.position <= 3 ? 'bg-amber-400/15 text-amber-300' : isCurrent ? 'bg-neon-cyan text-cyan-950' : 'bg-cyber-600 text-zinc-300'}`}>{String(entry.position).padStart(2, '0')}</span>
-              <div className="min-w-0"><p className={`truncate font-display text-lg font-bold ${isCurrent ? 'text-neon-cyan' : ''}`}>{entry.position <= 3 ? podiumStyles[entry.position as 1 | 2 | 3].medal : '🎖️'} <span className="ml-2">{entry.alias}</span>{isCurrent && <small className="ml-2 rounded bg-cyan-400/20 px-2 py-1 font-mono text-[8px] tracking-wider">TÚ · EN RACHA</small>}</p><p className="truncate font-mono text-[9px] tracking-wider text-zinc-400">Perfil: {profile.label} {profile.icon}</p></div>
-              <strong className="text-right font-mono text-xl">{entry.score}<small className="block text-[8px] font-normal tracking-widest text-zinc-400">PTS</small></strong>
-            </li>
-          })}
-        </ol>
-        {ranking.length === 0 && !error && <p className="cyber-panel rounded-2xl p-10 text-center text-zinc-500">Esperando los primeros resultados…</p>}
+        <article className="cyber-panel rounded-3xl p-6"><h2 className="font-display text-2xl font-black">▌ MAPA DE AFINIDAD</h2><p className="mt-1 font-mono text-[10px] tracking-widest text-zinc-400">6 ESPECIALIDADES DE INGENIERÍA</p><div className="mt-7 space-y-4">{distribution.map((item) => <div key={item.profile} className="rounded-2xl bg-cyber-950/40 p-4"><div className="flex justify-between"><span className="font-display text-lg font-bold" style={{color:item.color}}>{item.icon} {item.label}</span><strong className="font-mono" style={{color:item.color}}>{item.percentage}%</strong></div><div className="mt-3 h-2 overflow-hidden rounded-full bg-cyber-600"><div className="h-full rounded-full" style={{width:`${item.percentage}%`,background:item.color}} /></div></div>)}</div><p className="mt-7 text-center font-mono text-[9px] uppercase tracking-widest text-zinc-500">Basado en las pruebas completadas en el stand</p></article>
+
+        <article className="cyber-panel flex flex-col items-center rounded-3xl p-7 text-center"><p className="cyber-kicker self-start rounded-full bg-cyan-400/10 px-4 py-2">⌘ Acceso inmediato al reto</p><h2 className="mt-7 font-display text-5xl font-black uppercase">¡Escanea y<br />participa!</h2><p className="mt-3 text-xl text-neon-cyan">Toma el reto en tu teléfono o acércate a los tótems táctiles.</p><div className="mt-7 grid aspect-square w-full max-w-72 grid-cols-7 gap-2 rounded-3xl bg-white p-8">{Array.from({length:49},(_,i)=><span key={i} className={`${(i*7+i*3)%5<2 ? 'bg-cyber-950' : 'bg-white'} rounded-sm`} />)}</div><p className="mt-3 rounded bg-cyber-600 px-4 py-2 font-mono text-xs tracking-wider">URL: LOCALHOST:15173</p><div className="mt-5 w-full rounded-2xl bg-cyan-400/10 p-5"><p className="font-display text-xl font-black">🎁 PREMIOS AL INSTANTE</p><p className="mt-1 text-neon-cyan">Reclama stickers y premios del stand al terminar.</p></div></article>
       </section>
 
-      <section className="cyber-panel mt-10 flex flex-col items-center justify-between gap-5 rounded-2xl p-5 sm:flex-row">
-        <div className="font-mono text-[9px] tracking-widest text-zinc-300"><p><span className="text-neon-cyan">●</span> STAND 42 · PABELLÓN STEM</p><p>Actualización automática cada 5s{lastUpdated ? ` · ${lastUpdated.toLocaleTimeString('es-CO')}` : ''}</p></div>
-        <div className="flex flex-wrap gap-3"><button type="button" onClick={() => window.location.assign('/')} className="cyber-primary rounded-xl px-7 py-3 font-display font-black">↻ JUGAR DE NUEVO</button><button type="button" onClick={() => window.location.assign('/')} className="rounded-xl bg-cyber-600 px-7 py-3 font-display font-black">⌂ VOLVER AL INICIO</button></div>
-      </section>
+      <div className="mt-6 text-center"><a href="/ranking" className="cyber-primary inline-flex rounded-xl px-8 py-4 font-display text-lg font-black">🏆 VER RANKING COMPLETO</a></div>
       <p role="alert" className="mt-3 min-h-5 text-center text-sm text-rose-300">{error}</p>
-    </main>
-    <BrandFooter />
-  </div>
+    </section>
+  </main>
 }
 
 export default DashboardPage

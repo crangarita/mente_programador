@@ -3,6 +3,7 @@ import RegisterPage from './pages/RegisterPage'
 import QuizPage from './pages/QuizPage'
 import ChallengePage from './pages/ChallengePage'
 import DashboardPage from './pages/DashboardPage'
+import RankingPage from './pages/RankingPage'
 import WelcomePage from './pages/WelcomePage'
 import type { Participant } from './types/participant'
 
@@ -26,6 +27,7 @@ function App() {
   )
 
   if (window.location.pathname === '/dashboard') return <DashboardPage />
+  if (window.location.pathname === '/ranking') return <RankingPage />
 
   if (!participant && !started) return <WelcomePage onStart={() => { sessionStorage.setItem('experienceStarted', 'true'); setStarted(true) }} />
 

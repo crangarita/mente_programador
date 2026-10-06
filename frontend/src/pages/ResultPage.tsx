@@ -1,10 +1,6 @@
-import { useState } from 'react'
 import ProfileCard from '../components/ProfileCard'
 import { profileDetails } from '../data/profileDetails'
-import { getRanking } from '../services/api'
-import type { RankingEntry } from '../types/ranking'
 import type { FinalResult } from '../types/result'
-import RankingPage from './RankingPage'
 import BrandHeader from '../components/BrandHeader'
 
 function storedAvatar() {
@@ -13,24 +9,6 @@ function storedAvatar() {
 }
 
 function ResultPage({ result }: { result: FinalResult }) {
-  const [ranking, setRanking] = useState<RankingEntry[] | null>(null)
-  const [loadingRanking, setLoadingRanking] = useState(false)
-  const [rankingError, setRankingError] = useState('')
-
-  async function showRanking() {
-    setLoadingRanking(true)
-    setRankingError('')
-    try {
-      setRanking(await getRanking(11))
-    } catch (error) {
-      setRankingError(error instanceof Error ? error.message : 'No pudimos cargar el ranking.')
-    } finally {
-      setLoadingRanking(false)
-    }
-  }
-
-  if (ranking) return <RankingPage ranking={ranking} onBack={() => setRanking(null)} />
-
   const profile = profileDetails[result.profile]
   const avatar = storedAvatar()
   const scorePercent = Math.round((result.score / 1000) * 100)
@@ -76,9 +54,8 @@ function ResultPage({ result }: { result: FinalResult }) {
 
           <div className="mt-5 rounded-2xl bg-cyber-600 p-5"><p className="cyber-kicker">🎓 Ruta universitaria conectada</p><p className="mt-2 text-zinc-300">Este talento se potencia estudiando <strong className="text-neon-cyan">Ingeniería de Sistemas</strong>: desarrolla soluciones reales, explora laboratorios y participa en proyectos del semillero.</p></div>
         </div>
-        <p role="alert" className="mt-3 min-h-6 text-center text-sm text-rose-400">{rankingError}</p>
-        <button type="button" onClick={showRanking} disabled={loadingRanking} className="cyber-primary mt-2 w-full rounded-2xl px-5 py-4 font-display font-black disabled:opacity-60">
-          {loadingRanking ? 'CARGANDO…' : 'VER RANKING'}
+        <button type="button" onClick={() => window.location.assign('/ranking')} className="cyber-primary mt-5 w-full rounded-2xl px-5 py-4 font-display font-black">
+          VER RANKING
         </button>
       </section>
     </main></div>
