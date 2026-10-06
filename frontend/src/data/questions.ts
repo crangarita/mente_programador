@@ -17,7 +17,50 @@ const option = (id: QuizOption, label: string, profile: Profile, icon: string): 
   ...details[profile],
 })
 
-export const questions: Question[] = [
+const contextualDescriptions: Record<number, Record<Profile, string>> = {
+  1: {
+    FRONTEND_CREATOR: 'Convertirías la idea en pantallas claras, atractivas y fáciles de usar.',
+    BACKEND_ARCHITECT: 'Diseñarías las reglas, procesos y servicios que hacen funcionar la aplicación.',
+    AI_EXPLORER: 'Empezarías creando una función capaz de aprender, predecir o conversar.',
+    CYBER_GUARDIAN: 'Definirías desde el inicio cómo proteger datos, accesos y comunicaciones.',
+    DATA_DETECTIVE: 'Planearías qué información recopilar y cómo convertirla en decisiones útiles.',
+    GAME_BUILDER: 'Construirías primero la mecánica central que hace divertida la experiencia.',
+  },
+  2: {
+    FRONTEND_CREATOR: 'Te motiva combinar color, composición y movimiento para comunicar una idea.',
+    BACKEND_ARCHITECT: 'Disfrutas encontrar una secuencia ordenada que produzca una solución confiable.',
+    AI_EXPLORER: 'Te interesa probar modelos, instrucciones y datos hasta obtener un comportamiento inteligente.',
+    CYBER_GUARDIAN: 'Te atrae investigar sistemas, descubrir debilidades y proponer cómo corregirlas.',
+    DATA_DETECTIVE: 'Prefieres comparar cifras, formular preguntas y descubrir lo que los datos revelan.',
+    GAME_BUILDER: 'Te entusiasma unir reglas, interacción, narrativa y recompensas en un mundo jugable.',
+  },
+  3: {
+    FRONTEND_CREATOR: 'Exploras distintas formas visuales de explicar el problema hasta hacerlo comprensible.',
+    BACKEND_ARCHITECT: 'Separas el problema en tareas pequeñas, defines dependencias y resuelves una por una.',
+    AI_EXPLORER: 'Buscas patrones repetibles que puedan resolverse mediante automatización o aprendizaje.',
+    CYBER_GUARDIAN: 'Imaginas escenarios de fallo, evalúas riesgos y preparas defensas antes de actuar.',
+    DATA_DETECTIVE: 'Reúnes evidencia, contrastas variables y evitas decidir hasta comprender el panorama.',
+    GAME_BUILDER: 'Transformas la dificultad en niveles, reglas y pequeñas metas que puedas superar.',
+  },
+  4: {
+    FRONTEND_CREATOR: 'Crearías una experiencia móvil fluida donde cada pantalla guíe naturalmente al usuario.',
+    BACKEND_ARCHITECT: 'Construirías una plataforma estable capaz de conectar usuarios, datos y procesos.',
+    AI_EXPLORER: 'Desarrollarías un asistente que comprenda solicitudes y ayude a resolver tareas.',
+    CYBER_GUARDIAN: 'Diseñarías una solución que detecte amenazas y proteja información sensible.',
+    DATA_DETECTIVE: 'Crearías un tablero que transforme grandes volúmenes de datos en señales claras.',
+    GAME_BUILDER: 'Darías vida a personajes, reglas y desafíos dentro de una experiencia interactiva.',
+  },
+  5: {
+    FRONTEND_CREATOR: 'Te importa que la tecnología también sea intuitiva, expresiva y visualmente memorable.',
+    BACKEND_ARCHITECT: 'Tu curiosidad se dirige a los mecanismos, conexiones y reglas que nadie ve.',
+    AI_EXPLORER: 'Aprendes probando herramientas nuevas y descubriendo usos que aún no son evidentes.',
+    CYBER_GUARDIAN: 'Observas detalles, anticipas errores y detectas riesgos antes de que se conviertan en problemas.',
+    DATA_DETECTIVE: 'Encuentras relaciones donde otros ven información aislada y las conviertes en respuestas.',
+    GAME_BUILDER: 'Combinas creatividad y competencia para construir experiencias que invitan a participar.',
+  },
+}
+
+const questionDefinitions: Question[] = [
   {
     number: 1,
     text: 'Si crearas una aplicación, ¿qué parte desarrollarías primero?',
@@ -79,3 +122,11 @@ export const questions: Question[] = [
     ],
   },
 ]
+
+export const questions: Question[] = questionDefinitions.map((question) => ({
+  ...question,
+  options: question.options.map((questionOption) => ({
+    ...questionOption,
+    description: contextualDescriptions[question.number][questionOption.profile],
+  })),
+}))
