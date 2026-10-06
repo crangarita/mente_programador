@@ -32,7 +32,7 @@ function ResultPage({ result }: { result: FinalResult }) {
       <section className="mx-auto w-full max-w-5xl">
         <header className="mb-7 text-center">
           <p className="cyber-kicker">● Diagnóstico completado // Calibración 100%</p>
-          <h1 className="mt-3 flex items-center justify-center gap-3 font-display text-3xl font-black sm:text-5xl">{avatar === '🧠' ? <img src={brandLogo} alt="" className="h-14 w-14 shrink-0 rounded-xl object-cover shadow-neon sm:h-16 sm:w-16" /> : <span aria-hidden="true">{avatar}</span>}<span>¡{result.alias}, tu perfil tecnológico es extraordinario!</span></h1>
+          <h1 className="mt-3 text-center font-display text-3xl font-black sm:text-5xl"><span className="block">{avatar === '🧠' ? <img src={brandLogo} alt="" className="mr-2 inline-block h-14 w-14 rounded-xl object-cover align-middle shadow-neon sm:h-16 sm:w-16" /> : <span className="mr-2 align-middle" aria-hidden="true">{avatar}</span>}<span className="align-middle">¡{result.alias}, tu perfil tecnológico es</span></span><span className="block">extraordinario!</span></h1>
         </header>
 
         <div className="cyber-panel relative overflow-hidden rounded-3xl p-6 sm:p-10"><div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-neon-cyan via-violet-300 to-cyan-400" />
