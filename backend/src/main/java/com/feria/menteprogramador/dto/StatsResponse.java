@@ -1,9 +1,11 @@
 package com.feria.menteprogramador.dto;
 
 import com.feria.menteprogramador.entity.Profile;
+import java.util.Map;
 
 public record StatsResponse(
         long participants,
         int averageScore,
-        Profile mostCommonProfile
+        Profile mostCommonProfile,
+        Map<Profile, Long> profileDistribution
 ) {}

@@ -20,6 +20,9 @@ public interface ResultRepository extends JpaRepository<Result, UUID> {
     @Query("select r.profile from Result r group by r.profile order by count(r) desc, r.profile asc")
     List<Profile> findProfilesByFrequency(Pageable pageable);
 
+    @Query("select r.profile, count(r) from Result r group by r.profile")
+    List<Object[]> findProfileCounts();
+
     @Query("""
             select r from Result r
             join ChallengeResult c on c.participant = r.participant

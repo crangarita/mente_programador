@@ -2,14 +2,15 @@ import { useCallback, useEffect, useState } from 'react'
 import { getRanking, getStats } from '../services/api'
 import type { RankingEntry } from '../types/ranking'
 import type { EventStats } from '../types/stats'
+import type { Profile } from '../types/quiz'
 
-const profileLabels: Record<NonNullable<EventStats['mostCommonProfile']>, { label: string; icon: string }> = {
-  FRONTEND_CREATOR: { label: 'Creador Frontend', icon: '🎨' },
-  BACKEND_ARCHITECT: { label: 'Arquitecto Backend', icon: '⚙️' },
-  AI_EXPLORER: { label: 'Explorador de IA', icon: '🤖' },
-  CYBER_GUARDIAN: { label: 'Guardián Cibernético', icon: '🛡️' },
-  DATA_DETECTIVE: { label: 'Detective de Datos', icon: '📊' },
-  GAME_BUILDER: { label: 'Constructor de Juegos', icon: '🎮' },
+const profileLabels: Record<Profile, { label: string; icon: string; color: string }> = {
+  FRONTEND_CREATOR: { label: 'Frontend Creator', icon: '🎨', color: '#f472b6' },
+  BACKEND_ARCHITECT: { label: 'Backend Architect', icon: '⚙️', color: '#78a5ff' },
+  AI_EXPLORER: { label: 'AI Explorer', icon: '🤖', color: '#4cd7f6' },
+  CYBER_GUARDIAN: { label: 'Cyber Guardian', icon: '🔐', color: '#34d399' },
+  DATA_DETECTIVE: { label: 'Data Detective', icon: '📊', color: '#d8e2ff' },
+  GAME_BUILDER: { label: 'Game Builder', icon: '🎮', color: '#c4abff' },
 }
 
 function DashboardPage() {
@@ -24,14 +25,9 @@ function DashboardPage() {
   const refresh = useCallback(async () => {
     try {
       const [nextStats, nextRanking] = await Promise.all([getStats(), getRanking(visibleLimit + 1)])
-      setStats(nextStats)
-      setRanking(nextRanking.slice(0, visibleLimit))
-      setHasMore(nextRanking.length > visibleLimit)
-      setLastUpdated(new Date())
-      setError('')
-    } catch {
-      setError('No se pudieron actualizar los datos. Reintentando…')
-    }
+      setStats(nextStats); setRanking(nextRanking.slice(0, visibleLimit)); setHasMore(nextRanking.length > visibleLimit)
+      setLastUpdated(new Date()); setError('')
+    } catch { setError('No se pudieron actualizar los datos. Reintentando…') }
   }, [visibleLimit])
 
   async function loadMore() {
@@ -39,90 +35,50 @@ function DashboardPage() {
     const nextLimit = visibleLimit + 10
     try {
       const nextRanking = await getRanking(nextLimit + 1)
-      setRanking(nextRanking.slice(0, nextLimit))
-      setVisibleLimit(nextLimit)
-      setHasMore(nextRanking.length > nextLimit)
-      setError('')
-    } catch {
-      setError('No se pudieron cargar más resultados. Intenta nuevamente.')
-    } finally {
-      setIsLoadingMore(false)
-    }
+      setRanking(nextRanking.slice(0, nextLimit)); setVisibleLimit(nextLimit); setHasMore(nextRanking.length > nextLimit); setError('')
+    } catch { setError('No se pudieron cargar más resultados. Intenta nuevamente.') }
+    finally { setIsLoadingMore(false) }
   }
 
   useEffect(() => {
     const initialRefresh = window.setTimeout(() => void refresh(), 0)
     const interval = window.setInterval(() => void refresh(), 5_000)
-    return () => {
-      window.clearTimeout(initialRefresh)
-      window.clearInterval(interval)
-    }
+    return () => { window.clearTimeout(initialRefresh); window.clearInterval(interval) }
   }, [refresh])
 
   const commonProfile = stats?.mostCommonProfile ? profileLabels[stats.mostCommonProfile] : null
+  const completed = stats ? Object.values(stats.profileDistribution).reduce((sum, value) => sum + value, 0) : 0
+  const distribution = (Object.keys(profileLabels) as Profile[]).map((profile) => ({
+    profile, ...profileLabels[profile], count: stats?.profileDistribution[profile] ?? 0,
+    percentage: completed ? Math.round(((stats?.profileDistribution[profile] ?? 0) / completed) * 100) : 0,
+  })).sort((a, b) => b.count - a.count)
 
-  return (
-    <main className="cyber-page relative min-h-screen overflow-hidden px-6 py-6 text-zinc-100 lg:px-10 lg:py-8">
-      <div className="pointer-events-none absolute -left-40 top-20 h-96 w-96 rounded-full bg-cyan-400/10 blur-3xl" />
-      <div className="pointer-events-none absolute -right-40 bottom-0 h-[32rem] w-[32rem] rounded-full bg-violet-500/10 blur-3xl" />
+  return <main className="cyber-page min-h-screen px-5 py-5 text-zinc-100 lg:px-7">
+    <section className="mx-auto max-w-[1800px]">
+      <header className="cyber-panel grid items-center gap-6 rounded-3xl p-6 lg:grid-cols-[auto_1fr_auto] lg:p-8">
+        <div className="grid h-24 w-24 place-items-center rounded-2xl bg-cyan-400/10 text-5xl shadow-neon">🧠</div>
+        <div><div className="flex flex-wrap gap-3"><span className="cyber-kicker rounded-full bg-cyber-600 px-4 py-2">● SYS.BROADCAST // 2025.CORE</span><span className="rounded-full bg-red-700 px-4 py-2 font-mono text-[10px] font-bold tracking-widest text-red-100">● TRANSMISIÓN EN VIVO DEL STAND</span></div><h1 className="mt-4 font-display text-4xl font-black uppercase leading-none lg:text-6xl">¿Tienes mente de<br />programador?</h1><div className="mt-4 flex flex-wrap gap-5 font-display text-lg font-bold text-zinc-300"><span>Stand de Ingeniería de Sistemas</span><span className="text-neon-cyan">• Feria Vocacional 2025</span><span className="rounded bg-violet-700/40 px-3 py-1 font-mono text-xs uppercase tracking-wider text-violet-200">Pabellón STEM // Booth 42</span></div></div>
+        <div className="flex gap-4 lg:text-right"><div><p className="font-mono text-[10px] uppercase tracking-widest text-zinc-400">Tiempo activo</p><p className="font-mono text-2xl text-neon-cyan">{lastUpdated?.toLocaleTimeString('es-CO') ?? '--:--:--'}</p></div><div className="rounded-2xl bg-cyber-600 px-5 py-3"><p className="cyber-kicker">Monitor kiosk</p><p className="font-display text-xl font-black">ONLINE 100%</p></div></div>
+      </header>
 
-      <section className="relative mx-auto max-w-[1600px]">
-        <header className="cyber-panel flex flex-col gap-4 rounded-3xl p-6 sm:flex-row sm:items-end sm:justify-between sm:gap-8">
-          <div>
-            <p className="cyber-kicker">● Sys.broadcast // Transmisión en vivo</p>
-            <h1 className="mt-2 font-display text-4xl font-black uppercase lg:text-6xl">¿Tienes mente de programador?</h1>
-          </div>
-          <div className="text-left text-sm text-zinc-500 sm:text-right">
-            <span className="inline-flex items-center gap-2 font-bold text-emerald-300"><span aria-hidden="true" className="h-2.5 w-2.5 animate-pulse rounded-full bg-emerald-300" />EN VIVO</span>
-            <p className="mt-1">Actualiza cada 5 segundos{lastUpdated ? ` · ${lastUpdated.toLocaleTimeString('es-CO')}` : ''}</p>
-          </div>
-        </header>
-
-        <section className="mt-6 grid gap-4 md:grid-cols-3" aria-label="Estadísticas de la feria">
-          <article className="cyber-panel rounded-3xl p-5 lg:p-7">
-            <p className="text-sm font-bold uppercase tracking-widest text-zinc-400">Participantes</p>
-            <p className="mt-2 text-5xl font-black text-cyan-300 lg:text-7xl">{stats?.participants ?? '—'}</p>
-          </article>
-          <article className="cyber-panel rounded-3xl p-5 lg:p-7">
-            <p className="text-sm font-bold uppercase tracking-widest text-zinc-400">Puntaje promedio</p>
-            <p className="mt-2 text-5xl font-black text-violet-300 lg:text-7xl">{stats?.averageScore ?? '—'}</p>
-          </article>
-          <article className="cyber-panel rounded-3xl p-5 lg:p-7">
-            <p className="text-sm font-bold uppercase tracking-widest text-zinc-400">Perfil más frecuente</p>
-            <div className="mt-3 flex items-center gap-4"><span className="text-4xl lg:text-6xl" aria-hidden="true">{commonProfile?.icon ?? '✨'}</span><p className="text-2xl font-black text-amber-200 lg:text-4xl">{commonProfile?.label ?? 'Sin resultados'}</p></div>
-          </article>
-        </section>
-
-        <section className="cyber-panel mt-6 overflow-hidden rounded-3xl">
-          <div className="flex items-center justify-between border-b border-zinc-800 px-6 py-4 lg:px-8">
-            <h2 className="text-2xl font-black lg:text-3xl">Ranking</h2>
-            <span className="text-sm font-bold text-zinc-500">MOSTRANDO {ranking.length} RESULTADOS</span>
-          </div>
-          <div className="grid divide-y divide-zinc-800 xl:grid-cols-2 xl:divide-x xl:divide-y-0">
-            {[ranking.slice(0, Math.ceil(ranking.length / 2)), ranking.slice(Math.ceil(ranking.length / 2))].map((column, columnIndex) => (
-              <ol key={columnIndex} className="divide-y divide-zinc-800" aria-label={columnIndex === 0 ? 'Primera parte del ranking' : 'Segunda parte del ranking'}>
-                {column.map((entry) => (
-                  <li key={`${entry.position}-${entry.alias}`} className="grid grid-cols-[4.5rem_1fr_auto] items-center gap-4 px-6 py-3.5 lg:px-8 lg:py-4">
-                    <span className={`text-2xl font-black ${entry.position <= 3 ? 'text-amber-300' : 'text-zinc-500'}`}>#{entry.position}</span>
-                    <div className="min-w-0"><p className="truncate text-lg font-black lg:text-xl">{entry.alias}</p><p className="truncate text-sm text-zinc-500">{profileLabels[entry.profile].icon} {profileLabels[entry.profile].label}</p></div>
-                    <span className="text-2xl font-black text-cyan-300 lg:text-3xl">{entry.score}</span>
-                  </li>
-                ))}
-                {column.length === 0 && <li className="px-8 py-10 text-center text-zinc-600">Esperando participantes…</li>}
-              </ol>
-            ))}
-          </div>
-          {hasMore && <div className="border-t border-zinc-800 p-4 text-center">
-            <button type="button" onClick={loadMore} disabled={isLoadingMore} className="w-full rounded-2xl bg-violet-400 px-5 py-3 font-black text-zinc-950 hover:bg-violet-300 disabled:opacity-60 sm:w-auto sm:min-w-64">
-              {isLoadingMore ? 'CARGANDO…' : 'VER 10 MÁS'}
-            </button>
-          </div>}
-        </section>
-
-        <p role="alert" className="mt-3 min-h-5 text-center text-sm text-rose-300">{error}</p>
+      <section className="mt-6 grid gap-5 lg:grid-cols-3">
+        <article className="cyber-panel rounded-3xl p-7"><p className="cyber-kicker">⌘ Registro global de retadores</p><div className="mt-4 flex items-end gap-4"><strong className="font-display text-7xl text-white">{stats?.participants ?? '—'}</strong><span className="pb-2 font-display text-2xl font-black text-neon-cyan">PARTICIPANTES</span></div><p className="mt-3 text-sm text-zinc-400">↗ Registro continuo durante la jornada</p></article>
+        <article className="cyber-panel rounded-3xl p-7"><p className="cyber-kicker text-violet-300">◈ Índice de lógica computacional</p><div className="mt-4"><strong className="font-display text-7xl text-violet-300">{stats?.averageScore ?? '—'}</strong><span className="ml-3 font-display text-2xl font-black">PTS PROMEDIO</span></div><div className="mt-5 h-2 overflow-hidden rounded-full bg-cyber-600"><div className="h-full bg-gradient-to-r from-violet-600 via-violet-300 to-neon-cyan" style={{width: `${Math.min(100, (stats?.averageScore ?? 0) / 10)}%`}} /></div></article>
+        <article className="cyber-panel rounded-3xl p-7"><p className="cyber-kicker">♙ Arquetipo más frecuente</p><div className="mt-3 flex items-center justify-between"><div><strong className="font-display text-5xl font-black uppercase">{commonProfile?.label ?? 'Sin resultados'}</strong><p className="mt-3 text-zinc-400">Afinidad dominante en los participantes evaluados</p></div><span className="text-6xl">{commonProfile?.icon ?? '✨'}</span></div></article>
       </section>
-    </main>
-  )
+
+      <section className="mt-6 grid gap-5 xl:grid-cols-[1fr_1fr_.95fr]">
+        <article className="cyber-panel rounded-3xl p-6"><div className="flex justify-between"><div><h2 className="font-display text-2xl font-black">▌ TOP 5 EN VIVO</h2><p className="mt-1 font-mono text-[10px] tracking-widest text-zinc-400">TABLA GENERAL DE PUNTUACIÓN</p></div><span className="h-fit rounded bg-cyber-600 px-3 py-2 font-mono text-[9px] text-neon-cyan">SYNC: 5s</span></div><ol className="mt-7 space-y-3">{ranking.slice(0,5).map((entry) => <li key={`${entry.position}-${entry.alias}`} className={`grid grid-cols-[3.5rem_1fr_auto] items-center gap-3 rounded-2xl p-4 ${entry.position === 1 ? 'border-l-4 border-neon-cyan bg-cyber-600' : 'bg-cyber-950/45'}`}><span className={`grid h-11 w-11 place-items-center rounded-xl font-display text-xl font-black ${entry.position === 1 ? 'bg-neon-cyan text-cyan-950' : 'bg-cyber-600 text-zinc-300'}`}>{entry.position}°</span><div><p className="font-display text-xl font-bold">{entry.alias}</p><p className="font-mono text-[9px] uppercase tracking-wider text-zinc-400">{profileLabels[entry.profile].icon} {profileLabels[entry.profile].label}</p></div><strong className="font-mono text-2xl text-neon-cyan">{entry.score}<small className="block text-right text-[9px] text-zinc-400">PTS</small></strong></li>)}</ol><p className="mt-7 rounded-xl bg-cyber-600 p-4 font-mono text-[10px] tracking-wider text-zinc-300">● Actualización continua · {completed} EVALUADOS</p></article>
+
+        <article className="cyber-panel rounded-3xl p-6"><h2 className="font-display text-2xl font-black">▌ MAPA DE AFINIDAD</h2><p className="mt-1 font-mono text-[10px] tracking-widest text-zinc-400">6 ESPECIALIDADES DE INGENIERÍA</p><div className="mt-7 space-y-4">{distribution.map((item) => <div key={item.profile} className="rounded-2xl bg-cyber-950/40 p-4"><div className="flex justify-between"><span className="font-display text-lg font-bold" style={{color:item.color}}>{item.icon} {item.label}</span><strong className="font-mono" style={{color:item.color}}>{item.percentage}%</strong></div><div className="mt-3 h-2 overflow-hidden rounded-full bg-cyber-600"><div className="h-full rounded-full" style={{width:`${item.percentage}%`,background:item.color}} /></div></div>)}</div><p className="mt-7 text-center font-mono text-[9px] uppercase tracking-widest text-zinc-500">Basado en las pruebas completadas en el stand</p></article>
+
+        <article className="cyber-panel flex flex-col items-center rounded-3xl p-7 text-center"><p className="cyber-kicker self-start rounded-full bg-cyan-400/10 px-4 py-2">⌘ Acceso inmediato al reto</p><h2 className="mt-7 font-display text-5xl font-black uppercase">¡Escanea y<br />participa!</h2><p className="mt-3 text-xl text-neon-cyan">Toma el reto en tu teléfono o acércate a los tótems táctiles.</p><div className="mt-7 grid aspect-square w-full max-w-72 grid-cols-7 gap-2 rounded-3xl bg-white p-8">{Array.from({length:49},(_,i)=><span key={i} className={`${(i*7+i*3)%5<2 ? 'bg-cyber-950' : 'bg-white'} rounded-sm`} />)}</div><p className="mt-3 rounded bg-cyber-600 px-4 py-2 font-mono text-xs tracking-wider">URL: LOCALHOST:15173</p><div className="mt-5 w-full rounded-2xl bg-cyan-400/10 p-5"><p className="font-display text-xl font-black">🎁 PREMIOS AL INSTANTE</p><p className="mt-1 text-neon-cyan">Reclama stickers y premios del stand al terminar.</p></div></article>
+      </section>
+
+      <section className="cyber-panel mt-6 overflow-hidden rounded-3xl"><div className="flex items-center justify-between border-b border-white/[.06] px-6 py-4"><h2 className="font-display text-xl font-black">RANKING COMPLETO</h2><span className="font-mono text-[10px] text-zinc-500">MOSTRANDO {ranking.length}</span></div><ol className="grid lg:grid-cols-2">{ranking.slice(5).map((entry) => <li key={`${entry.position}-${entry.alias}`} className="grid grid-cols-[3rem_1fr_auto] items-center gap-3 border-b border-white/[.05] px-6 py-3"><span className="font-mono text-zinc-500">#{entry.position}</span><span className="truncate font-display font-bold">{entry.alias} <small className="ml-2 font-mono text-[9px] text-zinc-500">{profileLabels[entry.profile].label}</small></span><strong className="font-mono text-neon-cyan">{entry.score}</strong></li>)}</ol>{hasMore && <div className="p-4 text-center"><button onClick={loadMore} disabled={isLoadingMore} className="cyber-primary rounded-xl px-8 py-3 font-display font-black disabled:opacity-50">{isLoadingMore ? 'CARGANDO…' : 'VER 10 MÁS'}</button></div>}</section>
+      <p role="alert" className="mt-3 min-h-5 text-center text-sm text-rose-300">{error}</p>
+    </section>
+  </main>
 }
 
 export default DashboardPage
