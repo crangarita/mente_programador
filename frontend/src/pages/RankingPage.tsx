@@ -5,6 +5,7 @@ import { getRanking } from '../services/api'
 import type { Participant } from '../types/participant'
 import type { Profile } from '../types/quiz'
 import type { RankingEntry } from '../types/ranking'
+import { profileDetails } from '../data/profileDetails'
 
 const profileLabels: Record<Profile, { label: string; icon: string; color: string }> = {
   FRONTEND_CREATOR: { label: 'Frontend Creator', icon: '🎨', color: '#f472b6' },
@@ -51,12 +52,12 @@ function RankingPage() {
 
   return <div className="cyber-page flex min-h-screen flex-col text-zinc-100">
     <BrandHeader active="RANKING" compact />
-    <main className="mx-auto w-full max-w-[1500px] flex-1 px-5 py-8 lg:px-10">
+    <main className="mx-auto w-full max-w-7xl flex-1 px-5 py-8 lg:px-10">
       <section className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
         <div>
           <p className="cyber-kicker">● Live leaderboard · Stand 42 · Temporada 2025</p>
-          <h1 className="mt-3 font-display text-5xl font-black uppercase leading-none sm:text-7xl">🏆 Ranking <span className="bg-gradient-to-r from-neon-cyan to-violet-300 bg-clip-text text-transparent">de la feria</span></h1>
-          <p className="mt-3 max-w-3xl text-lg text-zinc-300">¿Puedes entrar al Top 10? Compite contra aspirantes de todos los colegios y asegura tu lugar entre las mentes digitales del stand.</p>
+          <h1 className="mt-3 font-display text-5xl font-black uppercase leading-none sm:text-6xl">🏆 Ranking <span className="bg-gradient-to-r from-neon-cyan to-violet-300 bg-clip-text text-transparent">de la feria</span></h1>
+          <p className="mt-3 max-w-2xl text-base text-zinc-300">¿Puedes entrar al Top 10? Compite contra aspirantes de todos los colegios y asegura tu lugar entre las mentes digitales del stand.</p>
         </div>
         <aside className="cyber-panel flex shrink-0 divide-x divide-white/10 rounded-2xl px-5 py-4 font-mono">
           <div className="pr-5"><p className="text-[9px] uppercase tracking-widest text-zinc-500">Puesto actual</p><strong className="text-neon-cyan">{current ? `#${String(current.position).padStart(2, '0')} ${current.alias}` : 'SIN REGISTRO'}</strong></div>
@@ -64,13 +65,13 @@ function RankingPage() {
         </aside>
       </section>
 
-      {ranking.length > 0 && <section className="mt-16 grid items-end gap-5 lg:grid-cols-3" aria-label="Podio de la feria">
+      {ranking.length > 0 && <section className="mt-12 grid items-end gap-5 lg:grid-cols-3" aria-label="Podio de la feria">
         {ranking.slice(0, 3).map((entry) => {
           const style = podiumStyles[entry.position as 1 | 2 | 3]
           const profile = profileLabels[entry.profile]
           return <article key={entry.position} className={`cyber-panel relative overflow-visible rounded-3xl border p-6 text-center ${style.glow} ${style.order}`}>
             <span className="absolute left-1/2 top-0 grid h-14 w-14 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-2xl bg-cyber-600 text-3xl shadow-lg">{style.medal}</span>
-            <div className="mx-auto mt-6 grid h-28 w-28 place-items-center rounded-full border-4 border-cyber-600 bg-gradient-to-br from-cyan-400/25 to-violet-500/25 text-5xl shadow-neon">{profile.icon}</div>
+            <img src={profileDetails[entry.profile].image} alt="" className="mx-auto mt-6 h-24 w-24 rounded-full border-4 border-cyber-600 object-cover shadow-neon" />
             <p className="mt-3 font-mono text-[10px] font-bold text-amber-300">#{String(entry.position).padStart(2, '0')} LEADER</p>
             <h2 className="mt-1 font-display text-2xl font-black">{entry.alias}</h2>
             <p className="mt-2 inline-block rounded-full bg-cyber-600 px-3 py-1 font-mono text-[9px] tracking-wider" style={{ color: profile.color }}>{profile.label} · {profile.icon}</p>
