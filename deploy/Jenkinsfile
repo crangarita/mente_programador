@@ -1,0 +1,183 @@
+pipeline {
+    // Agente de Jenkins con Docker CLI instalado
+    agent any
+
+    environment {
+        // Rutas del monorepo
+        FRONT_DIR = 'frontend'
+        BACK_DIR  = 'backend'
+
+        // Registro de GitHub Container Registry (ghcr.io)
+        REGISTRY_HOST       = 'ghcr.io'
+        // IMPORTANTE: En GHCR los nombres de usuario/organización van en minúsculas (ej: crangarita o tu org)
+        GITHUB_OWNER        = 'crangarita' 
+        BACKEND_IMAGE_NAME  = "${REGISTRY_HOST}/${GITHUB_OWNER}/mente-backend"
+        FRONTEND_IMAGE_NAME = "${REGISTRY_HOST}/${GITHUB_OWNER}/mente-frontend"
+
+        // Credenciales configuradas en Jenkins
+        // Tipo "Username with password": Tu usuario de GitHub y un Personal Access Token (PAT con permiso write:packages)
+        GHCR_CREDENTIALS_ID = 'github-ghcr-credentials'
+        // Tipo "SSH Username with private key": Llave SSH para el usuario deploy en tu VPS
+        SSH_CREDENTIAL_ID   = 'mente-programador-prod-ssh'
+
+        // Parámetros del servidor remoto (VPS)
+        REMOTE_HOST         = '76.13.99.135'     // Ajusta con la IP o dominio de tu VPS
+        REMOTE_USER         = 'deploy'
+        REMOTE_DEPLOY_DIR   = '/opt/mente-programador'
+
+        // URLs públicas para la construcción del frontend
+        VITE_API_URL        = 'http://76.13.99.135:8080/api' // O tu dominio: 'https://api.tudominio.com/api'
+    }
+
+    options {
+        disableConcurrentBuilds()
+        timestamps()
+        buildDiscarder(logRotator(numToKeepStr: '15'))
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+                sh '''
+                    echo "Repositorio descargado correctamente."
+                    git log -1 --oneline
+                '''
+            }
+        }
+
+        stage('Detectar cambios') {
+            steps {
+                script {
+                    env.BUILD_FRONT = 'true'
+                    env.BUILD_BACK  = 'true'
+
+                    def changeLogSets = currentBuild.changeSets
+                    def changedFiles = []
+
+                    for (def changeSet in changeLogSets) {
+                        for (def entry in changeSet.items) {
+                            for (def file in entry.affectedFiles) {
+                                changedFiles << file.path
+                            }
+                        }
+                    }
+
+                    if (changedFiles && changedFiles.size() > 0) {
+                        def frontChanged = changedFiles.any { it.startsWith("${FRONT_DIR}/") }
+                        def backChanged  = changedFiles.any { it.startsWith("${BACK_DIR}/") }
+
+                        env.BUILD_FRONT = frontChanged ? 'true' : 'false'
+                        env.BUILD_BACK  = backChanged ? 'true' : 'false'
+
+                        echo "Archivos modificados: ${changedFiles.join(', ')}"
+                    } else {
+                        echo "No se encontraron cambios previos o primer build; se construirán ambas imágenes."
+                    }
+
+                    echo "BUILD_FRONT=${env.BUILD_FRONT}"
+                    echo "BUILD_BACK=${env.BUILD_BACK}"
+                }
+            }
+        }
+
+        stage('Login GHCR') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: "${env.GHCR_CREDENTIALS_ID}", usernameVariable: 'GH_USER', passwordVariable: 'GH_TOKEN')]) {
+                    sh '''
+                        echo "$GH_TOKEN" | docker login "${REGISTRY_HOST}" -u "$GH_USER" --password-stdin
+                    '''
+                }
+            }
+        }
+
+        stage('Build & Push Backend') {
+            when {
+                expression { env.BUILD_BACK == 'true' }
+            }
+            steps {
+                script {
+                    def imageTag = "${env.BUILD_NUMBER}"
+                    echo "Construyendo imagen backend: ${env.BACKEND_IMAGE_NAME}:${imageTag}"
+                    dir("${BACK_DIR}") {
+                        sh """
+                            docker build -t ${env.BACKEND_IMAGE_NAME}:${imageTag} -t ${env.BACKEND_IMAGE_NAME}:latest .
+                            docker push ${env.BACKEND_IMAGE_NAME}:${imageTag}
+                            docker push ${env.BACKEND_IMAGE_NAME}:latest
+                        """
+                    }
+                }
+            }
+        }
+
+        stage('Build & Push Frontend') {
+            when {
+                expression { env.BUILD_FRONT == 'true' }
+            }
+            steps {
+                script {
+                    def imageTag = "${env.BUILD_NUMBER}"
+                    echo "Construyendo imagen frontend: ${env.FRONTEND_IMAGE_NAME}:${imageTag}"
+                    dir("${FRONT_DIR}") {
+                        sh """
+                            docker build \
+                              --build-arg VITE_API_URL=${env.VITE_API_URL} \
+                              -t ${env.FRONTEND_IMAGE_NAME}:${imageTag} \
+                              -t ${env.FRONTEND_IMAGE_NAME}:latest .
+                            docker push ${env.FRONTEND_IMAGE_NAME}:${imageTag}
+                            docker push ${env.FRONTEND_IMAGE_NAME}:latest
+                        """
+                    }
+                }
+            }
+        }
+
+        stage('Deploy al Servidor Remoto') {
+            steps {
+                sshagent(credentials: ["${env.SSH_CREDENTIAL_ID}"]) {
+                    sh """
+                        set -e
+
+                        # 1. Asegurar directorio en el VPS
+                        ssh -o StrictHostKeyChecking=no ${env.REMOTE_USER}@${env.REMOTE_HOST} '
+                            mkdir -p ${env.REMOTE_DEPLOY_DIR}
+                        '
+
+                        # 2. Copiar el docker-compose de producción al VPS
+                        scp -o StrictHostKeyChecking=no deploy/docker-compose.prod.yml \
+                            ${env.REMOTE_USER}@${env.REMOTE_HOST}:${env.REMOTE_DEPLOY_DIR}/docker-compose.yml
+
+                        # 3. Pull y despliegue usando docker compose
+                        ssh -o StrictHostKeyChecking=no ${env.REMOTE_USER}@${env.REMOTE_HOST} '
+                            cd ${env.REMOTE_DEPLOY_DIR}
+
+                            # Exportar prefijo y tag para compose
+                            export GHCR_IMAGE_PREFIX="${env.REGISTRY_HOST}/${env.GITHUB_OWNER}"
+                            export IMAGE_TAG="latest"
+
+                            # Descargar imágenes nuevas y levantar
+                            docker compose pull
+                            docker compose up -d --remove-orphans
+
+                            # Limpiar imágenes huérfanas/antiguas para no saturar disco
+                            docker image prune -f
+                        '
+                    """
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "✅ Despliegue de mente-programador completado exitosamente en ${env.REMOTE_HOST}."
+        }
+        failure {
+            echo "❌ El pipeline falló. Revisa los logs de la consola en Jenkins."
+        }
+        always {
+            sh "docker logout ${env.REGISTRY_HOST} || true"
+            cleanWs()
+        }
+    }
+}

@@ -1,0 +1,197 @@
+pipeline {
+    agent { label 'remote-java-server-83' }
+
+    environment {
+        // Rutas del monorepo
+        FRONT_DIR = 'frontend'
+        BACK_DIR  = 'backend'
+
+        // Identificador de la aplicación
+        APP_NAME  = 'mente-programador'
+
+        // Frontend
+        DEPLOY_FRONT_PATH = '/home/deploy/releases/mente-programador-frontend'
+        PROD_FRONT_PATH   = '/var/www/mente-programador'
+        VITE_API_URL      = 'http://76.13.99.135:8080/api'
+        VITE_ROUTER_BASE  = '/'
+
+        // Backend remoto (VPS)
+        REMOTE_BACK_HOST  = '76.13.99.135'
+        REMOTE_BACK_USER  = 'deploy'
+        REMOTE_BACK_PATH  = '/opt/mente-programador/backend'
+        SPRING_PROFILE    = 'prod'
+        SERVICE_NAME      = 'mente-programador-api'
+
+        // Credencial SSH en Jenkins para el VPS productivo
+        // (Usa 'mente-programador-prod-ssh' o 'prediction-league-prod-ssh' según esté registrada en tu Jenkins)
+        SSH_CREDENTIAL_ID = 'mente-programador-prod-ssh'
+    }
+
+    options {
+        disableConcurrentBuilds()
+        timestamps()
+        buildDiscarder(logRotator(numToKeepStr: '15'))
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+                sh '''
+                    echo "Repositorio descargado correctamente."
+                    git log -1 --oneline
+                '''
+            }
+        }
+
+        stage('Detectar cambios') {
+            steps {
+                script {
+                    env.BUILD_FRONT = 'true'
+                    env.BUILD_BACK  = 'true'
+
+                    def changeLogSets = currentBuild.changeSets
+                    def changedFiles = []
+
+                    for (def changeSet in changeLogSets) {
+                        for (def entry in changeSet.items) {
+                            for (def file in entry.affectedFiles) {
+                                changedFiles << file.path
+                            }
+                        }
+                    }
+
+                    if (changedFiles && changedFiles.size() > 0) {
+                        def frontChanged = changedFiles.any { it.startsWith("${FRONT_DIR}/") }
+                        def backChanged  = changedFiles.any { it.startsWith("${BACK_DIR}/") }
+
+                        env.BUILD_FRONT = frontChanged ? 'true' : 'false'
+                        env.BUILD_BACK  = backChanged ? 'true' : 'false'
+
+                        echo "Archivos modificados: ${changedFiles.join(', ')}"
+                    } else {
+                        echo "No se detectaron cambios individuales o es ejecución manual; se construyen ambas capas."
+                    }
+
+                    echo "BUILD_FRONT=${env.BUILD_FRONT}"
+                    echo "BUILD_BACK=${env.BUILD_BACK}"
+                }
+            }
+        }
+
+        stage('Build Backend') {
+            when {
+                expression { env.BUILD_BACK == 'true' }
+            }
+            steps {
+                dir("${BACK_DIR}") {
+                    sh '''
+                        java -version
+                        mvn -v
+                        mvn clean package -DskipTests
+                        cp target/*.jar target/app.jar
+                    '''
+                    stash includes: 'target/app.jar', name: 'backend-jar'
+                }
+            }
+        }
+
+        stage('Build Frontend') {
+            when {
+                expression { env.BUILD_FRONT == 'true' }
+            }
+            steps {
+                dir("${FRONT_DIR}") {
+                    withEnv([
+                        "VITE_API_URL=${env.VITE_API_URL}",
+                        "VITE_ROUTER_BASE=${env.VITE_ROUTER_BASE}"
+                    ]) {
+                        sh '''
+                            node -v
+                            npm -v
+                            npm ci
+                            npm run build
+                            test -d dist
+                        '''
+                    }
+                    stash includes: 'dist/**', name: 'frontend-dist'
+                }
+            }
+        }
+
+        stage('Deploy Backend') {
+            when {
+                expression { env.BUILD_BACK == 'true' }
+            }
+            steps {
+                unstash 'backend-jar'
+                sshagent(credentials: ["${env.SSH_CREDENTIAL_ID}"]) {
+                    sh """
+                        set -e
+
+                        # Subir jar al servidor temporalmente
+                        scp -o StrictHostKeyChecking=no ${BACK_DIR}/target/app.jar \
+                            ${REMOTE_BACK_USER}@${REMOTE_BACK_HOST}:/tmp/${APP_NAME}.jar
+
+                        # Mover al directorio destino y reiniciar servicio systemd
+                        ssh -o StrictHostKeyChecking=no ${REMOTE_BACK_USER}@${REMOTE_BACK_HOST} '
+                            sudo mkdir -p ${REMOTE_BACK_PATH}
+                            sudo cp /tmp/${APP_NAME}.jar ${REMOTE_BACK_PATH}/app.jar
+                            sudo rm -f /tmp/${APP_NAME}.jar
+                            sudo chown -R ${REMOTE_BACK_USER}:${REMOTE_BACK_USER} ${REMOTE_BACK_PATH}
+                            sudo systemctl restart ${SERVICE_NAME}
+                            sudo systemctl status ${SERVICE_NAME} --no-pager
+                        '
+                    """
+                }
+            }
+        }
+
+        stage('Deploy Frontend') {
+            when {
+                expression { env.BUILD_FRONT == 'true' }
+            }
+            steps {
+                unstash 'frontend-dist'
+                sshagent(credentials: ["${env.SSH_CREDENTIAL_ID}"]) {
+                    sh """
+                        set -e
+
+                        # Preparar directorios en el servidor
+                        ssh -o StrictHostKeyChecking=no ${REMOTE_BACK_USER}@${REMOTE_BACK_HOST} '
+                            sudo mkdir -p ${DEPLOY_FRONT_PATH}
+                            sudo mkdir -p ${PROD_FRONT_PATH}
+                            sudo chown -R ${REMOTE_BACK_USER}:${REMOTE_BACK_USER} ${DEPLOY_FRONT_PATH}
+                            sudo rm -rf ${DEPLOY_FRONT_PATH}/*
+                        '
+
+                        # Copiar artefactos compilados
+                        scp -o StrictHostKeyChecking=no -r ${FRONT_DIR}/dist/* \
+                            ${REMOTE_BACK_USER}@${REMOTE_BACK_HOST}:${DEPLOY_FRONT_PATH}/
+
+                        # Publicar en el web root de Nginx
+                        ssh -o StrictHostKeyChecking=no ${REMOTE_BACK_USER}@${REMOTE_BACK_HOST} '
+                            sudo rm -rf ${PROD_FRONT_PATH}/*
+                            sudo cp -r ${DEPLOY_FRONT_PATH}/* ${PROD_FRONT_PATH}/
+                            sudo chown -R www-data:www-data ${PROD_FRONT_PATH}
+                            sudo chmod -R 755 ${PROD_FRONT_PATH}
+                            sudo systemctl reload nginx
+                        '
+                    """
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "✅ Despliegue productivo de ${APP_NAME} completado exitosamente en ${REMOTE_BACK_HOST}."
+        }
+        failure {
+            echo "❌ El pipeline productivo de ${APP_NAME} falló. Revisar consola de Jenkins."
+        }
+        always {
+            cleanWs()
+        }
+    }
+}
