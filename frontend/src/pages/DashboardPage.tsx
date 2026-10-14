@@ -1,10 +1,13 @@
 import { useCallback, useEffect, useState } from 'react'
+import QRCode from 'qrcode'
 import brandLogo from '../assets/logo-mente-programador.png'
 import { getRanking, getStats } from '../services/api'
 import type { RankingEntry } from '../types/ranking'
 import type { EventStats } from '../types/stats'
 import type { Profile } from '../types/quiz'
 import { profileDetails } from '../data/profileDetails'
+
+const RETO_URL = 'https://mente.ubunifusoft.tech/'
 
 const profileLabels: Record<Profile, { label: string; icon: string; color: string }> = {
   FRONTEND_CREATOR: { label: 'Frontend Creator', icon: '🎨', color: '#f472b6' },
@@ -20,6 +23,18 @@ function DashboardPage() {
   const [ranking, setRanking] = useState<RankingEntry[]>([])
   const [error, setError] = useState('')
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null)
+  const [qrCodeUrl, setQrCodeUrl] = useState('')
+
+  useEffect(() => {
+    QRCode.toDataURL(RETO_URL, {
+      width: 320,
+      margin: 1,
+      color: {
+        dark: '#030712',
+        light: '#ffffff',
+      },
+    }).then(setQrCodeUrl).catch(console.error)
+  }, [])
 
   const refresh = useCallback(async () => {
     try {
@@ -46,7 +61,7 @@ function DashboardPage() {
     <section className="mx-auto max-w-7xl">
       <header className="cyber-panel grid items-center gap-5 rounded-3xl p-6 lg:grid-cols-[auto_1fr_auto]">
         <img src={brandLogo} alt="Logo ¿Tienes mente de programador?" className="h-20 w-20 rounded-2xl border border-neon-cyan/30 object-cover shadow-neon" />
-        <div><div className="flex flex-wrap gap-2"><span className="cyber-kicker rounded-full bg-cyber-600 px-3 py-2">● SYS.BROADCAST // 2025.CORE</span><span className="rounded-full bg-red-700 px-3 py-2 font-mono text-[9px] font-bold tracking-widest text-red-100">● TRANSMISIÓN EN VIVO</span></div><h1 className="mt-4 font-display text-4xl font-black uppercase leading-none lg:text-5xl">¿Tienes mente de programador?</h1><div className="mt-4 flex flex-wrap gap-4 font-display font-bold text-zinc-300"><span>Stand de Ingeniería de Sistemas</span><span className="text-neon-cyan">• Feria Vocacional 2025</span><span className="rounded bg-violet-700/40 px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-violet-200">Pabellón STEM // Booth 42</span></div></div>
+        <div><div className="flex flex-wrap gap-2"><span className="cyber-kicker rounded-full bg-cyber-600 px-3 py-2">● SYS.BROADCAST // EN VIVO</span><span className="rounded-full bg-red-700 px-3 py-2 font-mono text-[9px] font-bold tracking-widest text-red-100">● TRANSMISIÓN EN DIRECTO</span></div><h1 className="mt-4 font-display text-4xl font-black uppercase leading-none lg:text-5xl">¿Tienes mente de programador?</h1><div className="mt-4 flex flex-wrap gap-4 font-display font-bold text-zinc-300"><span>Ingeniería de Sistemas</span><span className="text-neon-cyan">• Feria Vocacional</span><span className="rounded bg-violet-700/40 px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-violet-200">UFPS</span></div></div>
         <div className="flex gap-4 lg:text-right"><div><p className="font-mono text-[10px] uppercase tracking-widest text-zinc-400">Tiempo activo</p><p className="font-mono text-2xl text-neon-cyan">{lastUpdated?.toLocaleTimeString('es-CO') ?? '--:--:--'}</p></div><div className="rounded-2xl bg-cyber-600 px-5 py-3"><p className="cyber-kicker">Monitor kiosk</p><p className="font-display text-xl font-black">ONLINE 100%</p></div></div>
       </header>
 
@@ -61,7 +76,26 @@ function DashboardPage() {
 
         <article className="cyber-panel rounded-3xl p-6"><h2 className="font-display text-2xl font-black">▌ MAPA DE AFINIDAD</h2><p className="mt-1 font-mono text-[10px] tracking-widest text-zinc-400">6 ESPECIALIDADES DE INGENIERÍA</p><div className="mt-7 space-y-4">{distribution.map((item) => <div key={item.profile} className="rounded-2xl bg-cyber-950/40 p-4"><div className="flex justify-between"><span className="font-display text-lg font-bold" style={{color:item.color}}>{item.icon} {item.label}</span><strong className="font-mono" style={{color:item.color}}>{item.percentage}%</strong></div><div className="mt-3 h-2 overflow-hidden rounded-full bg-cyber-600"><div className="h-full rounded-full" style={{width:`${item.percentage}%`,background:item.color}} /></div></div>)}</div><p className="mt-7 text-center font-mono text-[9px] uppercase tracking-widest text-zinc-500">Basado en las pruebas completadas en el stand</p></article>
 
-        <article className="cyber-panel flex flex-col items-center rounded-3xl p-6 text-center"><p className="cyber-kicker self-start rounded-full bg-cyan-400/10 px-4 py-2">⌘ Acceso inmediato al reto</p><h2 className="mt-5 font-display text-4xl font-black uppercase">¡Escanea y participa!</h2><p className="mt-2 text-base text-neon-cyan">Toma el reto en tu teléfono o acércate al tótem.</p><div className="mt-5 grid aspect-square w-full max-w-56 grid-cols-7 gap-1.5 rounded-2xl bg-white p-6">{Array.from({length:49},(_,i)=><span key={i} className={`${(i*7+i*3)%5<2 ? 'bg-cyber-950' : 'bg-white'} rounded-sm`} />)}</div><p className="mt-3 rounded bg-cyber-600 px-4 py-2 font-mono text-[10px] tracking-wider">URL: LOCALHOST:15173</p></article>
+        <article className="cyber-panel flex flex-col items-center rounded-3xl p-6 text-center">
+          <p className="cyber-kicker self-start rounded-full bg-cyan-400/10 px-4 py-2">⌘ Acceso inmediato al reto</p>
+          <h2 className="mt-5 font-display text-4xl font-black uppercase">¡Escanea y participa!</h2>
+          <p className="mt-2 text-base text-neon-cyan">Toma el reto en tu teléfono o acércate al tótem.</p>
+          <div className="mt-5 flex aspect-square w-full max-w-56 items-center justify-center overflow-hidden rounded-2xl bg-white p-3 shadow-2xl">
+            {qrCodeUrl ? (
+              <img src={qrCodeUrl} alt="Código QR para participar en ¿Tienes mente de programador?" className="h-full w-full object-contain" />
+            ) : (
+              <div className="h-44 w-44 animate-pulse rounded bg-zinc-200" />
+            )}
+          </div>
+          <a
+            href={RETO_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-3 rounded bg-cyber-600 px-4 py-2 font-mono text-[10px] tracking-wider text-neon-cyan hover:underline"
+          >
+            {RETO_URL.replace('https://', '').toUpperCase()}
+          </a>
+        </article>
       </section>
 
       <div className="mt-6 text-center"><a href="/ranking" className="cyber-primary inline-flex rounded-xl px-8 py-4 font-display text-lg font-black">🏆 VER RANKING COMPLETO</a></div>
