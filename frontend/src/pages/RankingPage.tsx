@@ -17,7 +17,7 @@ const profileLabels: Record<Profile, { label: string; icon: string; color: strin
 }
 
 const podiumStyles = {
-  1: { medal: '🥇', label: 'CAMPEÓN STAND 42', glow: 'border-amber-300/30 shadow-[0_0_45px_rgba(250,204,21,.18)]', order: 'lg:order-2 lg:-translate-y-8' },
+  1: { medal: '🥇', label: 'CAMPEÓN DEL RETO', glow: 'border-amber-300/30 shadow-[0_0_45px_rgba(250,204,21,.18)]', order: 'lg:order-2 lg:-translate-y-8' },
   2: { medal: '🥈', label: 'RANK II', glow: 'border-zinc-400/20', order: 'lg:order-1' },
   3: { medal: '🥉', label: 'RANK III', glow: 'border-orange-500/20', order: 'lg:order-3' },
 } as const
@@ -55,9 +55,9 @@ function RankingPage() {
     <main className="mx-auto w-full max-w-7xl flex-1 px-5 py-8 lg:px-10">
       <section className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
         <div>
-          <p className="cyber-kicker">● Live leaderboard · Stand 42 · Temporada 2025</p>
+          <p className="cyber-kicker">● Live leaderboard · Feria Vocacional</p>
           <h1 className="mt-3 font-display text-5xl font-black uppercase leading-none sm:text-6xl">🏆 Ranking <span className="bg-gradient-to-r from-neon-cyan to-violet-300 bg-clip-text text-transparent">de la feria</span></h1>
-          <p className="mt-3 max-w-2xl text-base text-zinc-300">¿Puedes entrar al Top 10? Compite contra aspirantes de todos los colegios y asegura tu lugar entre las mentes digitales del stand.</p>
+          <p className="mt-3 max-w-2xl text-base text-zinc-300">¿Puedes entrar al Top 10? Compite contra aspirantes de todos los colegios y asegura tu lugar entre las mentes digitales más destacadas.</p>
         </div>
         <aside className="cyber-panel flex shrink-0 divide-x divide-white/10 rounded-2xl px-5 py-4 font-mono">
           <div className="pr-5"><p className="text-[9px] uppercase tracking-widest text-zinc-500">Puesto actual</p><strong className="text-neon-cyan">{current ? `#${String(current.position).padStart(2, '0')} ${current.alias}` : 'SIN REGISTRO'}</strong></div>
@@ -98,7 +98,7 @@ function RankingPage() {
       </section>
 
       <section className="cyber-panel mt-10 flex flex-col items-center justify-between gap-5 rounded-2xl p-5 sm:flex-row">
-        <div className="font-mono text-[9px] tracking-widest text-zinc-300"><p><span className="text-neon-cyan">●</span> STAND 42 · PABELLÓN STEM</p><p>Actualización automática cada 5s{lastUpdated ? ` · ${lastUpdated.toLocaleTimeString('es-CO')}` : ''}</p></div>
+        <div className="font-mono text-[9px] tracking-widest text-zinc-300"><p><span className="text-neon-cyan">●</span> UFPS · INGENIERÍA DE SISTEMAS · SEMILLERO SIAWEB</p><p>Actualización automática cada 5s{lastUpdated ? ` · ${lastUpdated.toLocaleTimeString('es-CO')}` : ''}</p></div>
         <div className="flex flex-wrap gap-3"><button type="button" onClick={() => window.location.assign('/dashboard')} className="cyber-primary rounded-xl px-7 py-3 font-display font-black">▦ VER DASHBOARD</button><button type="button" onClick={() => window.location.assign('/')} className="rounded-xl bg-cyber-600 px-7 py-3 font-display font-black">⌂ VOLVER AL INICIO</button></div>
       </section>
       <p role="alert" className="mt-3 min-h-5 text-center text-sm text-rose-300">{error}</p>

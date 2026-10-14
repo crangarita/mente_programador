@@ -15,7 +15,7 @@ function WelcomePage({ onStart }: { onStart: () => void }) {
     <BrandHeader active="INICIO" />
     <main className="mx-auto flex w-full max-w-7xl flex-1 flex-col px-5 py-10 lg:px-10">
       <section className="mx-auto max-w-4xl text-center">
-        <p className="cyber-kicker inline-flex rounded-full bg-cyber-600/70 px-4 py-2">● Reto express · Stand Ingeniería de Sistemas</p>
+        <p className="cyber-kicker inline-flex rounded-full bg-cyber-600/70 px-4 py-2">● Reto express · Ingeniería de Sistemas</p>
         <h1 className="mt-6 font-display text-5xl font-black uppercase leading-[.95] tracking-tight sm:text-7xl"><span className="bg-gradient-to-r from-neon-cyan via-white to-violet-300 bg-clip-text text-transparent">¿Tienes mente de<br />programador?</span></h1>
         <p className="mt-5 text-xl font-bold text-neon-cyan">Descúbrelo en menos de 2 minutos 🚀</p>
         <p className="mx-auto mt-2 max-w-2xl text-zinc-400">Responde 5 preguntas, supera un microdesafío de lógica y descubre tu perfil tecnológico.</p>

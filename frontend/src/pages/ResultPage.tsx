@@ -36,7 +36,7 @@ function ResultPage({ result }: { result: FinalResult }) {
         </header>
 
         <div className="cyber-panel relative overflow-hidden rounded-3xl p-6 sm:p-10"><div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-neon-cyan via-violet-300 to-cyan-400" />
-          <div className="mb-8 flex flex-wrap items-center justify-between gap-3"><span className="cyber-kicker rounded-full bg-cyan-400/10 px-4 py-2">Nivel de afinidad: {scorePercent}% · Talento explorador</span><span className="font-mono text-[10px] tracking-wider text-zinc-400">TERMINAL #TK-402 · PABELLÓN STEM</span></div>
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-3"><span className="cyber-kicker rounded-full bg-cyan-400/10 px-4 py-2">Nivel de afinidad: {scorePercent}% · Talento explorador</span><span className="font-mono text-[10px] tracking-wider text-zinc-400">TERMINAL #TK-402 · UFPS</span></div>
           <div className="grid gap-7 lg:grid-cols-[.75fr_1.25fr]">
             <ProfileCard profile={result.profile} />
             <section><p className="cyber-kicker">♙ Análisis de habilidad cognitiva</p><p className="mt-4 text-lg leading-8 text-zinc-300">{profile.description} Tu combinación de respuestas muestra una afinidad natural para aprender, experimentar y convertir problemas complejos en soluciones digitales.</p><p className="mt-6 font-mono text-xs uppercase tracking-widest text-zinc-300">Tecnologías recomendadas para tu mente</p><div className="mt-3 grid grid-cols-2 gap-3">{profile.technologies.map((tech) => <div key={tech} className="flex items-center gap-3 rounded-xl border border-white/[.05] bg-cyber-600 px-4 py-3"><span className="grid h-9 w-9 place-items-center rounded-lg bg-cyber-950 font-mono text-sm font-black text-neon-cyan">{technologyIcons[tech] ?? '◆'}</span><span className="font-mono text-sm">{tech}</span></div>)}</div><div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">{skills.map(([label,value]) => <div key={label} className="rounded-xl bg-cyber-950/60 p-3"><p className="font-mono text-[9px] uppercase tracking-wider text-zinc-500">{label}</p><p className="mt-2 text-lg font-black text-neon-cyan">{value}%</p></div>)}</div></section>
@@ -59,7 +59,7 @@ function ResultPage({ result }: { result: FinalResult }) {
           <p className="mt-1 text-4xl font-black text-amber-300">#{result.rankingPosition}</p>
         </div>
 
-          <div className="mt-5 rounded-2xl bg-cyber-600 p-5"><p className="cyber-kicker">🎓 Ruta universitaria conectada</p><p className="mt-2 text-zinc-300">Este talento se potencia estudiando <strong className="text-neon-cyan">Ingeniería de Sistemas</strong>: desarrolla soluciones reales, explora laboratorios y participa en proyectos del semillero.</p></div>
+          <div className="mt-5 rounded-2xl bg-cyber-600 p-5"><p className="cyber-kicker">🎓 Ruta universitaria conectada · UFPS</p><p className="mt-2 text-zinc-300">Este talento se potencia estudiando <strong className="text-neon-cyan">Ingeniería de Sistemas en la UFPS</strong>: desarrolla soluciones reales, explora laboratorios de vanguardia y participa en proyectos del <strong className="text-neon-cyan">Semillero SIAWEB</strong>.</p></div>
         </div>
         <button type="button" onClick={() => window.location.assign('/ranking')} className="cyber-primary mt-5 w-full rounded-2xl px-5 py-4 font-display font-black">
           VER RANKING
