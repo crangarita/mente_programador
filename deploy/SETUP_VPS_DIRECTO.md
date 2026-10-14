@@ -29,8 +29,8 @@ Environment="SPRING_PROFILES_ACTIVE=prod"
 Environment="SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/mente_programador"
 Environment="SPRING_DATASOURCE_USERNAME=mente_programador"
 Environment="SPRING_DATASOURCE_PASSWORD=TU_CONTRASENA_AQUI"
-Environment="FRONTEND_ORIGIN=http://76.13.99.135"
-Environment="PORT=8080"
+Environment="FRONTEND_ORIGIN=https://mente.ubunifusoft.tech"
+Environment="PORT=8084"
 
 ExecStart=/usr/bin/java -jar /opt/mente-programador/backend/app.jar
 Restart=always
@@ -65,8 +65,8 @@ sudo nano /etc/nginx/sites-available/mente-programador
 Configuración recomendada para SPA:
 ```nginx
 server {
-    listen 80;
-    server_name 76.13.99.135; # O tu dominio si cuentas con uno
+    listen 3004;
+    server_name localhost;
 
     root /var/www/mente-programador;
     index index.html;
@@ -74,15 +74,6 @@ server {
     # Compresión gzip
     gzip on;
     gzip_types text/plain text/css application/javascript application/json image/svg+xml;
-
-    # Proxy inverso al backend Spring Boot (opcional si deseas servir el API bajo el mismo origen)
-    location /api/ {
-        proxy_pass http://127.0.0.1:8080/api/;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-    }
 
     # Caché para estáticos
     location /assets/ {
