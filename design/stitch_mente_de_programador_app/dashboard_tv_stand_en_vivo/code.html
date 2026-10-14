@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_blank" name="shell-type"/><title>Mente de Programador - Arcade Stand Display</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Outfit:wght@500;600;700;800&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"surface-tint":"#4cd7f6","secondary":"#d0bcff","on-tertiary-fixed":"#001a42","on-background":"#dfe2f1","error":"#ffb4ab","on-secondary-container":"#c4abff","surface-variant":"#313540","primary-container":"#06b6d4","tertiary-fixed":"#d8e2ff","primary-fixed-dim":"#4cd7f6","on-secondary-fixed":"#23005c","surface":"#0f131d","inverse-on-surface":"#2c303b","surface-bright":"#353944","on-primary-fixed-variant":"#004e5c","secondary-container":"#571bc1","surface-container-lowest":"#0a0e18","inverse-surface":"#dfe2f1","background":"#0f131d","on-tertiary-container":"#00397f","secondary-fixed":"#e9ddff","error-container":"#93000a","tertiary":"#adc6ff","on-tertiary":"#002e6a","surface-dim":"#0f131d","on-primary-fixed":"#001f26","surface-container-low":"#171b26","outline-variant":"#3d494c","outline":"#869397","on-secondary-fixed-variant":"#5516be","secondary-fixed-dim":"#d0bcff","primary-fixed":"#acedff","primary":"#4cd7f6","on-error-container":"#ffdad6","tertiary-container":"#78a5ff","tertiary-fixed-dim":"#adc6ff","inverse-primary":"#00687a","on-tertiary-fixed-variant":"#004395","on-surface":"#dfe2f1","surface-container-high":"#262a35","on-primary":"#003640","on-secondary":"#3c0091","on-surface-variant":"#bcc9cd","on-primary-container":"#00424f","on-error":"#690005","surface-container-highest":"#313540","surface-container":"#1c1f2a"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"space-xl":"2.5rem","gutter":"1.5rem","space-md":"1rem","margin":"2.5rem","space-xs":"0.25rem","margin-mobile":"1.25rem","gutter-sm":"1rem","space-sm":"0.5rem","space-lg":"1.5rem"},"fontFamily":{"body-md":["Inter"],"body-sm":["Inter"],"headline-md":["Outfit"],"headline-xl-mobile":["Outfit"],"body-lg":["Inter"],"headline-lg":["Outfit"],"label-code-sm":["JetBrains Mono"],"headline-sm":["Outfit"],"label-code-lg":["JetBrains Mono"],"label-code-md":["JetBrains Mono"],"display-hero-mobile":["Outfit"],"headline-xl":["Outfit"],"display-hero":["Outfit"]},"fontSize":{"body-md":["16px",{"lineHeight":"24px","letterSpacing":"0em","fontWeight":"400"}],"body-sm":["14px",{"lineHeight":"20px","letterSpacing":"0em","fontWeight":"400"}],"headline-md":["24px",{"lineHeight":"32px","letterSpacing":"0em","fontWeight":"600"}],"headline-xl-mobile":["28px",{"lineHeight":"34px","letterSpacing":"-0.01em","fontWeight":"700"}],"body-lg":["18px",{"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"400"}],"headline-lg":["30px",{"lineHeight":"38px","letterSpacing":"-0.01em","fontWeight":"700"}],"label-code-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.08em","fontWeight":"600"}],"headline-sm":["20px",{"lineHeight":"28px","letterSpacing":"0em","fontWeight":"600"}],"label-code-lg":["16px",{"lineHeight":"24px","letterSpacing":"0.02em","fontWeight":"500"}],"label-code-md":["13px",{"lineHeight":"18px","letterSpacing":"0.04em","fontWeight":"500"}],"display-hero-mobile":["36px",{"lineHeight":"42px","letterSpacing":"-0.02em","fontWeight":"800"}],"headline-xl":["40px",{"lineHeight":"48px","letterSpacing":"-0.02em","fontWeight":"700"}],"display-hero":["56px",{"lineHeight":"64px","letterSpacing":"-0.03em","fontWeight":"800"}]}}}}</script></head><body class="bg-background font-body-md text-on-surface min-h-screen relative overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container"><div class="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(circle_at_50%_20%,rgba(6,182,212,0.15),transparent_60%),radial-gradient(circle_at_80%_80%,rgba(139,92,246,0.15),transparent_60%)]"></div><main class="w-full min-h-screen relative z-10 bg-transparent flex flex-col justify-center items-center"><div class="flex flex-col w-full text-on-surface select-none">
+<!-- AMBIENT COMMAND CENTER GLOWS -->
+<div class="relative w-full max-w-[1720px] mx-auto px-6 py-4 flex flex-col gap-6">
+<!-- BROADCAST HEADER (HUD ULTRA TIER) -->
+<header class="w-full bg-surface-container-low/90 backdrop-blur-2xl rounded-2xl p-6 shadow-2xl relative overflow-hidden flex flex-col xl:flex-row items-center justify-between gap-6">
+<div class="absolute -right-20 -top-20 w-80 h-80 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
+<div class="absolute -left-20 -bottom-20 w-80 h-80 bg-secondary/10 rounded-full blur-3xl pointer-events-none"></div>
+<!-- BRAND LOGO & HEADLINE -->
+<div class="flex items-center gap-6 z-10 w-full xl:w-auto">
+<div class="relative w-24 h-24 shrink-0 rounded-2xl bg-surface-container-highest/80 p-2 flex items-center justify-center shadow-lg">
+<img alt="Logo Mente de Programador" class="w-full h-full object-contain rounded-xl drop-shadow-[0_0_12px_rgba(76,215,246,0.5)]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDj_cYwSF3bzAWrAbgV-3yt6FtIWN4ViBFI7FwxykQTnhtRgKNsWe9y_wpSaAbtGIS7p4-BscwksdMADf7GduqNx449G7frixjA5pP0HU6mmSUrIVnmY_fNqjIp0q5LbFmfEDt3nhv5-lEqbh3ZbwXYgMtj_Pbfr-Z2CISHEJFX4WxuEqSgdj82pt4Kg-HTezxztvlTomhJ-sFvUzxmpMcfhT2c6cFuZHT-zcqbnDsD9ixEVRQheYJi"/>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-3 mb-1">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-highest text-primary font-label-code-sm text-label-code-sm tracking-widest uppercase">
+<span class="w-2 h-2 rounded-full bg-primary animate-ping"></span>
+              SYS.BROADCAST_ID // 2025.CORE
+            </span>
+<span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-error-container text-error font-label-code-sm text-label-code-sm font-bold tracking-widest uppercase animate-pulse">
+<span class="w-2.5 h-2.5 rounded-full bg-error"></span>
+              TRANSMISIÓN EN VIVO DEL STAND
+            </span>
+</div>
+<h1 class="font-display-hero text-headline-xl md:text-display-hero uppercase tracking-tight text-white drop-shadow-[0_4px_24px_rgba(76,215,246,0.3)]">
+            ¿TIENES MENTE DE PROGRAMADOR?
+          </h1>
+<p class="font-headline-sm text-headline-sm text-on-surface-variant flex items-center gap-2 tracking-wide">
+<span>STAND DE INGENIERÍA DE SISTEMAS</span>
+<span class="text-primary">•</span>
+<span>FERIA VOCACIONAL 2025</span>
+<span class="text-secondary font-label-code-md text-label-code-md ml-2 px-2 py-0.5 rounded bg-secondary-container/30">PABELLÓN STEM // BOOTH 42</span>
+</p>
+</div>
+</div>
+<!-- CLOCK & LIVE RADAR STATUS -->
+<div class="flex items-center gap-6 shrink-0 z-10 w-full xl:w-auto justify-end">
+<div class="flex flex-col text-right">
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant uppercase tracking-wider">TIEMPO ACTIVO EN STAND</span>
+<span class="font-label-code-lg text-headline-sm text-primary font-bold tracking-wider" id="stand-timer">04:38:12</span>
+</div>
+<div class="h-12 w-px bg-surface-variant"></div>
+<div class="flex items-center gap-3 bg-surface-container-high px-4 py-2.5 rounded-xl shadow-inner">
+<span class="material-symbols-outlined text-primary text-3xl animate-spin" style="animation-duration: 8s;">radar</span>
+<div class="flex flex-col">
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant">MONITOR KIOSK</span>
+<span class="font-headline-sm text-headline-sm text-white font-bold leading-tight">ONLINE 100%</span>
+</div>
+</div>
+</div>
+</header>
+<!-- KEY COMMAND METRICS (3 GIANT HIGHWAYS) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- KPI 1: ASPIRANTES -->
+<div class="bg-surface-container-low/95 rounded-2xl p-6 relative overflow-hidden flex items-center justify-between shadow-xl">
+<div class="absolute -right-6 -bottom-6 w-32 h-32 bg-primary/10 rounded-full blur-2xl"></div>
+<div class="flex flex-col">
+<span class="font-label-code-md text-label-code-md uppercase tracking-wider text-primary font-bold mb-1 flex items-center gap-2">
+<span class="material-symbols-outlined text-base">hub</span>
+            REGISTRO GLOBAL DE RETADORES
+          </span>
+<div class="flex items-baseline gap-3">
+<span class="font-display-hero text-display-hero font-extrabold text-white tracking-tight leading-none" id="kpi-challengers">187</span>
+<span class="font-headline-md text-headline-md font-semibold text-primary">PARTICIPANTES</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-2 flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-sm">trending_up</span>
+            +24 retadores en los últimos 20 min
+          </span>
+</div>
+<div class="w-16 h-16 rounded-2xl bg-surface-container-high flex items-center justify-center text-primary shadow-inner">
+<span class="material-symbols-outlined text-4xl">groups</span>
+</div>
+</div>
+<!-- KPI 2: PROMEDIO -->
+<div class="bg-surface-container-low/95 rounded-2xl p-6 relative overflow-hidden flex items-center justify-between shadow-xl">
+<div class="absolute -right-6 -bottom-6 w-32 h-32 bg-secondary/15 rounded-full blur-2xl"></div>
+<div class="flex flex-col">
+<span class="font-label-code-md text-label-code-md uppercase tracking-wider text-secondary font-bold mb-1 flex items-center gap-2">
+<span class="material-symbols-outlined text-base">speed</span>
+            ÍNDICE DE LÓGICA COMPUTACIONAL
+          </span>
+<div class="flex items-baseline gap-3">
+<span class="font-display-hero text-display-hero font-extrabold text-secondary tracking-tight leading-none">724</span>
+<span class="font-headline-md text-headline-md font-semibold text-white">PTS PROMEDIO</span>
+</div>
+<div class="w-full bg-surface-container-highest h-2 rounded-full mt-3 overflow-hidden">
+<div class="bg-gradient-to-r from-secondary-container via-secondary to-primary h-full w-[72.4%] rounded-full shadow-[0_0_12px_rgba(208,188,255,0.7)]"></div>
+</div>
+</div>
+<div class="w-16 h-16 rounded-2xl bg-secondary-container/40 flex items-center justify-center text-secondary shadow-inner">
+<span class="material-symbols-outlined text-4xl">award_star</span>
+</div>
+</div>
+<!-- KPI 3: PERFIL LÍDER -->
+<div class="bg-surface-container-low/95 rounded-2xl p-6 relative overflow-hidden flex items-center justify-between shadow-xl">
+<div class="absolute -right-6 -bottom-6 w-32 h-32 bg-primary-container/20 rounded-full blur-2xl"></div>
+<div class="flex flex-col">
+<span class="font-label-code-md text-label-code-md uppercase tracking-wider text-primary font-bold mb-1 flex items-center gap-2">
+<span class="material-symbols-outlined text-base">psychology</span>
+            ARQUETIPO MÁS FRECUENTE
+          </span>
+<div class="flex items-center gap-3">
+<span class="font-headline-xl text-headline-xl font-extrabold text-white tracking-tight">AI EXPLORER</span>
+<span class="px-3 py-1 rounded-lg bg-primary-container/20 text-primary font-label-code-md text-label-code-md font-bold tracking-widest uppercase">
+              28% TOTAL
+            </span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-2 flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-sm">smart_toy</span>
+            Afinidad: Machine Learning, Python, Visión Artificial
+          </span>
+</div>
+<div class="w-16 h-16 rounded-2xl bg-primary-container/20 flex items-center justify-center text-primary shadow-inner">
+<span class="material-symbols-outlined text-4xl">auto_awesome</span>
+</div>
+</div>
+</div>
+<!-- MAIN COCKPIT: 3 MASTER COLUMNS -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch min-h-[580px]">
+<!-- MASTER COL 1: LEADERBOARD EN VIVO (4 COLS) -->
+<section class="lg:col-span-4 bg-surface-container-low/90 rounded-2xl p-6 shadow-2xl flex flex-col justify-between relative overflow-hidden">
+<div class="flex items-center justify-between mb-5">
+<div class="flex items-center gap-3">
+<div class="w-3 h-8 bg-primary rounded-full shadow-[0_0_12px_rgba(76,215,246,0.8)]"></div>
+<div>
+<h2 class="font-headline-md text-headline-md text-white font-bold tracking-tight">TOP 5 EN VIVO</h2>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant tracking-wider uppercase">TABLA GENERAL DE PUNTUACIÓN</span>
+</div>
+</div>
+<span class="px-2.5 py-1 rounded bg-surface-container-high text-primary font-label-code-sm text-label-code-sm">SYNC: 1.2s</span>
+</div>
+<!-- PODIUM LIST -->
+<div class="flex flex-col gap-3 flex-1 justify-center">
+<!-- #1 LAURA -->
+<div class="flex items-center justify-between p-3.5 rounded-xl bg-surface-container-high/90 relative overflow-hidden shadow-lg transform scale-[1.02] transition-transform">
+<div class="absolute left-0 top-0 bottom-0 w-2 bg-primary shadow-[0_0_16px_rgba(76,215,246,1)]"></div>
+<div class="flex items-center gap-4 pl-3">
+<div class="w-10 h-10 rounded-xl bg-primary text-on-primary font-headline-sm text-headline-sm font-bold flex items-center justify-center shadow-[0_0_16px_rgba(76,215,246,0.6)]">
+                1°
+              </div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm font-bold text-white tracking-wide">Laura M.</span>
+<span class="text-xs px-2 py-0.5 rounded bg-primary/20 text-primary font-label-code-sm uppercase font-semibold">AI EXPLORER</span>
+</div>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant">Colegio Santa María • 11°B</span>
+</div>
+</div>
+<div class="text-right">
+<div class="font-headline-md text-headline-md font-extrabold text-primary font-label-code-lg">980</div>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant">PTS</span>
+</div>
+</div>
+<!-- #2 ANDRÉS -->
+<div class="flex items-center justify-between p-3 rounded-xl bg-surface-container/70 shadow-md">
+<div class="flex items-center gap-4">
+<div class="w-9 h-9 rounded-xl bg-surface-container-highest text-secondary font-headline-sm text-headline-sm font-bold flex items-center justify-center">
+                2°
+              </div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm font-bold text-white tracking-wide">Andrés P.</span>
+<span class="text-xs px-2 py-0.5 rounded bg-secondary/20 text-secondary font-label-code-sm uppercase font-semibold">BACKEND ARCH.</span>
+</div>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant">Instituto Técnico Central</span>
+</div>
+</div>
+<div class="text-right">
+<div class="font-headline-md text-headline-md font-bold text-secondary font-label-code-lg">950</div>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant">PTS</span>
+</div>
+</div>
+<!-- #3 CAMILO -->
+<div class="flex items-center justify-between p-3 rounded-xl bg-surface-container/70 shadow-md">
+<div class="flex items-center gap-4">
+<div class="w-9 h-9 rounded-xl bg-surface-container-highest text-tertiary font-headline-sm text-headline-sm font-bold flex items-center justify-center">
+                3°
+              </div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm font-bold text-white tracking-wide">Camilo S.</span>
+<span class="text-xs px-2 py-0.5 rounded bg-tertiary-container/30 text-tertiary font-label-code-sm uppercase font-semibold">CYBER GUARD</span>
+</div>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant">Liceo Francés</span>
+</div>
+</div>
+<div class="text-right">
+<div class="font-headline-md text-headline-md font-bold text-tertiary font-label-code-lg">920</div>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant">PTS</span>
+</div>
+</div>
+<!-- #4 VALENTINA -->
+<div class="flex items-center justify-between p-3 rounded-xl bg-surface-container/50">
+<div class="flex items-center gap-4">
+<div class="w-8 h-8 rounded-lg bg-surface-variant text-on-surface-variant font-label-code-md text-label-code-md font-bold flex items-center justify-center">
+                4°
+              </div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-body-lg text-body-lg font-bold text-white">Valentina R.</span>
+<span class="text-xs px-2 py-0.5 rounded bg-surface-container-highest text-on-surface font-label-code-sm uppercase">FRONTEND CREATOR</span>
+</div>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant">Gimnasio Moderno</span>
+</div>
+</div>
+<div class="text-right">
+<div class="font-body-lg text-body-lg font-bold text-white font-label-code-lg">890</div>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant">PTS</span>
+</div>
+</div>
+<!-- #5 CARLOS -->
+<div class="flex items-center justify-between p-3 rounded-xl bg-surface-container/50">
+<div class="flex items-center gap-4">
+<div class="w-8 h-8 rounded-lg bg-surface-variant text-on-surface-variant font-label-code-md text-label-code-md font-bold flex items-center justify-center">
+                5°
+              </div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-body-lg text-body-lg font-bold text-white">Carlos V.</span>
+<span class="text-xs px-2 py-0.5 rounded bg-surface-container-highest text-primary font-label-code-sm uppercase">AI EXPLORER</span>
+</div>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant">Col. Calasanz</span>
+</div>
+</div>
+<div class="text-right">
+<div class="font-body-lg text-body-lg font-bold text-white font-label-code-lg">870</div>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant">PTS</span>
+</div>
+</div>
+</div>
+<div class="mt-4 pt-3 flex items-center justify-between text-on-surface-variant font-label-code-sm text-label-code-sm bg-surface-container-highest/30 px-3 py-2 rounded-lg">
+<span class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary animate-ping"></span>
+            Actualización continua en kioskos
+          </span>
+<span class="text-primary font-bold">187 EVALUADOS</span>
+</div>
+</section>
+<!-- MASTER COL 2: DISTRIBUCIÓN DE PERFILES TECNOLÓGICOS (4 COLS) -->
+<section class="lg:col-span-4 bg-surface-container-low/90 rounded-2xl p-6 shadow-2xl flex flex-col justify-between relative overflow-hidden">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-3">
+<div class="w-3 h-8 bg-secondary rounded-full shadow-[0_0_12px_rgba(208,188,255,0.8)]"></div>
+<div>
+<h2 class="font-headline-md text-headline-md text-white font-bold tracking-tight">MAPA DE AFINIDAD</h2>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant tracking-wider uppercase">6 ESPECIALIDADES INGENIERÍA</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-secondary text-2xl">donut_large</span>
+</div>
+<!-- 6 PERFILES PROGRESS BARS DE ALTO IMPACTO -->
+<div class="flex flex-col gap-4 flex-1 justify-center py-2">
+<!-- AI EXPLORER (28% CYAN NEON LÍDER) -->
+<div class="bg-surface-container p-3 rounded-xl relative overflow-hidden shadow-inner">
+<div class="flex items-center justify-between mb-1.5">
+<div class="flex items-center gap-2">
+<span class="text-lg">🤖</span>
+<span class="font-headline-sm text-headline-sm text-primary font-bold">AI Explorer</span>
+</div>
+<span class="font-label-code-lg text-label-code-lg font-bold text-primary">28%</span>
+</div>
+<div class="w-full bg-surface-container-highest h-3 rounded-full overflow-hidden p-0.5">
+<div class="bg-gradient-to-r from-primary via-primary-container to-primary-fixed h-full rounded-full w-[28%] shadow-[0_0_16px_rgba(76,215,246,0.9)] animate-pulse"></div>
+</div>
+</div>
+<!-- BACKEND ARCHITECT (22% AZUL / TERTIARY) -->
+<div class="bg-surface-container p-3 rounded-xl">
+<div class="flex items-center justify-between mb-1.5">
+<div class="flex items-center gap-2">
+<span class="text-lg">⚙️</span>
+<span class="font-headline-sm text-headline-sm text-tertiary-container font-bold">Backend Architect</span>
+</div>
+<span class="font-label-code-lg text-label-code-lg font-bold text-tertiary">22%</span>
+</div>
+<div class="w-full bg-surface-container-highest h-3 rounded-full overflow-hidden p-0.5">
+<div class="bg-tertiary-container h-full rounded-full w-[22%] shadow-[0_0_12px_rgba(120,165,255,0.7)]"></div>
+</div>
+</div>
+<!-- FRONTEND CREATOR (18% ROSA / SECONDARY-CONTAINER) -->
+<div class="bg-surface-container p-3 rounded-xl">
+<div class="flex items-center justify-between mb-1.5">
+<div class="flex items-center gap-2">
+<span class="text-lg">🎨</span>
+<span class="font-headline-sm text-headline-sm text-secondary font-bold">Frontend Creator</span>
+</div>
+<span class="font-label-code-lg text-label-code-lg font-bold text-secondary">18%</span>
+</div>
+<div class="w-full bg-surface-container-highest h-3 rounded-full overflow-hidden p-0.5">
+<div class="bg-gradient-to-r from-secondary-container to-secondary h-full rounded-full w-[18%] shadow-[0_0_12px_rgba(208,188,255,0.7)]"></div>
+</div>
+</div>
+<!-- CYBER GUARDIAN (14% VERDE / ON-PRIMARY-FIXED) -->
+<div class="bg-surface-container p-3 rounded-xl">
+<div class="flex items-center justify-between mb-1.5">
+<div class="flex items-center gap-2">
+<span class="text-lg">🔐</span>
+<span class="font-headline-sm text-headline-sm text-primary-fixed-dim font-bold">Cyber Guardian</span>
+</div>
+<span class="font-label-code-lg text-label-code-lg font-bold text-primary-fixed-dim">14%</span>
+</div>
+<div class="w-full bg-surface-container-highest h-3 rounded-full overflow-hidden p-0.5">
+<div class="bg-primary-fixed-dim h-full rounded-full w-[14%] shadow-[0_0_12px_rgba(76,215,246,0.6)]"></div>
+</div>
+</div>
+<!-- DATA DETECTIVE (10% AMBER / SURFACE-TINT) -->
+<div class="bg-surface-container p-3 rounded-xl">
+<div class="flex items-center justify-between mb-1.5">
+<div class="flex items-center gap-2">
+<span class="text-lg">📊</span>
+<span class="font-headline-sm text-headline-sm text-tertiary-fixed font-bold">Data Detective</span>
+</div>
+<span class="font-label-code-lg text-label-code-lg font-bold text-tertiary-fixed">10%</span>
+</div>
+<div class="w-full bg-surface-container-highest h-3 rounded-full overflow-hidden p-0.5">
+<div class="bg-tertiary-fixed h-full rounded-full w-[10%]"></div>
+</div>
+</div>
+<!-- GAME BUILDER (8% VIOLETA) -->
+<div class="bg-surface-container p-3 rounded-xl">
+<div class="flex items-center justify-between mb-1.5">
+<div class="flex items-center gap-2">
+<span class="text-lg">🎮</span>
+<span class="font-headline-sm text-headline-sm text-on-secondary-container font-bold">Game Builder</span>
+</div>
+<span class="font-label-code-lg text-label-code-lg font-bold text-on-secondary-container">8%</span>
+</div>
+<div class="w-full bg-surface-container-highest h-3 rounded-full overflow-hidden p-0.5">
+<div class="bg-secondary-container h-full rounded-full w-[8%]"></div>
+</div>
+</div>
+</div>
+<div class="mt-2 text-center">
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant uppercase tracking-wider">
+            Basado en pruebas de aptitud algorítmica aplicadas en el stand
+          </span>
+</div>
+</section>
+<!-- MASTER COL 3: CALL TO ACTION HOLOGRÁFICO PARA EL PASILLO (4 COLS) -->
+<section class="lg:col-span-4 bg-gradient-to-b from-surface-container-low via-surface-container-high/90 to-surface-container-low rounded-2xl p-6 shadow-2xl flex flex-col justify-between relative overflow-hidden">
+<!-- AMBIENT PULSING AURA -->
+<div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(6,182,212,0.18),transparent_70%)] pointer-events-none"></div>
+<div class="flex items-center justify-between mb-2 z-10">
+<span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-container/20 text-primary font-label-code-sm text-label-code-sm font-bold uppercase tracking-widest">
+<span class="material-symbols-outlined text-sm">qr_code_scanner</span>
+            ACCESO INMEDIATO AL RETO
+          </span>
+<span class="font-label-code-sm text-label-code-sm text-secondary font-bold">FAIR-PASS 2025</span>
+</div>
+<!-- PERSUASIVE GIANT HEADLINE -->
+<div class="text-center z-10 my-2">
+<h2 class="font-display-hero text-headline-xl md:text-headline-xl font-extrabold text-white tracking-tight uppercase leading-none drop-shadow-[0_0_20px_rgba(76,215,246,0.4)]">
+            ¡ESCANEA Y PARTICIPA!
+          </h2>
+<p class="font-body-lg text-body-lg text-primary font-medium mt-2 leading-snug">
+            Toma el reto en tu teléfono o acércate a los tótems táctiles del stand
+          </p>
+</div>
+<!-- ULTRA HIGH CONTRAST QR MODULE -->
+<div class="flex flex-col items-center justify-center my-3 z-10">
+<div class="p-4 bg-white rounded-3xl shadow-[0_0_40px_rgba(76,215,246,0.6)] transform hover:scale-105 transition-transform flex items-center justify-center">
+<!-- PURE HIGH RES VECTOR QR CODE -->
+<svg class="w-56 h-56 md:w-64 md:h-64" fill="none" viewbox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#FFFFFF" height="160" width="160"></rect>
+<!-- Top Left Marker -->
+<rect fill="#0F131D" height="36" width="36" x="16" y="16"></rect>
+<rect fill="#FFFFFF" height="24" width="24" x="22" y="22"></rect>
+<rect fill="#06B6D4" height="12" width="12" x="28" y="28"></rect>
+<!-- Top Right Marker -->
+<rect fill="#0F131D" height="36" width="36" x="108" y="16"></rect>
+<rect fill="#FFFFFF" height="24" width="24" x="114" y="22"></rect>
+<rect fill="#06B6D4" height="12" width="12" x="120" y="28"></rect>
+<!-- Bottom Left Marker -->
+<rect fill="#0F131D" height="36" width="36" x="16" y="108"></rect>
+<rect fill="#FFFFFF" height="24" width="24" x="22" y="114"></rect>
+<rect fill="#06B6D4" height="12" width="12" x="28" y="120"></rect>
+<!-- Dense Data Matrix Elements -->
+<rect fill="#0F131D" height="6" width="6" x="60" y="20"></rect>
+<rect fill="#0F131D" height="6" width="12" x="74" y="16"></rect>
+<rect fill="#0F131D" height="8" width="8" x="60" y="32"></rect>
+<rect fill="#0F131D" height="8" width="12" x="80" y="30"></rect>
+<rect fill="#0F131D" height="12" width="6" x="68" y="44"></rect>
+<rect fill="#0F131D" height="6" width="10" x="20" y="60"></rect>
+<rect fill="#0F131D" height="6" width="16" x="36" y="60"></rect>
+<rect fill="#06B6D4" height="8" width="8" x="60" y="60"></rect>
+<rect fill="#0F131D" height="6" width="12" x="76" y="64"></rect>
+<rect fill="#0F131D" height="6" width="16" x="96" y="60"></rect>
+<rect fill="#0F131D" height="12" width="8" x="120" y="60"></rect>
+<rect fill="#0F131D" height="6" width="8" x="136" y="64"></rect>
+<rect fill="#0F131D" height="12" width="8" x="16" y="74"></rect>
+<rect fill="#0F131D" height="6" width="12" x="32" y="76"></rect>
+<rect fill="#0F131D" height="16" width="6" x="52" y="74"></rect>
+<rect fill="#0F131D" height="8" width="18" x="68" y="76"></rect>
+<rect fill="#0F131D" height="16" width="8" x="94" y="74"></rect>
+<rect fill="#0F131D" height="6" width="14" x="110" y="80"></rect>
+<rect fill="#0F131D" height="12" width="12" x="132" y="76"></rect>
+<rect fill="#0F131D" height="6" width="12" x="20" y="94"></rect>
+<rect fill="#0F131D" height="10" width="8" x="40" y="90"></rect>
+<rect fill="#0F131D" height="8" width="14" x="60" y="94"></rect>
+<rect fill="#06B6D4" height="14" width="8" x="82" y="90"></rect>
+<rect fill="#0F131D" height="6" width="14" x="100" y="96"></rect>
+<rect fill="#0F131D" height="6" width="20" x="124" y="94"></rect>
+<rect fill="#0F131D" height="6" width="12" x="60" y="110"></rect>
+<rect fill="#0F131D" height="8" width="14" x="80" y="112"></rect>
+<rect fill="#0F131D" height="14" width="8" x="104" y="110"></rect>
+<rect fill="#0F131D" height="6" width="16" x="120" y="110"></rect>
+<rect fill="#0F131D" height="16" width="8" x="60" y="126"></rect>
+<rect fill="#0F131D" height="8" width="16" x="76" y="130"></rect>
+<rect fill="#0F131D" height="12" width="10" x="100" y="128"></rect>
+<rect fill="#0F131D" height="18" width="8" x="118" y="126"></rect>
+<rect fill="#0F131D" height="10" width="10" x="134" y="132"></rect>
+<!-- Tech Central Emblem -->
+<circle cx="80" cy="80" fill="#0F131D" r="13"></circle>
+<circle cx="80" cy="80" fill="#06B6D4" r="9"></circle>
+<path d="M77 80L80 77L83 80L80 83Z" fill="#FFFFFF"></path>
+</svg>
+</div>
+<span class="font-label-code-md text-label-code-md text-white font-bold mt-3 tracking-widest bg-surface-container-highest px-3 py-1 rounded-md">
+            URL: SISTEMAS.UNIV.EDU/RETO
+          </span>
+</div>
+<!-- REWARD NOTICE -->
+<div class="bg-primary/10 rounded-xl p-4 flex items-center gap-3 z-10 shadow-lg">
+<span class="text-3xl shrink-0">🎁</span>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm font-bold text-white leading-tight">PREMIOS AL INSTANTE</span>
+<span class="font-body-sm text-body-sm text-primary font-medium">Reclama stickers holográficos, pines y termos exclusivos al terminar la prueba.</span>
+</div>
+</div>
+</section>
+</div>
+<!-- HIGHWAY NEWS TICKER (FOOTER CINEMATIC BROADCAST STRIP) -->
+<div class="w-full bg-surface-container-lowest/95 rounded-2xl p-4 shadow-2xl relative overflow-hidden flex items-center gap-4">
+<!-- TICKER BADGE -->
+<div class="flex items-center gap-2 shrink-0 bg-primary text-on-primary px-4 py-2 rounded-xl font-headline-sm text-headline-sm font-bold tracking-tight shadow-[0_0_16px_rgba(76,215,246,0.6)]">
+<span class="material-symbols-outlined text-xl animate-pulse">sensors</span>
+        FEED EN TIEMPO REAL
+      </div>
+<!-- MARQUEE TRACK -->
+<div class="relative overflow-hidden w-full h-8 flex items-center">
+<div class="whitespace-nowrap flex items-center gap-12 text-white font-headline-sm text-headline-sm animate-[ticker_28s_linear_infinite]" id="ticker-content">
+<span class="flex items-center gap-3">
+<span class="w-2.5 h-2.5 rounded-full bg-primary"></span>
+<strong class="text-primary font-label-code-lg">ÚLTIMO RETO COMPLETADO:</strong>
+<span>Carlos V. obtuvo <strong>870 pts</strong> como <span class="text-primary font-bold">AI Explorer</span></span>
+</span>
+<span class="text-on-surface-variant">•</span>
+<span class="flex items-center gap-3">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary"></span>
+<strong class="text-secondary font-label-code-lg">NUEVO RÉCORD:</strong>
+<span>Laura M. sube al #1 con <strong>980 pts</strong> de Lógica Algorítmica</span>
+</span>
+<span class="text-on-surface-variant">•</span>
+<span class="flex items-center gap-3">
+<span class="w-2.5 h-2.5 rounded-full bg-primary-fixed"></span>
+<strong class="text-primary-fixed font-label-code-lg">STAND 42 PABELLÓN STEM:</strong>
+<span>¡Ven, mide tus habilidades digitales y reta a tus compañeros!</span>
+</span>
+<span class="text-on-surface-variant">•</span>
+<span class="flex items-center gap-3">
+<span class="w-2.5 h-2.5 rounded-full bg-tertiary"></span>
+<strong class="text-tertiary font-label-code-lg">PREMIO MAYOR:</strong>
+<span>Beca de certificación al puntaje más alto del día</span>
+</span>
+</div>
+</div>
+<!-- TV AUDIENCE INDICATOR -->
+<div class="hidden sm:flex items-center gap-2 shrink-0 px-3 py-1.5 rounded-lg bg-surface-container-high text-on-surface-variant font-label-code-sm text-label-code-sm">
+<span class="material-symbols-outlined text-sm text-primary">tv</span>
+<span>DISPLAY MODE 4K // 60 FPS</span>
+</div>
+</div>
+</div>
+<!-- SCRIPT FOR AUTOMATIC TIMERS AND LIVE DATA SIMULATION FOR KIOSK -->
+<script>
+    (function initStandDashboard() {
+      // Dynamic live clock for stand broadcast duration
+      const timerElement = document.getElementById('stand-timer');
+      let secondsElapsed = 4 * 3600 + 38 * 60 + 12;
+
+      setInterval(() => {
+        secondsElapsed++;
+        const hours = String(Math.floor(secondsElapsed / 3600)).padStart(2, '0');
+        const minutes = String(Math.floor((secondsElapsed % 3600) / 60)).padStart(2, '0');
+        const seconds = String(secondsElapsed % 60).padStart(2, '0');
+        if (timerElement) {
+          timerElement.textContent = `${hours}:${minutes}:${seconds}`;
+        }
+      }, 1000);
+
+      // Random pulse simulation for live participants count
+      const challengersEl = document.getElementById('kpi-challengers');
+      let baseChallengers = 187;
+      setInterval(() => {
+        if (Math.random() > 0.65) {
+          baseChallengers += 1;
+          if (challengersEl) {
+            challengersEl.textContent = baseChallengers;
+            challengersEl.classList.add('text-primary');
+            setTimeout(() => {
+              challengersEl.classList.remove('text-primary');
+            }, 600);
+          }
+        }
+      }, 7000);
+    })();
+  </script>
+</div></main></body></html>

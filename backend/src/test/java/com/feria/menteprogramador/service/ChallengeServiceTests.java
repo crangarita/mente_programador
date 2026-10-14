@@ -25,6 +25,7 @@ class ChallengeServiceTests {
         ParticipantRepository participants = mock(ParticipantRepository.class);
         ChallengeResultRepository challenges = mock(ChallengeResultRepository.class);
         Participant participant = new Participant("Luna");
+        participant.assignChallenge("ROUTE_A");
         when(participants.findById(participantId)).thenReturn(Optional.of(participant));
         when(participants.save(participant)).thenReturn(participant);
         when(challenges.findByParticipant_Id(participantId)).thenReturn(Optional.empty());

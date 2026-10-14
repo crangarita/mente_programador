@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><title>Mente de Programador - Tech Showcase</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Outfit:wght@500;600;700;800&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"surface-tint":"#4cd7f6","secondary":"#d0bcff","on-tertiary-fixed":"#001a42","on-background":"#dfe2f1","error":"#ffb4ab","on-secondary-container":"#c4abff","surface-variant":"#313540","primary-container":"#06b6d4","tertiary-fixed":"#d8e2ff","primary-fixed-dim":"#4cd7f6","on-secondary-fixed":"#23005c","surface":"#0f131d","inverse-on-surface":"#2c303b","surface-bright":"#353944","on-primary-fixed-variant":"#004e5c","secondary-container":"#571bc1","surface-container-lowest":"#0a0e18","inverse-surface":"#dfe2f1","background":"#0f131d","on-tertiary-container":"#00397f","secondary-fixed":"#e9ddff","error-container":"#93000a","tertiary":"#adc6ff","on-tertiary":"#002e6a","surface-dim":"#0f131d","on-primary-fixed":"#001f26","surface-container-low":"#171b26","outline-variant":"#3d494c","outline":"#869397","on-secondary-fixed-variant":"#5516be","secondary-fixed-dim":"#d0bcff","primary-fixed":"#acedff","primary":"#4cd7f6","on-error-container":"#ffdad6","tertiary-container":"#78a5ff","tertiary-fixed-dim":"#adc6ff","inverse-primary":"#00687a","on-tertiary-fixed-variant":"#004395","on-surface":"#dfe2f1","surface-container-high":"#262a35","on-primary":"#003640","on-secondary":"#3c0091","on-surface-variant":"#bcc9cd","on-primary-container":"#00424f","on-error":"#690005","surface-container-highest":"#313540","surface-container":"#1c1f2a"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"space-xl":"2.5rem","gutter":"1.5rem","space-md":"1rem","margin":"2.5rem","space-xs":"0.25rem","margin-mobile":"1.25rem","gutter-sm":"1rem","space-sm":"0.5rem","space-lg":"1.5rem"},"fontFamily":{"body-md":["Inter"],"body-sm":["Inter"],"headline-md":["Outfit"],"headline-xl-mobile":["Outfit"],"body-lg":["Inter"],"headline-lg":["Outfit"],"label-code-sm":["JetBrains Mono"],"headline-sm":["Outfit"],"label-code-lg":["JetBrains Mono"],"label-code-md":["JetBrains Mono"],"display-hero-mobile":["Outfit"],"headline-xl":["Outfit"],"display-hero":["Outfit"]},"fontSize":{"body-md":["16px",{"lineHeight":"24px","letterSpacing":"0em","fontWeight":"400"}],"body-sm":["14px",{"lineHeight":"20px","letterSpacing":"0em","fontWeight":"400"}],"headline-md":["24px",{"lineHeight":"32px","letterSpacing":"0em","fontWeight":"600"}],"headline-xl-mobile":["28px",{"lineHeight":"34px","letterSpacing":"-0.01em","fontWeight":"700"}],"body-lg":["18px",{"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"400"}],"headline-lg":["30px",{"lineHeight":"38px","letterSpacing":"-0.01em","fontWeight":"700"}],"label-code-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.08em","fontWeight":"600"}],"headline-sm":["20px",{"lineHeight":"28px","letterSpacing":"0em","fontWeight":"600"}],"label-code-lg":["16px",{"lineHeight":"24px","letterSpacing":"0.02em","fontWeight":"500"}],"label-code-md":["13px",{"lineHeight":"18px","letterSpacing":"0.04em","fontWeight":"500"}],"display-hero-mobile":["36px",{"lineHeight":"42px","letterSpacing":"-0.02em","fontWeight":"800"}],"headline-xl":["40px",{"lineHeight":"48px","letterSpacing":"-0.02em","fontWeight":"700"}],"display-hero":["56px",{"lineHeight":"64px","letterSpacing":"-0.03em","fontWeight":"800"}]}}}}</script></head><body class="bg-background font-body-md text-on-surface min-h-screen relative overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container"><div class="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(circle_at_15%_10%,rgba(6,182,212,0.12),transparent_40%),radial-gradient(circle_at_85%_15%,rgba(139,92,246,0.12),transparent_45%),radial-gradient(circle_at_50%_90%,rgba(6,182,212,0.06),transparent_50%)]"></div><header class="fixed top-0 left-0 w-full z-50 bg-surface/85 backdrop-blur-2xl shadow-[0_4px_30px_rgba(0,0,0,0.5)]"><div class="h-20 max-w-7xl mx-auto px-margin-mobile lg:px-margin flex items-center justify-between gap-gutter-sm relative"><div class="flex items-center gap-space-md shrink-0"><img alt="Logo Mente de Programador" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDj_cYwSF3bzAWrAbgV-3yt6FtIWN4ViBFI7FwxykQTnhtRgKNsWe9y_wpSaAbtGIS7p4-BscwksdMADf7GduqNx449G7frixjA5pP0HU6mmSUrIVnmY_fNqjIp0q5LbFmfEDt3nhv5-lEqbh3ZbwXYgMtj_Pbfr-Z2CISHEJFX4WxuEqSgdj82pt4Kg-HTezxztvlTomhJ-sFvUzxmpMcfhT2c6cFuZHT-zcqbnDsD9ixEVRQheYJi"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight leading-none uppercase">¿Tienes Mente de Programador?</span><span class="font-label-code-sm text-label-code-sm text-primary tracking-widest uppercase">Tech Fair Stand Edition v2.4</span></div></div><nav class="hidden xl:flex items-center gap-space-xs px-space-xs py-1 rounded-xl bg-surface-container-low/70 backdrop-blur-md" data-active-classes="bg-primary-container text-on-primary-container font-semibold rounded-lg shadow-[0_0_16px_rgba(6,182,212,0.4)]"><a class="px-space-md py-2 text-on-surface-variant font-label-code-md text-label-code-md tracking-wider transition-all hover:text-on-surface hover:bg-surface-container-high rounded-lg uppercase" data-path="inicio" href="#">Inicio</a><a class="px-space-md py-2 text-on-surface-variant font-label-code-md text-label-code-md tracking-wider transition-all hover:text-on-surface hover:bg-surface-container-high rounded-lg uppercase" data-path="registro" href="#">Registro</a><a class="px-space-md py-2 text-on-surface-variant font-label-code-md text-label-code-md tracking-wider transition-all hover:text-on-surface hover:bg-surface-container-high rounded-lg uppercase" data-path="quiz" href="#">Quiz</a><a class="px-space-md py-2 text-on-surface-variant font-label-code-md text-label-code-md tracking-wider transition-all hover:text-on-surface hover:bg-surface-container-high rounded-lg uppercase" data-path="reto-logico" href="#">Reto Lógico</a><a class="px-space-md py-2 text-on-surface-variant font-label-code-md text-label-code-md tracking-wider transition-all hover:text-on-surface hover:bg-surface-container-high rounded-lg uppercase" data-path="resultado" href="#">Resultado</a><a class="px-space-md py-2 text-on-surface-variant font-label-code-md text-label-code-md tracking-wider transition-all hover:text-on-surface hover:bg-surface-container-high rounded-lg uppercase" data-path="ranking" href="#">Ranking</a></nav><div class="flex items-center gap-space-sm sm:gap-space-md shrink-0"><div class="hidden sm:flex items-center gap-space-xs px-space-sm py-1.5 rounded-full bg-surface-container-lowest/80"><span class="w-2 h-2 rounded-full bg-primary animate-pulse shadow-[0_0_8px_#4cd7f6]"></span><span class="font-label-code-sm text-label-code-sm text-on-surface-variant tracking-wider uppercase">Fair Online</span></div><button aria-label="Silenciar o activar efectos de audio" class="w-10 h-10 rounded-xl bg-surface-container-low/90 flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">volume_up</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0 shadow-[0_0_12px_rgba(76,215,246,0.35)]"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-20 relative z-10 bg-transparent min-h-screen"><div class="flex flex-col w-full">
+<div class="w-full max-w-7xl mx-auto px-margin-mobile lg:px-margin pb-space-xl">
+<!-- Top HUD Progress and Status Strip -->
+<div class="w-full bg-surface-container-low/80 backdrop-blur-xl rounded-2xl p-space-md shadow-xl flex flex-wrap items-center justify-between gap-gutter-sm mb-space-lg relative overflow-hidden">
+<div class="absolute -top-12 -left-12 w-48 h-48 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
+<div class="flex items-center gap-space-md z-10">
+<div class="w-12 h-12 rounded-xl bg-primary-container/20 flex items-center justify-center text-primary shadow-[0_0_16px_rgba(6,182,212,0.35)] shrink-0">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+</div>
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="font-label-code-sm text-label-code-sm text-primary uppercase tracking-widest">Fase 2 de 3</span>
+<span class="text-on-surface-variant font-label-code-sm">•</span>
+<span class="font-label-code-sm text-label-code-sm text-secondary uppercase tracking-wider">Mini Reto Lógico</span>
+</div>
+<p class="font-headline-sm text-headline-sm text-on-surface tracking-tight leading-none mt-1">Simulador de Trayectoria Algorítmica</p>
+</div>
+</div>
+<!-- Telemetry Counters: Timer & Attempts -->
+<div class="flex items-center gap-space-sm sm:gap-space-md z-10">
+<div class="flex items-center gap-space-xs bg-surface-container-high/90 px-space-md py-2 rounded-xl shadow-md">
+<span class="material-symbols-outlined text-primary text-[20px] animate-pulse">timer</span>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant uppercase">Tiempo:</span>
+<span class="font-label-code-lg text-label-code-lg text-primary tracking-wider font-bold" id="countdown-timer">00:42s</span>
+</div>
+<div class="flex items-center gap-space-xs bg-surface-container-high/90 px-space-md py-2 rounded-xl shadow-md">
+<span class="material-symbols-outlined text-secondary text-[20px]">target</span>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant uppercase">Intentos:</span>
+<span class="font-label-code-lg text-label-code-lg text-secondary tracking-wider font-bold">1 / 3</span>
+</div>
+</div>
+</div>
+<!-- Title and Subtitle Motivational Block -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md mb-space-lg">
+<div>
+<div class="inline-flex items-center gap-space-xs px-3 py-1 rounded-full bg-primary/10 text-primary font-label-code-sm text-label-code-sm uppercase tracking-widest mb-space-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-ping"></span>
+          Kiosk Terminal #042
+        </div>
+<h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight">Ahora demuestra tu lógica</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-1">Programa el robot para llegar hasta la meta construyendo tu propia secuencia de comandos.</p>
+</div>
+<!-- Interactive Context Cue -->
+<div class="flex items-center gap-space-sm bg-surface-container/70 backdrop-blur-md px-space-md py-2.5 rounded-xl self-start md:self-auto shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-surface-tint text-[22px]">memory</span>
+<span class="font-label-code-md text-label-code-md text-on-surface-variant">Lógica Secuencial + Ejecución en Vivo</span>
+</div>
+</div>
+<!-- Dual Column Gamified Arena -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start relative">
+<!-- LEFT COLUMN: Neon Grid Matrix Arena (5x5) -->
+<div class="lg:col-span-6 xl:col-span-7 flex flex-col bg-surface-container-low/90 backdrop-blur-2xl rounded-3xl p-space-md sm:p-space-lg shadow-2xl relative overflow-hidden">
+<div class="absolute -right-24 -bottom-24 w-80 h-80 bg-primary-container/10 rounded-full blur-3xl pointer-events-none"></div>
+<!-- Arena Control Header -->
+<div class="flex items-center justify-between mb-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px]">grid_4x4</span>
+<span class="font-label-code-md text-label-code-md uppercase tracking-wider text-on-surface font-bold">Matriz Cuántica 5×5</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="w-2.5 h-2.5 rounded-full bg-primary shadow-[0_0_10px_#4cd7f6] animate-pulse"></span>
+<span class="font-label-code-sm text-label-code-sm text-primary uppercase">Sensor de Posición Activo</span>
+</div>
+</div>
+<!-- The 5x5 Grid Canvas -->
+<div class="relative w-full aspect-square max-w-[520px] mx-auto bg-surface-container-lowest/90 rounded-2xl p-3 sm:p-4 shadow-inner flex flex-col justify-between">
+<!-- Vector Grid Path Background (SVG Glow Lines) -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<lineargradient id="neonPathGrad" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#4cd7f6" stop-opacity="0.8"></stop>
+<stop offset="50%" stop-color="#d0bcff" stop-opacity="0.6"></stop>
+<stop offset="100%" stop-color="#06b6d4" stop-opacity="0.9"></stop>
+</lineargradient>
+<filter height="140%" id="glow" width="140%" x="-20%" y="-20%">
+<fegaussianblur result="blur" stddeviation="4"></fegaussianblur>
+<fecomposite in="SourceGraphic" in2="blur" operator="over"></fecomposite>
+</filter>
+</defs>
+<!-- Solution Track: (0,0) -> (0,2) -> (3,2) -> (3,4) -> (4,4) -->
+<path class="opacity-60" d="M 10% 10% L 10% 50% L 70% 50% L 70% 90% L 90% 90%" fill="none" filter="url(#glow)" stroke="url(#neonPathGrad)" stroke-dasharray="6,6" stroke-width="3"></path>
+</svg>
+<!-- 5x5 Grid Cells Matrix Container -->
+<div class="grid grid-cols-5 grid-rows-5 gap-2 sm:gap-3 w-full h-full relative z-10" id="matrix-grid">
+<!-- ROW 0 -->
+<!-- (0,0) Robot Start Cell -->
+<div class="relative rounded-xl bg-surface-container-high/60 backdrop-blur-md flex items-center justify-center transition-all duration-300 shadow-[0_0_20px_rgba(76,215,246,0.3)]" id="cell-0-0">
+<div class="w-10 h-10 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-tr from-primary-container to-surface-tint flex items-center justify-center text-on-primary-container shadow-[0_0_24px_rgba(6,182,212,0.8)] transform transition-transform duration-500 rotate-90" id="robot-unit">
+<span class="material-symbols-outlined text-[28px] sm:text-[34px]" style="font-variation-settings: 'FILL' 1;">precision_manufacturing</span>
+</div>
+<span class="absolute bottom-1 right-1.5 font-label-code-sm text-[9px] text-primary/70">START</span>
+</div>
+<div class="rounded-xl bg-surface-container/40 flex items-center justify-center" id="cell-0-1">
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant/40"></span>
+</div>
+<div class="rounded-xl bg-surface-container-high/50 flex items-center justify-center shadow-sm" id="cell-0-2">
+<span class="material-symbols-outlined text-secondary text-[18px] opacity-70">bolt</span>
+</div>
+<div class="rounded-xl bg-surface-container/40 flex items-center justify-center" id="cell-0-3">
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant/40"></span>
+</div>
+<div class="rounded-xl bg-surface-container/40 flex items-center justify-center" id="cell-0-4">
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant/40"></span>
+</div>
+<!-- ROW 1 -->
+<div class="rounded-xl bg-surface-container-high/50 flex items-center justify-center shadow-sm" id="cell-1-0">
+<span class="material-symbols-outlined text-primary text-[18px] opacity-70">flash_on</span>
+</div>
+<div class="rounded-xl bg-surface-container/20 flex items-center justify-center opacity-30" id="cell-1-1">
+<span class="material-symbols-outlined text-error text-[20px]">block</span>
+</div>
+<div class="rounded-xl bg-surface-container-high/50 flex items-center justify-center shadow-sm" id="cell-1-2">
+<span class="w-2 h-2 rounded-full bg-secondary/80"></span>
+</div>
+<div class="rounded-xl bg-surface-container/20 flex items-center justify-center opacity-30" id="cell-1-3">
+<span class="material-symbols-outlined text-error text-[20px]">block</span>
+</div>
+<div class="rounded-xl bg-surface-container/40 flex items-center justify-center" id="cell-1-4">
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant/40"></span>
+</div>
+<!-- ROW 2 -->
+<div class="rounded-xl bg-surface-container-high/50 flex items-center justify-center shadow-sm" id="cell-2-0">
+<span class="w-2 h-2 rounded-full bg-primary/80"></span>
+</div>
+<div class="rounded-xl bg-surface-container-high/50 flex items-center justify-center shadow-sm" id="cell-2-1">
+<span class="material-symbols-outlined text-secondary text-[18px] opacity-70">bolt</span>
+</div>
+<div class="rounded-xl bg-surface-container-high/60 flex items-center justify-center shadow-sm" id="cell-2-2">
+<span class="material-symbols-outlined text-primary text-[20px]">change_circle</span>
+</div>
+<div class="rounded-xl bg-surface-container-high/50 flex items-center justify-center shadow-sm" id="cell-2-3">
+<span class="w-2 h-2 rounded-full bg-primary/80"></span>
+</div>
+<div class="rounded-xl bg-surface-container/40 flex items-center justify-center" id="cell-2-4">
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant/40"></span>
+</div>
+<!-- ROW 3 -->
+<div class="rounded-xl bg-surface-container/40 flex items-center justify-center" id="cell-3-0">
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant/40"></span>
+</div>
+<div class="rounded-xl bg-surface-container/20 flex items-center justify-center opacity-30" id="cell-3-1">
+<span class="material-symbols-outlined text-error text-[20px]">block</span>
+</div>
+<div class="rounded-xl bg-surface-container/40 flex items-center justify-center" id="cell-3-2">
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant/40"></span>
+</div>
+<div class="rounded-xl bg-surface-container-high/50 flex items-center justify-center shadow-sm" id="cell-3-3">
+<span class="material-symbols-outlined text-primary text-[18px] opacity-70">bolt</span>
+</div>
+<div class="rounded-xl bg-surface-container-high/50 flex items-center justify-center shadow-sm" id="cell-3-4">
+<span class="w-2 h-2 rounded-full bg-primary/80"></span>
+</div>
+<!-- ROW 4 -->
+<div class="rounded-xl bg-surface-container/40 flex items-center justify-center" id="cell-4-0">
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant/40"></span>
+</div>
+<div class="rounded-xl bg-surface-container/40 flex items-center justify-center" id="cell-4-1">
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant/40"></span>
+</div>
+<div class="rounded-xl bg-surface-container/20 flex items-center justify-center opacity-30" id="cell-4-2">
+<span class="material-symbols-outlined text-error text-[20px]">block</span>
+</div>
+<div class="rounded-xl bg-surface-container-high/50 flex items-center justify-center shadow-sm" id="cell-4-3">
+<span class="material-symbols-outlined text-secondary text-[18px] opacity-70">bolt</span>
+</div>
+<!-- (4,4) Target Goal Cell -->
+<div class="relative rounded-xl bg-surface-container-highest/80 flex items-center justify-center shadow-[0_0_24px_rgba(208,188,255,0.4)]" id="cell-4-4">
+<div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-secondary flex items-center justify-center text-on-secondary shadow-lg animate-bounce">
+<span class="material-symbols-outlined text-[24px] sm:text-[28px]" style="font-variation-settings: 'FILL' 1;">flag_circle</span>
+</div>
+<span class="absolute bottom-1 right-1.5 font-label-code-sm text-[9px] text-secondary font-bold">META</span>
+</div>
+</div>
+</div>
+<!-- Legend and Instructions Bar -->
+<div class="flex flex-wrap items-center justify-between gap-space-xs mt-space-md pt-space-sm bg-surface-container/40 px-space-md py-2.5 rounded-xl">
+<div class="flex items-center gap-space-xs font-label-code-sm text-label-code-sm text-on-surface-variant">
+<span class="w-2.5 h-2.5 rounded-full bg-primary-container"></span>
+<span>Unidad Bot 01</span>
+</div>
+<div class="flex items-center gap-space-xs font-label-code-sm text-label-code-sm text-on-surface-variant">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary"></span>
+<span>Objetivo Diana</span>
+</div>
+<div class="flex items-center gap-space-xs font-label-code-sm text-label-code-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-error text-[16px]">block</span>
+<span>Bloqueo Láser</span>
+</div>
+<div class="flex items-center gap-space-xs font-label-code-sm text-label-code-sm text-primary">
+<span class="material-symbols-outlined text-[16px]">bolt</span>
+<span>Células de Poder</span>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN: Coding Palette, Sequence Area, and Actions -->
+<div class="lg:col-span-6 xl:col-span-5 flex flex-col gap-space-lg">
+<!-- 1. Available Command Blocks Palette -->
+<div class="bg-surface-container-low/90 backdrop-blur-2xl rounded-3xl p-space-md sm:p-space-lg shadow-xl flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px]">extension</span>
+<span class="font-label-code-md text-label-code-md uppercase tracking-wider text-on-surface font-bold">Bloques Disponibles</span>
+</div>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant">Toca para agregar</span>
+</div>
+<!-- Command Chips (Scratch / Puzzle Pieces style) -->
+<div class="grid grid-cols-2 gap-space-sm">
+<!-- Avanzar (Cyan) -->
+<button class="flex items-center gap-space-sm bg-primary-container/20 hover:bg-primary-container/30 active:scale-95 text-primary p-3 rounded-xl transition-all shadow-md text-left" onclick="addCommand('Avanzar', 'primary', 'arrow_forward')" type="button">
+<div class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center text-on-primary-container shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</div>
+<div class="min-w-0">
+<span class="font-headline-sm text-[15px] font-semibold text-on-surface block leading-tight">Avanzar</span>
+<span class="font-label-code-sm text-[10px] text-primary uppercase">Paso +1</span>
+</div>
+</button>
+<!-- Girar Izquierda (Morado) -->
+<button class="flex items-center gap-space-sm bg-secondary-container/25 hover:bg-secondary-container/40 active:scale-95 text-secondary p-3 rounded-xl transition-all shadow-md text-left" onclick="addCommand('Girar Izq.', 'secondary', 'rotate_left')" type="button">
+<div class="w-8 h-8 rounded-lg bg-secondary flex items-center justify-center text-on-secondary shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[20px]">rotate_left</span>
+</div>
+<div class="min-w-0">
+<span class="font-headline-sm text-[15px] font-semibold text-on-surface block leading-tight">Girar Izq.</span>
+<span class="font-label-code-sm text-[10px] text-secondary uppercase">-90 Grados</span>
+</div>
+</button>
+<!-- Girar Derecha (Azul) -->
+<button class="flex items-center gap-space-sm bg-tertiary/15 hover:bg-tertiary/25 active:scale-95 text-tertiary p-3 rounded-xl transition-all shadow-md text-left" onclick="addCommand('Girar Der.', 'tertiary-container', 'rotate_right')" type="button">
+<div class="w-8 h-8 rounded-lg bg-tertiary-container flex items-center justify-center text-on-tertiary-container shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[20px]">rotate_right</span>
+</div>
+<div class="min-w-0">
+<span class="font-headline-sm text-[15px] font-semibold text-on-surface block leading-tight">Girar Der.</span>
+<span class="font-label-code-sm text-[10px] text-tertiary uppercase">+90 Grados</span>
+</div>
+</button>
+<!-- Repetir x2 (Verde / Surface Tint) -->
+<button class="flex items-center gap-space-sm bg-surface-tint/15 hover:bg-surface-tint/25 active:scale-95 text-surface-tint p-3 rounded-xl transition-all shadow-md text-left" onclick="addCommand('Repetir x2', 'surface-tint', 'replay')" type="button">
+<div class="w-8 h-8 rounded-lg bg-surface-tint flex items-center justify-center text-on-primary shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[20px]">replay</span>
+</div>
+<div class="min-w-0">
+<span class="font-headline-sm text-[15px] font-semibold text-on-surface block leading-tight">Repetir x2</span>
+<span class="font-label-code-sm text-[10px] text-surface-tint uppercase">Loop Block</span>
+</div>
+</button>
+</div>
+</div>
+<!-- 2. 'Tu Algoritmo' Sequence Workspace -->
+<div class="bg-surface-container-low/90 backdrop-blur-2xl rounded-3xl p-space-md sm:p-space-lg shadow-xl flex flex-col flex-grow">
+<div class="flex items-center justify-between mb-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[20px]">code_blocks</span>
+<span class="font-label-code-md text-label-code-md uppercase tracking-wider text-on-surface font-bold">Tu Algoritmo</span>
+</div>
+<div class="flex items-center gap-space-xs bg-surface-container-highest/80 px-2.5 py-1 rounded-lg">
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant font-mono">4 Comandos</span>
+</div>
+</div>
+<!-- Sequential Linked Blocks -->
+<div class="flex flex-col gap-2.5 relative" id="algorithm-stack">
+<!-- Step 1: Avanzar -->
+<div class="group relative flex items-center justify-between bg-surface-container-high/80 hover:bg-surface-container-highest p-3 rounded-xl shadow-md transition-all">
+<div class="flex items-center gap-space-md min-w-0">
+<span class="font-label-code-sm text-label-code-sm text-primary font-bold px-2 py-0.5 rounded bg-primary/10">01</span>
+<div class="w-7 h-7 rounded-lg bg-primary-container text-on-primary-container flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-code-lg text-[15px] font-semibold text-on-surface truncate">Avanzar</span>
+<span class="font-label-code-sm text-[10px] text-on-surface-variant font-mono">x: 0, y: +1</span>
+</div>
+</div>
+<button aria-label="Eliminar paso" class="text-on-surface-variant hover:text-error opacity-60 hover:opacity-100 transition-opacity" type="button">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<!-- Interlocking notch graphic indicator -->
+<div class="flex justify-center -my-1 text-primary/40 pointer-events-none">
+<span class="material-symbols-outlined text-[14px]">arrow_downward</span>
+</div>
+<!-- Step 2: Girar Derecha -->
+<div class="group relative flex items-center justify-between bg-surface-container-high/80 hover:bg-surface-container-highest p-3 rounded-xl shadow-md transition-all">
+<div class="flex items-center gap-space-md min-w-0">
+<span class="font-label-code-sm text-label-code-sm text-tertiary-container font-bold px-2 py-0.5 rounded bg-tertiary/10">02</span>
+<div class="w-7 h-7 rounded-lg bg-tertiary-container text-on-tertiary-container flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[18px]">rotate_right</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-code-lg text-[15px] font-semibold text-on-surface truncate">Girar Derecha</span>
+<span class="font-label-code-sm text-[10px] text-on-surface-variant font-mono">orientación: este</span>
+</div>
+</div>
+<button aria-label="Eliminar paso" class="text-on-surface-variant hover:text-error opacity-60 hover:opacity-100 transition-opacity" type="button">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<!-- Interlocking notch graphic indicator -->
+<div class="flex justify-center -my-1 text-primary/40 pointer-events-none">
+<span class="material-symbols-outlined text-[14px]">arrow_downward</span>
+</div>
+<!-- Step 3: Avanzar -->
+<div class="group relative flex items-center justify-between bg-surface-container-high/80 hover:bg-surface-container-highest p-3 rounded-xl shadow-md transition-all">
+<div class="flex items-center gap-space-md min-w-0">
+<span class="font-label-code-sm text-label-code-sm text-primary font-bold px-2 py-0.5 rounded bg-primary/10">03</span>
+<div class="w-7 h-7 rounded-lg bg-primary-container text-on-primary-container flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-code-lg text-[15px] font-semibold text-on-surface truncate">Avanzar</span>
+<span class="font-label-code-sm text-[10px] text-on-surface-variant font-mono">x: +1, y: 0</span>
+</div>
+</div>
+<button aria-label="Eliminar paso" class="text-on-surface-variant hover:text-error opacity-60 hover:opacity-100 transition-opacity" type="button">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<!-- Interlocking notch graphic indicator -->
+<div class="flex justify-center -my-1 text-primary/40 pointer-events-none">
+<span class="material-symbols-outlined text-[14px]">arrow_downward</span>
+</div>
+<!-- Step 4: Avanzar -->
+<div class="group relative flex items-center justify-between bg-surface-container-high/80 hover:bg-surface-container-highest p-3 rounded-xl shadow-md transition-all">
+<div class="flex items-center gap-space-md min-w-0">
+<span class="font-label-code-sm text-label-code-sm text-primary font-bold px-2 py-0.5 rounded bg-primary/10">04</span>
+<div class="w-7 h-7 rounded-lg bg-primary-container text-on-primary-container flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-code-lg text-[15px] font-semibold text-on-surface truncate">Avanzar</span>
+<span class="font-label-code-sm text-[10px] text-on-surface-variant font-mono">x: +1, y: 0</span>
+</div>
+</div>
+<button aria-label="Eliminar paso" class="text-on-surface-variant hover:text-error opacity-60 hover:opacity-100 transition-opacity" type="button">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+</div>
+<!-- Algorithmic Health & Memory Indicator -->
+<div class="mt-space-md pt-space-sm bg-surface-container-lowest/60 rounded-xl p-3 flex items-center justify-between text-on-surface-variant">
+<span class="font-label-code-sm text-label-code-sm">Complejidad: O(N) Secuencial</span>
+<span class="font-label-code-sm text-label-code-sm text-primary font-bold">Estado: Sintaxis Válida</span>
+</div>
+</div>
+<!-- 3. Primary Action Triggers -->
+<div class="flex flex-col sm:flex-row items-center gap-space-sm pt-space-xs">
+<!-- Execute Button with Neon Bloom -->
+<button class="w-full sm:flex-1 h-14 rounded-xl bg-gradient-to-r from-primary-container to-surface-tint text-on-primary-container font-headline-md text-headline-sm flex items-center justify-center gap-space-sm shadow-[0_0_24px_rgba(6,182,212,0.5)] hover:shadow-[0_0_36px_rgba(6,182,212,0.8)] hover:scale-[1.02] active:scale-[0.98] transition-all" id="execute-btn" onclick="executeAlgorithm()" type="button">
+<span class="material-symbols-outlined text-[26px]" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+<span>EJECUTAR ALGORITMO</span>
+</button>
+<!-- Reset Ghost Glass Button -->
+<button class="w-full sm:w-auto h-14 px-space-lg rounded-xl bg-surface-container-high/70 hover:bg-surface-container-highest text-on-surface font-headline-sm text-[16px] flex items-center justify-center gap-space-xs transition-colors shadow-sm" id="reset-btn" onclick="resetAlgorithm()" type="button">
+<span class="material-symbols-outlined text-[20px]">restart_alt</span>
+<span>REINICIAR</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Floating Lateral / Success Celebration Modal Overlay (Revealed upon successful execution) -->
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-surface-container-lowest/80 backdrop-blur-md hidden transition-opacity duration-300" id="success-modal">
+<!-- Modal Content Card with Double Luminescent Glow -->
+<div class="relative w-full max-w-lg bg-surface-container-low/95 rounded-3xl p-space-lg sm:p-space-xl shadow-[0_0_50px_rgba(6,182,212,0.35)] overflow-hidden">
+<!-- Background Ambient Conical / Radial Glows -->
+<div class="absolute -top-20 -right-20 w-60 h-60 bg-secondary/20 rounded-full blur-3xl pointer-events-none"></div>
+<div class="absolute -bottom-20 -left-20 w-60 h-60 bg-primary/20 rounded-full blur-3xl pointer-events-none"></div>
+<!-- Confetti & Celebration Tech Particle Accents (SVG Decoration) -->
+<div class="flex justify-center mb-space-md relative">
+<div class="w-20 h-20 rounded-2xl bg-gradient-to-tr from-secondary to-primary-container flex items-center justify-center text-on-primary-container shadow-[0_0_32px_rgba(76,215,246,0.6)]">
+<span class="material-symbols-outlined text-[44px]" style="font-variation-settings: 'FILL' 1;">military_tech</span>
+</div>
+<!-- Tech Sparks Icons -->
+<span class="absolute -top-2 left-1/3 material-symbols-outlined text-secondary text-[24px] animate-bounce">auto_awesome</span>
+<span class="absolute bottom-0 right-1/3 material-symbols-outlined text-primary text-[20px] animate-pulse">arrow_back_ios_new</span>
+</div>
+<!-- Success Copywriting -->
+<div class="text-center mb-space-lg">
+<div class="inline-flex items-center gap-space-xs px-3 py-1 rounded-full bg-secondary/15 text-secondary font-label-code-sm text-label-code-sm uppercase tracking-widest mb-space-xs">
+            🎉 Reto Completado con Éxito
+          </div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface tracking-tight mt-1">¡Lo lograste!</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-space-xs max-w-sm mx-auto">
+            Acabas de crear y depurar un algoritmo funcional que resolvió la ruta en tiempo récord.
+          </p>
+</div>
+<!-- Metric Reward HUD Badge -->
+<div class="bg-surface-container-high/90 rounded-2xl p-space-md mb-space-lg shadow-inner flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[24px]">psychology</span>
+</div>
+<div>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant uppercase block">Bonificación de Aptitud</span>
+<span class="font-headline-sm text-headline-sm text-primary font-bold">+300 pts de lógica</span>
+</div>
+</div>
+<div class="text-right">
+<span class="font-label-code-sm text-label-code-sm text-secondary font-mono block">PRECISIÓN 100%</span>
+<span class="font-label-code-sm text-[11px] text-on-surface-variant">Eficiencia Algorítmica</span>
+</div>
+</div>
+<!-- Action to Navigate to Results -->
+<div class="flex flex-col gap-space-sm">
+<a class="w-full h-14 rounded-xl bg-gradient-to-r from-primary-container to-surface-tint text-on-primary-container font-headline-md text-headline-sm flex items-center justify-center gap-space-sm shadow-[0_0_24px_rgba(6,182,212,0.5)] hover:shadow-[0_0_36px_rgba(6,182,212,0.8)] hover:scale-[1.01] active:scale-[0.98] transition-all" data-path="resultado" href="#">
+<span>VER MI RESULTADO</span>
+<span class="material-symbols-outlined text-[24px]">arrow_forward</span>
+</a>
+<button class="w-full py-2.5 text-center font-label-code-md text-label-code-md text-on-surface-variant hover:text-on-surface transition-colors" onclick="closeSuccessModal()" type="button">
+            Volver a explorar el tablero
+          </button>
+</div>
+</div>
+</div>
+</div>
+<script>
+    // Live interactive script for simulation trigger & countdown
+    let timerValue = 42;
+    const timerElem = document.getElementById('countdown-timer');
+    if (timerElem) {
+      const countdownInterval = setInterval(() => {
+        if (timerValue > 0) {
+          timerValue--;
+          const formatted = (timerValue < 10 ? '0' : '') + timerValue;
+          timerElem.textContent = '00:' + formatted + 's';
+        } else {
+          clearInterval(countdownInterval);
+        }
+      }, 1000);
+    }
+
+    function executeAlgorithm() {
+      const btn = document.getElementById('execute-btn');
+      const robot = document.getElementById('robot-unit');
+      if (!btn || !robot) return;
+
+      btn.disabled = true;
+      btn.classList.add('opacity-75', 'cursor-not-allowed');
+
+      // Sequence of waypoints on the 5x5 matrix
+      const pathSteps = [
+        { row: 1, col: 0, rot: 90 },
+        { row: 2, col: 0, rot: 90 },
+        { row: 2, col: 1, rot: 0 },
+        { row: 2, col: 2, rot: 0 },
+        { row: 1, col: 2, rot: 270 },
+        { row: 0, col: 2, rot: 270 },
+        { row: 0, col: 2, rot: 0 },
+        { row: 2, col: 2, rot: 90 },
+        { row: 3, col: 3, rot: 90 },
+        { row: 4, col: 4, rot: 0 }
+      ];
+
+      // Simulated robot stepping into final cell
+      setTimeout(() => {
+        const targetCell = document.getElementById('cell-4-4');
+        if (targetCell) {
+          targetCell.appendChild(robot);
+          robot.classList.remove('rotate-90');
+          robot.classList.add('shadow-[0_0_36px_#d0bcff]');
+        }
+      }, 700);
+
+      // Trigger Celebration Modal
+      setTimeout(() => {
+        const modal = document.getElementById('success-modal');
+        if (modal) {
+          modal.classList.remove('hidden');
+          modal.classList.add('flex');
+        }
+        btn.disabled = false;
+        btn.classList.remove('opacity-75', 'cursor-not-allowed');
+      }, 1400);
+    }
+
+    function resetAlgorithm() {
+      const robot = document.getElementById('robot-unit');
+      const startCell = document.getElementById('cell-0-0');
+      if (robot && startCell) {
+        startCell.appendChild(robot);
+        robot.className = "w-10 h-10 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-tr from-primary-container to-surface-tint flex items-center justify-center text-on-primary-container shadow-[0_0_24px_rgba(6,182,212,0.8)] transform transition-transform duration-500 rotate-90";
+      }
+    }
+
+    function closeSuccessModal() {
+      const modal = document.getElementById('success-modal');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+    }
+
+    function addCommand(name, colorTheme, iconName) {
+      const stack = document.getElementById('algorithm-stack');
+      if (!stack) return;
+
+      const count = stack.children.length;
+      const stepNum = '0' + (Math.floor(count / 2) + 1);
+
+      const blockDiv = document.createElement('div');
+      blockDiv.className = 'group relative flex items-center justify-between bg-surface-container-high/80 hover:bg-surface-container-highest p-3 rounded-xl shadow-md transition-all animate-fade-in';
+      blockDiv.innerHTML = `
+        <div class="flex items-center gap-space-md min-w-0">
+          <span class="font-label-code-sm text-label-code-sm text-primary font-bold px-2 py-0.5 rounded bg-primary/10">${stepNum}</span>
+          <div class="w-7 h-7 rounded-lg bg-primary-container text-on-primary-container flex items-center justify-center shadow-sm">
+            <span class="material-symbols-outlined text-[18px]">${iconName}</span>
+          </div>
+          <div class="flex flex-col min-w-0">
+            <span class="font-label-code-lg text-[15px] font-semibold text-on-surface truncate">${name}</span>
+            <span class="font-label-code-sm text-[10px] text-on-surface-variant font-mono">comando dinámico</span>
+          </div>
+        </div>
+        <button type="button" onclick="this.parentElement.remove()" aria-label="Eliminar paso" class="text-on-surface-variant hover:text-error opacity-60 hover:opacity-100 transition-opacity">
+          <span class="material-symbols-outlined text-[18px]">close</span>
+        </button>
+      `;
+      stack.appendChild(blockDiv);
+    }
+  </script>
+</div></main><footer class="w-full bg-surface-container-lowest/95 backdrop-blur-xl relative z-10 py-space-lg"><div class="max-w-7xl mx-auto px-margin-mobile lg:px-margin flex flex-col md:flex-row items-center justify-between gap-space-md text-center md:text-left"><div class="flex items-center gap-space-sm"><span class="font-label-code-sm text-label-code-sm text-on-surface-variant uppercase tracking-widest">Universidad Tecnológica © 2025</span><span class="hidden md:inline text-outline-variant">•</span><span class="font-label-code-sm text-label-code-sm text-primary tracking-wider uppercase">Feria de Orientación Vocacional</span></div><div class="flex items-center gap-space-lg font-label-code-sm text-label-code-sm text-on-surface-variant"><a class="hover:text-primary transition-colors uppercase tracking-wider" data-path="dashboard-tv" href="#">Modo Transmisión Kiosco TV</a><span class="text-outline-variant">•</span><span class="uppercase tracking-wider text-secondary">Stand 42 - Pabellón STEM</span></div></div></footer></body></html>
