@@ -12,7 +12,7 @@ pipeline {
         // Frontend
         DEPLOY_FRONT_PATH = '/home/deploy/releases/mente-programador-frontend'
         PROD_FRONT_PATH   = '/var/www/mente-programador'
-        VITE_API_URL      = 'http://76.13.99.135:8080/api'
+        VITE_API_URL      = 'https://mente-api.ubunifusoft.tech/api'
         VITE_ROUTER_BASE  = '/'
 
         // Backend remoto (VPS)
