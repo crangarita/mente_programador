@@ -23,8 +23,7 @@ pipeline {
         SERVICE_NAME      = 'mente-programador-api'
 
         // Credencial SSH en Jenkins para el VPS productivo
-        // (Usa 'mente-programador-prod-ssh' o 'prediction-league-prod-ssh' según esté registrada en tu Jenkins)
-        SSH_CREDENTIAL_ID = 'mente-programador-prod-ssh'
+        SSH_CREDENTIAL_ID = 'prediction-league-prod-ssh'
     }
 
     options {
