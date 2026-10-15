@@ -34,13 +34,21 @@ function App() {
     () => participant !== null && sessionStorage.getItem('quizComplete') === participant.id,
   )
 
+  const handleRestart = () => {
+    sessionStorage.clear()
+    setParticipant(null)
+    setStarted(false)
+    setShowChallenge(false)
+    window.location.assign('/')
+  }
+
   if (window.location.pathname === '/dashboard') return <DashboardPage />
   if (window.location.pathname === '/ranking') return <RankingPage />
 
   if (!participant && !started) return <WelcomePage onStart={() => { sessionStorage.setItem('experienceStarted', 'true'); setStarted(true) }} />
 
   if (participant) {
-    if (finalResult?.alias === participant.alias) return <ResultPage result={finalResult} />
+    if (finalResult?.alias === participant.alias) return <ResultPage result={finalResult} onRestart={handleRestart} />
     if (showChallenge) {
       return <ChallengePage participant={participant} />
     }

@@ -15,7 +15,7 @@ const technologyIcons: Record<string, string> = {
   'Ethical Hacking': '⌁', 'Power BI': '📊', 'Analítica de datos': '📈', Unity: '◈', Godot: '🤖', Videojuegos: '🎮',
 }
 
-function ResultPage({ result }: { result: FinalResult }) {
+function ResultPage({ result, onRestart }: { result: FinalResult; onRestart?: () => void }) {
   const profile = profileDetails[result.profile]
   const avatar = storedAvatar()
   const scorePercent = Math.round((result.score / 1000) * 100)
@@ -25,6 +25,15 @@ function ResultPage({ result }: { result: FinalResult }) {
     ['Velocidad mental', Math.min(96, 60 + Math.round(result.challengeScore / 30))],
     ['Creatividad tech', Math.min(98, 72 + Math.round(result.testScore / 15))],
   ]
+
+  const handleRestart = () => {
+    if (onRestart) {
+      onRestart()
+    } else {
+      sessionStorage.clear()
+      window.location.assign('/')
+    }
+  }
 
   return (
     <div className="cyber-page min-h-screen text-zinc-100"><BrandHeader active="RESULTADO" />
@@ -61,9 +70,15 @@ function ResultPage({ result }: { result: FinalResult }) {
 
           <div className="mt-5 rounded-2xl bg-cyber-600 p-5"><p className="cyber-kicker">🎓 Ruta universitaria conectada · UFPS</p><p className="mt-2 text-zinc-300">Este talento se potencia estudiando <strong className="text-neon-cyan">Ingeniería de Sistemas en la UFPS</strong>: desarrolla soluciones reales, explora laboratorios de vanguardia y participa en proyectos del <strong className="text-neon-cyan">Semillero SIAWEB</strong>.</p></div>
         </div>
-        <button type="button" onClick={() => window.location.assign('/ranking')} className="cyber-primary mt-5 w-full rounded-2xl px-5 py-4 font-display font-black">
-          VER RANKING
-        </button>
+
+        <div className="mt-5 grid gap-3 sm:grid-cols-2">
+          <button type="button" onClick={() => window.location.assign('/ranking')} className="cyber-primary rounded-2xl px-5 py-4 font-display font-black">
+            🏆 VER RANKING
+          </button>
+          <button type="button" onClick={handleRestart} className="rounded-2xl bg-cyber-600 px-5 py-4 font-display font-black text-zinc-200 hover:bg-cyber-500 hover:text-white transition active:scale-[.98]">
+            🔄 VOLVER A INICIAR / NUEVO RETO
+          </button>
+        </div>
       </section>
     </main></div>
   )
