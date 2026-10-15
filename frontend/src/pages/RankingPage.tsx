@@ -99,7 +99,21 @@ function RankingPage() {
 
       <section className="cyber-panel mt-10 flex flex-col items-center justify-between gap-5 rounded-2xl p-5 sm:flex-row">
         <div className="font-mono text-[9px] tracking-widest text-zinc-300"><p><span className="text-neon-cyan">●</span> UFPS · INGENIERÍA DE SISTEMAS · SEMILLERO SIAWEB</p><p>Actualización automática cada 5s{lastUpdated ? ` · ${lastUpdated.toLocaleTimeString('es-CO')}` : ''}</p></div>
-        <div className="flex flex-wrap gap-3"><button type="button" onClick={() => window.location.assign('/dashboard')} className="cyber-primary rounded-xl px-7 py-3 font-display font-black">▦ VER DASHBOARD</button><button type="button" onClick={() => window.location.assign('/')} className="rounded-xl bg-cyber-600 px-7 py-3 font-display font-black">⌂ VOLVER AL INICIO</button></div>
+        <div className="flex flex-wrap gap-3">
+          <button type="button" onClick={() => window.location.assign('/dashboard')} className="cyber-primary rounded-xl px-7 py-3 font-display font-black">
+            ▦ VER DASHBOARD
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              sessionStorage.clear()
+              window.location.assign('/')
+            }}
+            className="rounded-xl bg-cyber-600 px-7 py-3 font-display font-black hover:bg-cyber-500 transition"
+          >
+            🔄 NUEVO RETO / INICIO
+          </button>
+        </div>
       </section>
       <p role="alert" className="mt-3 min-h-5 text-center text-sm text-rose-300">{error}</p>
     </main>
